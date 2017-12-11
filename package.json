@@ -1,21 +1,62 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
-    "devDependencies": {
-        "axios": "^0.17",
-        "bootstrap-sass": "^3.3.7",
-        "cross-env": "^5.1",
-        "jquery": "^3.2",
-        "laravel-mix": "^1.0",
-        "lodash": "^4.17.4",
-        "vue": "^2.5.7"
-    }
+  "private": true,
+  "scripts": {
+    "bower": "cd node_modules/admin-lte;../bower/bin/bower install -f",
+    "dev": "npm run development",
+    "development": "npm run bower;cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run bower;cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "npm run bower;npm run watch -- --watch-poll",
+    "hot": "npm run bower;cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "npm run bower;cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "lint": "./node_modules/.bin/eslint --ext .js,.vue resources/assets/js"
+  },
+  "devDependencies": {
+    "acacha-forms": "^1.0.0",
+    "admin-lte": "^2.4.2",
+    "axios": "^0.16.2",
+    "babel-eslint": "^7.1.1",
+    "bootstrap-less": "3.3.7",
+    "bootstrap-sass": "3.3.7",
+    "bower": "^1.8.2",
+    "cross-env": "^5.0.1",
+    "eslint": "^3.14.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-friendly-formatter": "^2.0.7",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-html": "^2.0.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "font-awesome": "4.7.0",
+    "icheck": "^1.0.2",
+    "ionicons": "^3.0.0",
+    "jquery": "^3.1.1",
+    "laravel-mix": "^1.0",
+    "lodash": "^4.17.4",
+    "toastr": "^2.1.2",
+    "vue": "^2.1.10"
+  },
+  "name": "laravel-bank",
+  "description": "<p align=\"center\"><img src=\"https://laravel.com/assets/img/components/logo-laravel.svg\"></p>",
+  "version": "1.0.0",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eagle7410/laravel-bank.git"
+  },
+  "keywords": [
+    "virtual",
+    "bank",
+    "bank",
+    "laravel",
+    "bank"
+  ],
+  "author": "Igot Scherbina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eagle7410/laravel-bank/issues"
+  },
+  "homepage": "https://github.com/eagle7410/laravel-bank#readme"
 }

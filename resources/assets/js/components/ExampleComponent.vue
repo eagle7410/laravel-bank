@@ -6,6 +6,7 @@
                     <div class="panel-heading">Example Component</div>
 
                     <div class="panel-body">
+                        <h1>HELOY VUE</h1>
                         I'm an example component!
                     </div>
                 </div>
