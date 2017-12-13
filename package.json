@@ -34,7 +34,8 @@
     "laravel-mix": "^1.0",
     "lodash": "^4.17.4",
     "toastr": "^2.1.2",
-    "vue": "^2.1.10"
+    "vue": "^2.1.10",
+    "vue-router": "3.0.1"
   },
   "name": "laravel-bank",
   "description": "<p align=\"center\"><img src=\"https://laravel.com/assets/img/components/logo-laravel.svg\"></p>",

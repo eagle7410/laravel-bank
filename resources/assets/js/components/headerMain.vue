@@ -72,14 +72,21 @@
 </template>
 
 <script>
+    let that;
+    
     export default {
-        props : {
-            appName : String,
-            userName : String,
-            userSurname : String,
-            userAvatarSrc : String,
-            csrfToken : String,
-            logoutAction : String
+        computed : {
+            appName       : () => that.$root.appName,
+            userName      : () => that.$root.userName,
+            userSurname   : () => that.$root.userSurname,
+            userAvatarSrc : () => that.$root.userAvatarSrc,
+            csrfToken     : () => that.$root.csrfToken,
+            logoutAction  : () => that.$root.logoutAction,
+        },
+        created : function () {
+            that = this;
+            // TODO: IGOR clear
+            console.log('avatar ', that.$root);
         }
     }
 </script>

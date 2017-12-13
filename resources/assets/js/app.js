@@ -1,31 +1,50 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import Vue from 'vue';
+import VueRouter from 'vue-router'
+import routes from './routes'
+import {components, initHtmlProps} from './const'
 
 require('./bootstrap');
+require('./extends');
 
-window.Vue = require('vue');
+Vue.use(VueRouter);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-Vue.component('hamburger_button', require('./components/hamburgerButton.vue'));
-Vue.component('logo', require('./components/logo.vue'));
-Vue.component('messages', require('./components/notification-tools/messages.vue'));
-Vue.component('notifications', require('./components/notification-tools/notifications.vue'));
-Vue.component('task', require('./components/notification-tools/task.vue'));
-Vue.component('settings_slidebar', require('./components/settingsSlidebar.vue'));
+// Registration components
+for (let name in components)
+    Vue.component(name, components[name]);
 
+// Init routes
+const router = new VueRouter({
+    routes // short for `routes: routes`
+});
+
+// TODO: IGOR Back maybe not use
+// Create bus.
+const bus = new Vue({});
+
+// Init App
 const app = new Vue({
     el: '#app',
-    components : {
-        header_main : require('./components/headerMain.vue'),
-        left_column : require('./components/left-column/left-column.vue'),
-        footer_main : require('./components/footerMain.vue'),
+    computed : {
+        _bus : () => bus
+    },
+    props : initHtmlProps.map(prop => prop.htmlAttrToVueProp()),
+    data: {
+        title: 'Title'
+    },
+    router,
+    beforeMount: function () {
+        const that = this;
+
+        // Properties get from root elements and set to app props.
+        initHtmlProps.map(prop => {
+            let val =  '';
+
+            if (that.$el.attributes[prop] && that.$el.attributes[prop].value) {
+                val = that.$el.attributes[prop].value;
+            }
+
+            that[prop.htmlAttrToVueProp()] = val;
+
+        });
     }
 });
