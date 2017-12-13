@@ -14,7 +14,9 @@ for (let name in components)
 
 // Init routes
 const router = new VueRouter({
-    routes // short for `routes: routes`
+    linkActiveClass: 'active', // active class for non-exact links.
+    linkExactActiveClass: 'active', // active class for *exact* links.
+    routes, // short for `routes: routes`
 });
 
 // TODO: IGOR Back maybe not use

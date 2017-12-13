@@ -85,8 +85,6 @@
         },
         created : function () {
             that = this;
-            // TODO: IGOR clear
-            console.log('avatar ', that.$root);
         }
     }
 </script>

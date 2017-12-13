@@ -1,10 +1,10 @@
-import {routes} from './const'
+import {routes, iconClasses} from './const'
 import dashBoard from './components/dashboard/dashBoard.vue'
 
 const breadcrumbDash = {
     label : 'DashBoard',
     route : routes.dash,
-    iconClass : 'fa fa-dashboard'
+    iconClass : iconClasses.dash
 };
 
 export default [
