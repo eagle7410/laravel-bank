@@ -1,0 +1,23 @@
+[
+  {
+    "number" : 25,
+    "status" : 1,
+    "sum" : 125,
+    "percent" : 25,
+    "lastIncome" : 25
+  },
+  {
+    "number" : 26,
+    "status" : 2,
+    "sum" : 200,
+    "percent" : 25,
+    "lastIncome" : 50
+  },
+  {
+    "number" : 27,
+    "status" : 3,
+    "sum" : 200,
+    "percent" : 25,
+    "lastIncome" : 0
+  }
+]

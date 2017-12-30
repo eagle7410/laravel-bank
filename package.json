@@ -9,7 +9,8 @@
     "hot": "npm run bower;cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
     "production": "npm run bower;cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "lint": "./node_modules/.bin/eslint --ext .js,.vue resources/assets/js"
+    "lint": "./node_modules/.bin/eslint --ext .js,.vue resources/assets/js",
+    "test" : "node ./node_modules/karma/bin/karma start"
   },
   "devDependencies": {
     "acacha-forms": "^1.0.0",
@@ -30,7 +31,15 @@
     "font-awesome": "4.7.0",
     "icheck": "^1.0.2",
     "ionicons": "^3.0.0",
+    "jasmine-core": "^2.8.0",
     "jquery": "^3.1.1",
+    "karma": "^2.0.0",
+    "karma-babel-preprocessor": "^7.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-jasmine": "^1.1.1",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-webpack": "^2.0.9",
     "laravel-mix": "^1.0",
     "lodash": "^4.17.4",
     "toastr": "^2.1.2",

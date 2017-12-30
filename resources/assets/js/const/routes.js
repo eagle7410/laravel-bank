@@ -2,11 +2,11 @@ export default {
     dash : {
         path : '/dashboard'
     },
-    dashD2 : {
-        path : '/dashboard',
-        query : {
-            v : 'd'
-        }
+    deposits : {
+        path : '/deposits',
+    },
+    depositHistory : {
+        path : '/deposit-history/:depositId',
     },
     def : {
         path : '/'

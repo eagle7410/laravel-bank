@@ -8,26 +8,8 @@ export default [
         route : routes.dash
     },
     {
-        label : 'DashboardV2',
-        iconClass : iconClasses.dash,
-        route : routes.dash,
-        // TODO: IGOR Back
-        counters : [
-            {
-
-            }
-        ],
-        subs : [
-            {
-                label: 'd1',
-                iconClass : iconClasses.circle
-            },
-            {
-                label: 'd2',
-                iconClass : iconClasses.circle,
-                route : routes.dashD2,
-            }
-        ]
-
+        label : 'My Deposits',
+        iconClass : iconClasses.credit,
+        route : routes.deposits,
     }
 ];

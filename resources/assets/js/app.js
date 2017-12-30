@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
 import routes from './routes'
-import {components, initHtmlProps} from './const'
+import {components, initHtmlProps, depositsStatus} from './const'
+import api from './apis/client';
 
 require('./bootstrap');
 require('./extends');
@@ -27,11 +28,15 @@ const bus = new Vue({});
 const app = new Vue({
     el: '#app',
     computed : {
-        _bus : () => bus
+        _bus : () => bus,
     },
     props : initHtmlProps.map(prop => prop.htmlAttrToVueProp()),
     data: {
-        title: 'Title'
+        title: 'Title',
+        apis : api,
+        statuses : {
+            depositsStatus
+        }
     },
     router,
     beforeMount: function () {

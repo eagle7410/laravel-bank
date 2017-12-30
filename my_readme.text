@@ -1,0 +1,2 @@
+// Laravel + karma
+npm install karma jasmine-core karma-babel-preprocessor karma-phantomjs-launcher karma-jasmine karma-webpack karma-firefox-launcher karma-chrome-launcher --save-dev

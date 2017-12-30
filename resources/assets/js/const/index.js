@@ -3,6 +3,8 @@ import routes from './routes'
 import components from './components'
 import initHtmlProps from './init-html-props'
 import leftMenuList from './left-menu-list'
+import depositsStatus from './deposits-status'
+import depositHistoryActions from './deposit-history-actions'
 
 export {
     routes,
@@ -10,4 +12,6 @@ export {
     initHtmlProps,
     iconClasses,
     leftMenuList,
+    depositsStatus,
+    depositHistoryActions
 };
