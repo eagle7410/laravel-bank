@@ -49,10 +49,11 @@
 </template>
 
 <script>
-    import {routes, leftMenuList} from '../../const';
+    import {routes} from '../../const';
     let that;
 
     export default {
+
         data : function() {
             return {
                 items : []
@@ -61,7 +62,7 @@
         created : function () {
             that = this;
 
-            that.items = leftMenuList.map(item => {
+            that.items = (that.$root.leftMenu || []).map(item => {
                 if (!item.route) {
                     item.route = routes.def;
                 }

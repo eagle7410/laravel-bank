@@ -15,7 +15,7 @@
 
 <div id="app" class="wrapper"
      app-name="{{config('app.name', 'Laravel')}}"
-     user-avatar-src="{{asset('images/usr/boxed-bg.jpg')}}"
+     user-avatar-src="{{asset('images/boxed-bg.jpg')}}"
      user-name="Alexander"
      user-surname="Pierce"
      csrf-token="{{csrf_token()}}"
@@ -39,6 +39,11 @@
 </div>
 
 <!-- custom js here -->
-<script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+@role('employee')
+    <script type="text/javascript" src="{{asset('js/employee_app.js')}}"></script>
+@else
+    <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+@endrole
+
 </body>
 </html>

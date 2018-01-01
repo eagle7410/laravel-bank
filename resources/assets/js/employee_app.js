@@ -1,13 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
-import routes from './routes'
-import {
-    components,
-    initHtmlProps,
-    depositsStatus,
-    leftMenuList
-} from './const'
-import api from './apis/client';
+import routes from './routes-employee'
+import {componentsEmployee, initHtmlProps, depositsStatus, leftMenuListEmployee} from './const'
+import api from './apis/employee';
 
 require('./bootstrap');
 require('./extends');
@@ -15,8 +10,8 @@ require('./extends');
 Vue.use(VueRouter);
 
 // Registration components
-for (let name in components)
-    Vue.component(name, components[name]);
+for (let name in componentsEmployee)
+    Vue.component(name, componentsEmployee[name]);
 
 // Init routes
 const router = new VueRouter({
@@ -39,7 +34,7 @@ const app = new Vue({
     props : initHtmlProps.map(prop => prop.htmlAttrToVueProp()),
     data: {
         title: 'Title',
-        leftMenu : leftMenuList,
+        leftMenu : leftMenuListEmployee,
         statuses : {
             depositsStatus
         }
@@ -58,6 +53,12 @@ const app = new Vue({
 
             that[prop.htmlAttrToVueProp()] = val;
 
+        });
+
+        $.ajaxSetup({
+            headers : {
+                'X-CSRF-TOKEN': that.csrfToken
+            }
         });
     }
 });

@@ -49,6 +49,11 @@
 
 <script>
     let that;
+    const apiEmulate = {
+        deposit : {
+            getAll : () => new Promise(ok => ok(null))
+        }
+    };
 
     export default {
 
@@ -60,7 +65,7 @@
 
         data: function () {
             return {
-                title: 'My deposits',
+                title: 'Deposits',
                 deposits : []
             };
         },

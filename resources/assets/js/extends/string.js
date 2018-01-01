@@ -12,7 +12,7 @@ const extend = {
             .join('')
             .firstCharToLower();
     },
-    toDateFormat : function (format) {
+    toDateFormat : function (format, ) {
         let string = this.toString().trim();
 
         if (typeof string !== 'string') {
@@ -25,7 +25,15 @@ const extend = {
             return '';
         }
 
-        let math = string.trim().match(/(\d{4})\/(\d{2})\/(\d{1,2})/);
+        let inRegExp;
+
+        if (string.length === 19) {
+            inRegExp = /(\d{4})-(\d{2})-(\d{1,2})\s(\d{2}):(\d{2}):(\d{2})/
+        } else {
+            inRegExp = /(\d{4})\/(\d{2})\/(\d{1,2})/
+        }
+
+        let math = string.trim().match(inRegExp);
 
         if (!math) {
             console.warn(`toDateFormat \ ${this} Bad start format`);
@@ -41,6 +49,9 @@ const extend = {
         return format.replace('y', math[1])
             .replace('m', math[2])
             .replace('d', d)
+            .replace('h', math[4])
+            .replace('i', math[5])
+            .replace('s', math[6])
     }
 };
 

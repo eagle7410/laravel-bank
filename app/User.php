@@ -4,10 +4,14 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    const ROLE_EMPLOYEE = 'employee';
+    const ROLE_CLIENT = 'client';
     use Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
