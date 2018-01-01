@@ -23,6 +23,7 @@ const router = new VueRouter({
 // TODO: IGOR Back maybe not use
 // Create bus.
 const bus = new Vue({});
+window.apis = api;
 
 // Init App
 const app = new Vue({
@@ -33,7 +34,6 @@ const app = new Vue({
     props : initHtmlProps.map(prop => prop.htmlAttrToVueProp()),
     data: {
         title: 'Title',
-        apis : api,
         statuses : {
             depositsStatus
         }

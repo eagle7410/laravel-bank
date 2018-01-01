@@ -52,5 +52,6 @@ for (let prop in extend)
  * @property htmlAttrToVueProp
  * @property firstCharToLower
  * @property htmlAttrToVueProp
+ * @property toDateFormat
  */
 export default String

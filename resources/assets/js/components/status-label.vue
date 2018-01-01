@@ -2,7 +2,7 @@
     <b :class="cssFullClass">{{label}}</b>
 </template>
 <script>
-    import {depositsStatus} from '../../const'
+    import {depositsStatus} from '../const'
     let that;
 
     export default {

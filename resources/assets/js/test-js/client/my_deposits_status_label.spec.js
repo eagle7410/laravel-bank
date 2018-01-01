@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import DepositLabel from '../../components/my-deposits/status-label'
+import DepositLabel from '../../components/status-label'
 import {depositsStatus} from '../../const'
 
 // вспомогательная функция, выполняющая монтирование и

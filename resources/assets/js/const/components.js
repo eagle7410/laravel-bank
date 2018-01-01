@@ -11,8 +11,8 @@ const includes = {
     task                     : 'notification-tools/task',
     settings_slidebar        : 'settingsSlidebar',
     breadcrumb               : 'breadcrumb',
-    my_deposits_status_label : 'my-deposits/status-label',
-    my_deposits_actions : 'my-deposits/actions',
+    my_deposits_status_label : 'status-label',
+    my_deposits_actions      : 'my-deposits/actions',
 };
 
 let components = {};

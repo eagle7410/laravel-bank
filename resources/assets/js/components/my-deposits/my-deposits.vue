@@ -34,6 +34,13 @@
                         <td>{{deposit.lastIncome}}</td>
                     </tr>
                 </tbody>
+                <tfoot v-if="deposits.length">
+                    <tr>
+                        <td colspan="4"><b>Total</b></td>
+                        <td colspan="2">{{totalSum}}</td>
+                        <td>{{totalLastIncome}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <!-- /.box-body -->
@@ -42,11 +49,18 @@
 
 <script>
     let that;
+    const apiEmulate = {
+        deposit : {
+            getAll : () => new Promise(ok => ok(null))
+        }
+    };
 
     export default {
 
         computed : {
-            apiDeposits : () => that.$root.apis.deposit
+            apiDeposits     : () => window.apis.deposit,
+            totalSum        : () => that.deposits.sumProp('sum'),
+            totalLastIncome : () => that.deposits.sumProp('lastIncome'),
         },
 
         data: function () {
@@ -62,8 +76,9 @@
             that.$root.title = that.title;
 
             that.apiDeposits.getAll()
-                .then(deposits => that.deposits = deposits)
+                .then(deposits => that.deposits = deposits || [])
                 .catch(err => console.error(`Error get deposits`))
+
         }
     }
 </script>
