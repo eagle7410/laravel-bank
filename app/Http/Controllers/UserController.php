@@ -5,17 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends EmployeeController
 {
-    /**
-     * UsersController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware(['role:'.User::ROLE_EMPLOYEE]);
-    }
-
     public function save(Request $request)
     {
         $data = $request->validate([

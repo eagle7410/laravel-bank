@@ -16,7 +16,7 @@
         <li class="treeview"
             v-for="item in items"
         >
-            <router-link :to="item.route" exact>
+            <router-link :to="getMainRoute(item)" exact>
                 <i v-if="item.iconClass" :class="item.iconClass"></i>
                 <span>{{item.label}}</span>
                 <span
@@ -59,6 +59,11 @@
                 items : []
             }
         },
+
+        methods : {
+            getMainRoute : item => item.subs && item.subs.length ? {} : item.route,
+        },
+
         created : function () {
             that = this;
 

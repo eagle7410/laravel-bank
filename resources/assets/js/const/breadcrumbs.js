@@ -16,9 +16,14 @@ const breadcrumbUsers = {
     route : routes.usrs,
     iconClass : iconClasses.user
 };
+const breadcrumbDepositStatuses = {
+    label : 'Deposits statuses',
+    route : routes.depStatuses,
+};
 
 export {
     breadcrumbDash,
     breadcrumbDeposits,
     breadcrumbUsers,
+    breadcrumbDepositStatuses
 }

@@ -23,10 +23,10 @@
                     <tr v-for="(deposit, index) in deposits">
                         <th scope="row">{{index + 1}}</th>
                         <td>
-                            <my_deposits_actions :deposit="deposit"></my_deposits_actions>
+                            <my_deposits_actions :entry="deposit"></my_deposits_actions>
                         </td>
                         <th scope="col">
-                            <my_deposits_status_label :status="deposit.status"></my_deposits_status_label>
+                            <my_deposits_status_label :entry="deposit"></my_deposits_status_label>
                         </th>
                         <td>{{deposit.number}}</td>
                         <td>{{deposit.sum}}</td>
@@ -42,6 +42,10 @@
                     </tr>
                 </tfoot>
             </table>
+            <grid
+                :data="deposits"
+                :columns="gridColumns"
+            ></grid>
         </div>
         <!-- /.box-body -->
     </div>
@@ -66,7 +70,24 @@
         data: function () {
             return {
                 title: 'Deposits',
-                deposits : []
+                deposits : [],
+                gridColumns : [
+                    {label : 'Action', comp: 'my_deposits_actions'},
+                    {label : 'Status', comp: 'my_deposits_status_label'},
+                    'number',
+                    {
+                        label : 'Sum, $',
+                        alias : 'sum'
+                    },
+                    {
+                        label : 'Percent, %',
+                        alias : 'percent'
+                    },
+                    {
+                        label : 'Last Income, $',
+                        alias : 'lastIncome'
+                    }
+                ]
             };
         },
 
@@ -83,8 +104,3 @@
     }
 </script>
 
-<style scoped>
-    .alert {
-        padding: 0.2em 5px;
-    }
-</style>

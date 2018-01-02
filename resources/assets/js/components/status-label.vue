@@ -1,5 +1,5 @@
 <template>
-    <b :class="cssFullClass">{{label}}</b>
+    <b :class="cssClass(entry && entry.status ? entry.status : status)">{{label(entry && entry.status ? entry.status : status)}}</b>
 </template>
 <script>
     import {depositsStatus} from '../const'
@@ -7,47 +7,67 @@
 
     export default {
         props : {
-            status: {
-                required : true
-            }
+            status: Number,
+            entry: Object
         },
 
         computed : {
             statusesValues : () => Object.values(that.depositsStatus),
-            cssFullClass: () => `alert bg-${that.cssClass}`
+        },
+        methods : {
+            cssClass : (status) => {
+                let statuses = that.statuses;
+                let cssClass = `alert bg-`;
+
+                switch (status) {
+                    case statuses.active :
+                        cssClass += 'green';
+                        break;
+                    case statuses.stopped :
+                        cssClass += 'red';
+                        break;
+                    case statuses.verification :
+                        cssClass += 'yellow';
+                        break;
+                }
+
+                return cssClass;
+            },
+            label : (status) => {
+                let label = '';
+                let statuses = that.statuses;
+
+                switch (status) {
+                    case statuses.active :
+                        label = 'Active';
+                        break;
+                    case statuses.stopped :
+                        label = 'Stopped';
+                        break;
+                    case statuses.verification :
+                        label = 'On verification';
+                        break;
+                }
+
+                return label;
+            },
+
         },
 
         data : function() {
             return {
                 statuses : depositsStatus,
-                cssClass : '',
-                label : ''
             };
 
         },
-
-        created: function () {
+        created :function () {
             that = this;
-            let statuses = that.statuses;
-
-            if (Object.values(statuses).indexOf(that.status) === -1) {
-                console.error('Bad deposit satus', that.status);
-            }
-
-            switch (that.status) {
-                case statuses.active :
-                    that.cssClass = 'green';
-                    that.label = 'Active';
-                    break;
-                case statuses.stopped :
-                    that.cssClass = 'red';
-                    that.label = 'Stopped';
-                    break;
-                case statuses.verification :
-                    that.cssClass = 'yellow';
-                    that.label = 'On verification';
-                    break;
-            }
-        }
+        },
     }
 </script>
+
+<style scoped>
+    .alert {
+        padding: 0.2em 5px;
+    }
+</style>

@@ -6,17 +6,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
-class RolesController extends Controller
+class RolesController extends EmployeeController
 {
-    /**
-     * RolesController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware(['role:'.User::ROLE_EMPLOYEE]);
-    }
-
     public function index()
     {
         $roles = Role::where('guard_name','web')

@@ -13,6 +13,9 @@ const includes = {
     breadcrumb               : 'breadcrumb',
     my_deposits_status_label : 'status-label',
     my_deposits_actions      : 'deposits/actions',
+    simple_data_table        : 'common/simple-data-table',
+    simple_record            : 'common/simple-record',
+    grid                     : 'common/grid',
 };
 
 let components = {};

@@ -15,6 +15,20 @@ export default [
     {
         label : 'Deposits',
         iconClass : iconClasses.credit,
-        route : routes.deposits,
+        subs : [
+            {
+                label : 'Deposits',
+                route : routes.deposits,
+            },
+            {
+                label : 'Actions',
+                route : routes.depActions,
+            },
+            {
+                label : 'Statuses',
+                route : routes.depStatuses,
+            },
+        ]
+
     }
 ];

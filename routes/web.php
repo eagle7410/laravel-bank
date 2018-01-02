@@ -21,3 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users', 'UsersController@index')->name('users');
 Route::get('/roles', 'RolesController@index')->name('roles');
 Route::post('/user', 'UserController@save')->name('user');
+Route::get('/statuses', 'StatusesController@index')->name('statuses');
+
+Route::get('/status' , 'StatusController@index')->name('status');
+Route::post('/status', 'StatusController@save')->name('status-save');
+Route::put('/status' , 'StatusController@update')->name('status-update');
