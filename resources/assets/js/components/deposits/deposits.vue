@@ -4,6 +4,9 @@
             <h3 class="box-title">{{title}}.</h3>
         </div>
         <div class="box-body">
+            <div class="tools">
+                <button class="btn btn-success" @click="clickNew">Create</button>
+            </div>
             <grid :data="deposits" :columns="gridColumns" ></grid>
         </div>
         <!-- /.box-body -->
@@ -11,12 +14,9 @@
 </template>
 
 <script>
+    import Actions from './actions';
+    import {routesEmployee as routes} from '../../const'
     let that;
-    const apiEmulate = {
-        deposit : {
-            getAll : () => new Promise(ok => ok(null))
-        }
-    };
 
     export default {
 
@@ -31,7 +31,7 @@
                 title: 'Deposits',
                 deposits : [],
                 gridColumns : [
-                    {label : 'Action', comp: 'my_deposits_actions'},
+                    {label : 'Action', comp: Actions},
                     {label : 'Status', comp: 'my_deposits_status_label'},
                     'number',
                     {
@@ -48,6 +48,14 @@
                     }
                 ]
             };
+        },
+
+        methods : {
+            clickNew : () => {
+                if (that.$router) {
+                    that.$router.push(routes.depCreate);
+                }
+            }
         },
 
         created: function () {

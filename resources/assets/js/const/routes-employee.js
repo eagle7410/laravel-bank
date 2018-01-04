@@ -8,6 +8,9 @@ export default {
     new_usr : {
         path : '/user-create'
     },
+    depCreate : {
+        path : '/deposit-create'
+    },
     depActions : {
         path : '/deposit-actions'
     },

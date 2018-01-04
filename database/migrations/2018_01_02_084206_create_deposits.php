@@ -41,10 +41,10 @@ class CreateDeposits extends Migration
 
             $table->double('sum', 20, 3);
             $table->double('percent', 5, 2);
+            $table->string('number')->unique();
 
             $table->timestamp('start_at');
             $table->timestamp('icome_at');
-
             $table->timestamps();
             $table->integer('created_by');
             $table->integer('updated_by');

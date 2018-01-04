@@ -1,6 +1,7 @@
 import {routesEmployee as routes} from './const'
 import DashBoard from './components/dashboard/dashBoard'
 import Deposits from './components/deposits/deposits'
+import Deposit from './components/deposits/deposit'
 import Users from './components/users/users'
 import NewUser from './components/user/new-user'
 import MyDepositHistory from './components/my-deposit-history/my-deposit-history'
@@ -70,6 +71,20 @@ export default [
                 {
                     label : 'Deposits',
                     route : routes.deposits,
+                }
+            ]
+        }
+    },
+    {
+        ...routes.depCreate,
+        component: Deposit,
+        meta : {
+            breadcrumbs : [
+                breadcrumbDash,
+                breadcrumbDeposits,
+                {
+                    label : 'Create',
+                    route : routes.depCreate,
                 }
             ]
         }

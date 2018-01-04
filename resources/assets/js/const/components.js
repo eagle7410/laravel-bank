@@ -13,6 +13,8 @@ const includes = {
     breadcrumb               : 'breadcrumb',
     my_deposits_status_label : 'status-label',
     my_deposits_actions      : 'my-deposits/actions',
+    form_input               : 'common/form-input',
+    server_error_view        : 'common/server-error-view',
 };
 
 let components = {};
