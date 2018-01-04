@@ -18,7 +18,7 @@ class StatusController extends EmployeeController
     {
         $data = $request->validate([
             'name'  => 'required|string|max:255',
-            'alias' => 'required|string|max:100|unique:deposit_statuses|unique:deposit_statuses',
+            'alias' => 'required|string|max:100|unique:deposit_statuses',
             'desc'  => 'min:1'
         ]);
 

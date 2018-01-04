@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DepositStatuses extends Model
 {
+    const ALIAS_ACTIVE = 'active';
     /**
      * @var bool
      */
@@ -23,4 +24,9 @@ class DepositStatuses extends Model
     protected $fillable = [
         'name', 'alias', 'desc',
     ];
+
+    public static function StatusActiveId()
+    {
+        return self::where('alias', self::ALIAS_ACTIVE)->first()->id;
+    }
 }

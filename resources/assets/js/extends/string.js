@@ -12,7 +12,7 @@ const extend = {
             .join('')
             .firstCharToLower();
     },
-    toDateFormat : function (format, ) {
+    toDateFormat : function (format) {
         let string = this.toString().trim();
 
         if (typeof string !== 'string') {

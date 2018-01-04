@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DepositActions extends Model
 {
+    const ALIAS_CREATE = 'create';
     /**
      * @var bool
      */
@@ -23,4 +24,9 @@ class DepositActions extends Model
     protected $fillable = [
         'name', 'alias', 'desc',
     ];
+
+    public static function ActionCreateId()
+    {
+        return self::where('alias', self::ALIAS_CREATE)->first()->id;
+    }
 }

@@ -3,19 +3,24 @@
         <label
                 v-if="label && label.length"
                 :for="name">{{label}}</label>
-        <input  class="form-control"
-               :id="name" aria-describedby="emailHelp"
-               :type="type"
-               :placeholder="placeholder"
-               :value="value"
-                @input="onInput"
 
+        <select  class="form-control"
+                :id="name" aria-describedby="emailHelp"
+                :type="type"
+                :placeholder="placeholder"
+                :value="value"
+                @input="onInput"
         >
+            <option :value="null">--Select--</option>
+            <option v-for="item in items" :value="item.value">{{item.label}}</option>
+        </select>
+
         <small class="form-text text-muted" v-if="help && help.length">{{help}}</small>
     </div>
 </template>
-
 <script>
+    let that;
+
     export default {
         props : {
             name : {
@@ -40,14 +45,20 @@
                 type : String,
                 default : 'text'
             },
-            value : null,
+            items : {
+                type : Array,
+                default : []
+            },
+            value : {
+                type: String|Object,
+            },
         },
 
         computed : {
-            cssClass : function() {
+            cssClass : () => {
                 let css = 'form-group';
 
-                if (this.err) {
+                if (that.err) {
                     css += ' has-error';
                 }
 
@@ -56,9 +67,11 @@
         },
 
         methods : {
-            onInput : function($ev) {
-                this.$emit('input', $ev.target.value);
-            }
+            onInput : $ev => that.$emit('input', $ev.target.value)
+        },
+
+        created: function () {
+            that = this;
         },
     }
 </script>
@@ -67,3 +80,4 @@
         color: #dd4b39
     }
 </style>
+

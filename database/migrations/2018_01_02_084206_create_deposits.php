@@ -44,7 +44,7 @@ class CreateDeposits extends Migration
             $table->string('number')->unique();
 
             $table->timestamp('start_at');
-            $table->timestamp('icome_at');
+            $table->timestamp('income_at');
             $table->timestamps();
             $table->integer('created_by');
             $table->integer('updated_by');

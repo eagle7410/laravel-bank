@@ -31,3 +31,7 @@ Route::get('/actions', 'ActionsController@index')->name('actions');
 Route::get('/action' , 'ActionController@index')->name('action');
 Route::post('/action', 'ActionController@save')->name('action-save');
 Route::put('/action' , 'ActionController@update')->name('action-update');
+
+Route::get('/clients' , 'ClientsController@index')->name('clients');
+
+Route::post('/deposit', 'DepositController@save')->name('deposit-save');

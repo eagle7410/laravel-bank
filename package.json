@@ -10,7 +10,7 @@
     "prod": "npm run production",
     "production": "npm run bower;cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "lint": "./node_modules/.bin/eslint --ext .js,.vue resources/assets/js",
-    "test" : "node ./node_modules/karma/bin/karma start"
+    "test": "node ./node_modules/karma/bin/karma start"
   },
   "devDependencies": {
     "acacha-forms": "^1.0.0",
@@ -44,7 +44,8 @@
     "lodash": "^4.17.4",
     "toastr": "^2.1.2",
     "vue": "^2.1.10",
-    "vue-router": "3.0.1"
+    "vue-router": "3.0.1",
+    "vuejs-datepicker": "0.9.22"
   },
   "name": "laravel-bank",
   "description": "<p align=\"center\"><img src=\"https://laravel.com/assets/img/components/logo-laravel.svg\"></p>",

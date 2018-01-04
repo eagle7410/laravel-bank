@@ -8,6 +8,16 @@
                 <form>
                     <server_error_view :serverErrors="serverErrors"></server_error_view>
 
+                    <form-select
+                            name="userId"
+                            label="Client"
+                            placeholder="Select client"
+                            help="Client is required"
+                            :err="errors.userId"
+                            :items ="clients"
+                            v-model="userId"
+                    ></form-select>
+
                     <form_input
                             name="number"
                             label="Number"
@@ -21,7 +31,7 @@
                             name="sum"
                             label="Sum, $"
                             placeholder="Enter sum"
-                            help="Sum is required and more 0.01"
+                            help="Sum is required and more 1"
                             type="number"
                             :err="errors.sum"
                             v-model="sum"
@@ -31,11 +41,19 @@
                             name="percent"
                             label="Percent, %"
                             placeholder="Enter percent"
-                            help="Number is required and more 0.01"
+                            help="Percent is required and more 0.01"
                             type="number"
                             :err="errors.percent"
                             v-model="percent"
                     ></form_input>
+
+                    <form-date name="start_at"
+                               label="Start date"
+                               help="Deposit start today or later"
+                               :err="errors.startAt"
+                               v-model="startAt"
+                    ></form-date>
+
 
                     <button @click.prevent="clickSubmit" type="submit" class="btn btn-primary">
                         {{action}}
@@ -48,9 +66,10 @@
     </div>
 </template>
 <script>
-    let that;
-    // TODO: IGOR Back back doit.
+    import FormDate from '../common/form-date';
+    import FormSelect from '../common/form-select';
     import {routesEmployee as routes} from '../../const'
+    let that;
 
     export default {
 
@@ -61,6 +80,17 @@
             that.action += 'create';
 
             that.$root.title = that.title + ' ' + that.action;
+
+            that.apiClients.get()
+                .then(clients => {
+                    that.clients = (clients || [])
+                        .map(client => ({
+                            value : client.id,
+                            label : `${client.name} (${client.email})`
+                        }))
+                        .sort((prev, next) => (prev.label).localeCompare(next.label));
+                })
+                .catch(err => console.error('Error get actions', err))
         },
 
         data: function () {
@@ -69,18 +99,19 @@
                 action : '',
                 id     : null,
 
-                number   : '',
-                sum : 0,
-                percent : 0,
-
-
-                alias  : '',
-                desc   : '',
+                number  : null,
+                sum     : null,
+                percent : null,
+                startAt : new Date(),
+                userId  : null,
+                clients : [],
 
                 errors : {
+                    sum     : null,
                     number  : null,
-                    sum  : null,
                     percent : null,
+                    startAt : null,
+                    userId  : null,
                 },
 
                 serverErrors : {}
@@ -88,28 +119,63 @@
         },
 
         computed : {
+            apiClients: () => window.apis.clients,
+            apiDeposit: () => window.apis.deposit,
             result : () => {
                 return {
-                    alias : that.alias,
-                    name  : that.name,
-                    desc  : that.desc,
+                    number   : that.number,
+                    percent  : that.percent,
+                    start_at : that.startAt.toStringByFormat('y/m/d'),
+                    user_id  : that.userId,
+                    sum      : that.sum,
                 };
             }
         },
 
         methods : {
+            _minValidate: (prop, min) => {
+                let res = true;
 
-            _validate : data => {
+                if (that[prop] < min) {
+                    that.errors[prop] = true;
+                    res = false;
+                } else {
+                    that.errors[prop] = null;
+                }
+
+                return res;
+            },
+            _isFutureOrNowDay : () => {
+                let isFutureOrNowDay = that.startAt.isFutureOrNowDay();
+
+                if (isFutureOrNowDay) {
+                    that.errors.startAt = null;
+                } else {
+                    that.errors.startAt = true;
+                }
+
+                return isFutureOrNowDay;
+            },
+            _validate : () => {
                 let errors = that.errors;
                 let isHasError = false;
 
                 for (let prop in errors) {
-
                     if (!that[prop]) {
                         isHasError = true;
                         errors[prop] = isHasError;
                     } else {
                         errors[prop] = null;
+                    }
+                }
+
+                if (!isHasError) {
+                    if (
+                        !that._minValidate('sum', 1) ||
+                        !that._minValidate('percent', 0.01)
+//                        !that._isFutureOrNowDay()
+                    ) {
+                        isHasError = true;
                     }
                 }
 
@@ -134,13 +200,13 @@
                 }
             },
             clickSubmit : () => {
-                let data = that.result;
                 that.serverErrors = {};
 
-                if (!that._validate(data)) {
+                if (!that._validate()) {
                     return false;
                 }
 
+                let data = that.result;
 
                 if (that.id) {
                     // TODO: IGOR Back maybe need
@@ -149,7 +215,7 @@
 //                        .then(that.clickBack)
 //                        .catch(that._handelError);
                 } else {
-                    that.api.save(data)
+                    that.apiDeposit.save(data)
                         .then(that.clickBack)
                         .catch(that._handelError);
                 }
@@ -159,6 +225,11 @@
                     that.$router.push(routes.deposits);
                 }
             },
+        },
+        
+        components: {
+            FormDate,
+            FormSelect
         }
     }
 </script>

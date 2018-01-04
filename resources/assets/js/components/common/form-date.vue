@@ -3,24 +3,32 @@
         <label
                 v-if="label && label.length"
                 :for="name">{{label}}</label>
-        <input  class="form-control"
-               :id="name" aria-describedby="emailHelp"
-               :type="type"
-               :placeholder="placeholder"
-               :value="value"
+        <datepicker
+                calendar-button-icon="fa fa-calendar"
+                :id="name"
+                :format="format"
+                :bootstrap-styling="true"
+                :calendar-button="true"
+                :monday-first="true"
+                :value="value"
                 @input="onInput"
+        ></datepicker>
 
-        >
         <small class="form-text text-muted" v-if="help && help.length">{{help}}</small>
     </div>
 </template>
-
 <script>
+    import Datepicker from 'vuejs-datepicker';
+    let that;
+
     export default {
         props : {
             name : {
                 type: String,
                 required : true,
+            },
+            value : {
+                type: String|Object,
             },
             err : {
                 defailt : null
@@ -29,25 +37,20 @@
                 type: String,
                 default : ''
             },
-            placeholder : {
-                type: String,
-                default : 'Enter'
+            format : {
+                type : String,
+                default : 'dd-MM-yyyy'
             },
             help : {
                 type: String
             },
-            type : {
-                type : String,
-                default : 'text'
-            },
-            value : null,
         },
 
         computed : {
-            cssClass : function() {
+            cssClass : () => {
                 let css = 'form-group';
 
-                if (this.err) {
+                if (that.err) {
                     css += ' has-error';
                 }
 
@@ -56,10 +59,16 @@
         },
 
         methods : {
-            onInput : function($ev) {
-                this.$emit('input', $ev.target.value);
-            }
+            onInput : date => that.$emit('input', date)
         },
+
+        components: {
+            Datepicker
+        },
+
+        created : function () {
+            that = this;
+        }
     }
 </script>
 <style scoped>
