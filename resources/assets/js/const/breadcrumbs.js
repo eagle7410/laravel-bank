@@ -20,10 +20,15 @@ const breadcrumbDepositStatuses = {
     label : 'Deposits statuses',
     route : routes.depStatuses,
 };
+const breadcrumbDepositActions = {
+    label : 'Deposits actions',
+    route : routes.depActions,
+};
 
 export {
     breadcrumbDash,
     breadcrumbDeposits,
     breadcrumbUsers,
-    breadcrumbDepositStatuses
+    breadcrumbDepositStatuses,
+    breadcrumbDepositActions
 }

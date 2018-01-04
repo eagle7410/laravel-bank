@@ -4,48 +4,7 @@
             <h3 class="box-title">{{title}}.</h3>
         </div>
         <div class="box-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Actions</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Number</th>
-                        <th scope="col">Sum, $</th>
-                        <th scope="col">Percent, %</th>
-                        <th scope="col">Last income, $</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-if="!deposits.length">
-                        <td colspan="7">You don't have deposits</td>
-                    </tr>
-                    <tr v-for="(deposit, index) in deposits">
-                        <th scope="row">{{index + 1}}</th>
-                        <td>
-                            <my_deposits_actions :entry="deposit"></my_deposits_actions>
-                        </td>
-                        <th scope="col">
-                            <my_deposits_status_label :entry="deposit"></my_deposits_status_label>
-                        </th>
-                        <td>{{deposit.number}}</td>
-                        <td>{{deposit.sum}}</td>
-                        <td>{{deposit.percent}}</td>
-                        <td>{{deposit.lastIncome}}</td>
-                    </tr>
-                </tbody>
-                <tfoot v-if="deposits.length">
-                    <tr>
-                        <td colspan="4"><b>Total</b></td>
-                        <td colspan="2">{{totalSum}}</td>
-                        <td>{{totalLastIncome}}</td>
-                    </tr>
-                </tfoot>
-            </table>
-            <grid
-                :data="deposits"
-                :columns="gridColumns"
-            ></grid>
+            <grid :data="deposits" :columns="gridColumns" ></grid>
         </div>
         <!-- /.box-body -->
     </div>

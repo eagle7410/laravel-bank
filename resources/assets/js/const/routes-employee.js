@@ -11,6 +11,12 @@ export default {
     depActions : {
         path : '/deposit-actions'
     },
+    depActionEdit : {
+        path : '/deposit-action-edit/:id'
+    },
+    depActionCreate : {
+        path : '/deposit-action-create'
+    },
     depStatuses : {
         path : '/deposit-statuses'
     },

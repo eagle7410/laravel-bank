@@ -6,6 +6,8 @@ import user from './user'
 import roles from './roles'
 import statuses from './statuses'
 import status from './status'
+import actions from './actions'
+import action from './action'
 
 export default {
     depositHistory,
@@ -15,5 +17,7 @@ export default {
     user,
     roles,
     statuses,
-    status
+    status,
+    actions,
+    action
 }

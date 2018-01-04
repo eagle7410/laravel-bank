@@ -1,47 +1,40 @@
 <template>
     <div class="box">
-        <div class="box-header with-border">
-            <h3 class="box-title">{{title}}.</h3>
-        </div>
-        <div class="box-body">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Actions</th>
-                    <th scope="col">Alias</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-if="!actions.length">
-                    <td colspan="5">You don't have deposits actions</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <simple_data_table
+                :data="actions"
+                :title="title"
+                message-empty="You don't have deposits actions"
+                :route-edit="routeEdit"
+                :route-create="routeCreate"
+        ></simple_data_table>
         <!-- /.box-->
     </div>
 </template>
 <script>
+    import {routesEmployee as routes} from '../../const'
     let that;
 
     export default {
         data : function () {
             return {
                 title : 'Deposits actions',
+                routeEdit : routes.depActionEdit,
+                routeCreate : routes.depActionCreate,
                 actions : []
             }
         },
 
         computed : {
-
+            api : () => window.apis.actions
         },
 
         created: function () {
             that = this;
-            that.$root.title = that.title
+            that.$root.title = that.title;
+
+            that.api.get()
+                .then(actions => that.actions = actions || [])
+                .catch(err => console.error('Error get actions', err))
         }
     }
 </script>

@@ -95,4 +95,7 @@
     .action:hover {
         color: red;
     }
+    textarea {
+        border: none;
+    }
 </style>
