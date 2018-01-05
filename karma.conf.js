@@ -44,6 +44,7 @@ module.exports = function(config) {
          * tests directory including subdirectories
          **/
         files: [
+            'test-js/client/assets/jquery.js',
             {pattern: 'test-js/**/*.spec.js', watched: true},
         ],
 

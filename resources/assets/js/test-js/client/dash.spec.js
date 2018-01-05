@@ -1,7 +1,8 @@
-require('../../extends');
 import Vue from 'vue';
 import dash from './assets/dash.json';
 import DashBoard from '../../components/dashboard/dashBoard.vue'
+
+require('../../extends');
 
 describe('DashBoard', () => {
     const vm = new Vue(DashBoard).$mount();
