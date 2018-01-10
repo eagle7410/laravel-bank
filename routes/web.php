@@ -35,3 +35,4 @@ Route::put('/action' , 'ActionController@update')->name('action-update');
 Route::get('/clients' , 'ClientsController@index')->name('clients');
 
 Route::post('/deposit', 'DepositController@save')->name('deposit-save');
+Route::get('/deposits', 'DepositsController@index')->name('deposits');

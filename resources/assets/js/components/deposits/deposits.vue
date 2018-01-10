@@ -34,6 +34,7 @@
                     {label : 'Action', comp: Actions},
                     {label : 'Status', comp: 'my_deposits_status_label'},
                     'number',
+                    'email',
                     {
                         label : 'Sum, $',
                         alias : 'sum'
@@ -43,9 +44,21 @@
                         alias : 'percent'
                     },
                     {
-                        label : 'Last Income, $',
-                        alias : 'lastIncome'
-                    }
+                        label : 'Date start',
+                        alias : 'start'
+                    },
+                    {
+                        label : 'Date next income',
+                        alias : 'income'
+                    },
+                    {
+                        label : 'Date updated',
+                        alias : 'updated'
+                    },
+                    {
+                        label : 'Date created',
+                        alias : 'created'
+                    },
                 ]
             };
         },
