@@ -1,8 +1,9 @@
-Install sqlite for testing Ubuntu
+## Install sqlite for testing Ubuntu
 
-sudo apt-get install php7.1-sqlite3
-sudo service apache2 restart
+sudo apt-get install php7.1-sqlite3  
+sudo service apache2 restart  
 composer require doctrine/dbal
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
