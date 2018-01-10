@@ -57,7 +57,8 @@ class IncomeServiceTest extends \Illuminate\Foundation\Testing\TestCase
     {
         $date = DateTime::createFromFormat('Y-m-d', '2018-02-01');
 
-        $incomeService = new IncomeService($date);
+        $incomeService = new IncomeService();
+        $incomeService->byDate($date);
 
         $this->assertTrue($incomeService->countDeposit() === 1, 'Bad count deposit');
 
@@ -74,18 +75,18 @@ class IncomeServiceTest extends \Illuminate\Foundation\Testing\TestCase
 
         $date = DateTime::createFromFormat('Y-m-d', '2018-02-02');
 
-        $incomeService = new IncomeService($date);
+        $incomeService->byDate($date);
 
         $this->assertTrue($incomeService->countDeposit() === 0, 'Bad count deposit 2018-02-02');
 
         //Second
         $date = DateTime::createFromFormat('Y-m-d', '2018-03-01');
 
-        $incomeService = new IncomeService($date);
+        $incomeService->byDate($date);
 
         $this->assertTrue($incomeService->countDeposit() === 1, 'Bad count deposit 2018-03-01');
 
-        $incomeService->addIncome(true);
+        $incomeService->addIncome();
 
         $deposit = Deposits::with('latestHistory')->first();
 
@@ -93,7 +94,7 @@ class IncomeServiceTest extends \Illuminate\Foundation\Testing\TestCase
 
         $this->assertTrue($deposit->latestHistory->deposit_action_id == $depositActionIncome, 'Bad action history 2018-03-01');
         $this->assertTrue($deposit->latestHistory->sum_after == 1500, 'Bad after sum history 2018-03-01');
-        $this->assertTrue($deposit->latestHistory->sum_before == 1250, 'Bad before sum history 2018-03-01');
+        $this->assertTrue($deposit->latestHistory->sum_before == 1250, "Bad before sum history 2018-03-01. need 1250 have {$deposit->latestHistory->sum_before}");
         $this->assertTrue($deposit->sum == 1500, 'Bad sum 2018-03-01');
     }
 }

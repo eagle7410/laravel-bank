@@ -1,3 +1,9 @@
+## Run deposits income from console
+php artisan deposits:income
+
+## Run deposits income from console by date
+php artisan deposits:income 2018-01-01
+
 ## Install sqlite for testing Ubuntu
 
 sudo apt-get install php7.1-sqlite3  

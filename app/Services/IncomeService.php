@@ -17,23 +17,35 @@ class IncomeService
      */
     private $deposits;
 
-    public function __construct(\DateTime $date)
+    /**
+     * @param \DateTime $date
+     *
+     * @return $this
+     */
+    public function byDate(\DateTime $date)
     {
         $this->deposits = Deposits::forIncome($date);
+
+        return $this;
     }
 
+    /**
+     * @return int
+     */
     public function countDeposit()
     {
         return count($this->deposits);
     }
 
+    /**
+     * Add income to deposits.
+     */
     public function addIncome()
     {
-        foreach ($this->deposits as $deposit) {
-
+        foreach ($this->deposits as $deposit)
+        {
             $sumInvest = (float) $deposit->createInfo->sum_after;
             $rate = (float) $deposit->percent / 100;
-           
             $deposit->addIncome($sumInvest * $rate);
         }
     }

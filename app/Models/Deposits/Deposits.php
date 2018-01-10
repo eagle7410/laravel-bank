@@ -2,27 +2,18 @@
 
 namespace App\Models\Deposits;
 
-use App\User;
+
 use DateTime;
-use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Support\Facades\Auth;
 
-class Deposits extends Model
+class Deposits extends DepositsBase
 {
     /**
-     * @var string
-     */
-    protected $table = 'deposits';
-    /**
-     **
-     * The attributes that are mass assignable.
+     * @param array $data
      *
-     * @var array
+     * @return Deposits
      */
-    protected $fillable = [
-        'number', 'sum', 'percent', 'user_id', 'start_at', 'comment'
-    ];
-
     protected function create(array $data)
     {
 
@@ -59,12 +50,30 @@ class Deposits extends Model
      */
     private function nextIncome(string $date)
     {
-        $income = DateTime::createFromFormat('Y/m/d', $date);
+        $income = DateTime::createFromFormat(
+            $this->getFormatForDateString($date),
+            $date
+        );
+
         $income->modify('+1 month');
 
         return $income->format('Y/m/d');
     }
 
+    /**
+     * @param string $date
+     *
+     * @return string
+     */
+    private function getFormatForDateString($date)
+    {
+        switch (strlen($date)) {
+            case 19:
+                return 'Y-m-d H:i:s';
+            default:
+                return 'Y/m/d';
+        }
+    }
     /**
      * @param DateTime $date
      *
@@ -80,21 +89,16 @@ class Deposits extends Model
 
     public function addIncome(float $income, $comment = null)
     {
-        $sunBefore = $this->sum;
-
         $this->sum += $income;
         $this->income_at = $this->nextIncome($this->income_at);
         $userId = Auth::id() || 0;
 
-        $this->created_by = $userId;
         $this->updated_by = $userId;
-
-        $this->save();
 
         $history = new DepositHistory();
 
         $history->deposit_id = $this->id;
-        $history->sum_before = $sunBefore;
+        $history->sum_before = $this->original['sum'];
         $history->sum_after = $this->sum;
         $history->created_by = $userId;
         $history->created_at = $this->created_at;
@@ -105,25 +109,6 @@ class Deposits extends Model
         }
 
         $history->save();
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function history()
-    {
-        return $this->hasMany(DepositHistory::class, 'deposit_id', 'id');
-    }
-
-    public function latestHistory()
-    {
-        return $this->hasOne(DepositHistory::class,'deposit_id', 'id')->orderBy('id', 'desc')->latest();
-    }
-
-    public function createInfo()
-    {
-        return $this->belongsTo(DepositHistory::class, 'id', 'deposit_id')->where('deposit_action_id', DepositActions::ActionCreateId());
+        $this->save();
     }
 }
