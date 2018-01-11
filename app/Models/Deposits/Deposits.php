@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Models\Deposits;
 
-
+use App\Helpers\DateHelper;
 use DateTime;
 
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +19,7 @@ class Deposits extends DepositsBase
         $deposit = new Deposits();
         $deposit->fill($data);
 
-        $deposit->income_at = $this->nextIncome($deposit->start_at);
+        $deposit->income_at = DateHelper::dateAfterMonth($deposit->start_at);
         $userId = Auth::id() || 0;
 
         $deposit->created_by = $userId;
@@ -44,70 +43,92 @@ class Deposits extends DepositsBase
     }
 
     /**
-     * @param string $date
-     *
-     * @return string
-     */
-    private function nextIncome(string $date)
-    {
-        $income = DateTime::createFromFormat(
-            $this->getFormatForDateString($date),
-            $date
-        );
-
-        $income->modify('+1 month');
-
-        return $income->format('Y/m/d');
-    }
-
-    /**
-     * @param string $date
-     *
-     * @return string
-     */
-    private function getFormatForDateString($date)
-    {
-        switch (strlen($date)) {
-            case 19:
-                return 'Y-m-d H:i:s';
-            default:
-                return 'Y/m/d';
-        }
-    }
-    /**
      * @param DateTime $date
      *
      * @return mixed
      */
-    public static function forIncome(\DateTime $date)
+    public static function forIncome(DateTime $date)
     {
         return Deposits::where('status_id', DepositStatuses::StatusActiveId())
-            ->where('income_at', '=', $date->format('Y/m/d'))
+            ->where('income_at', '=', $date->format(DateHelper::DATE_FORMAT_RESPONSE))
             ->with('createInfo')
             ->get();
     }
 
-    public function addIncome(float $income, $comment = null)
+    /**
+     * @param float $income
+     * @param null|string $comment
+     */
+    public function addIncome(float $income, ?string $comment = null)
     {
         $this->sum += $income;
-        $this->income_at = $this->nextIncome($this->income_at);
-        $userId = Auth::id() || 0;
+        $this->income_at = DateHelper::dateAfterMonth($this->income_at);
+        $this->updated_by = Auth::id() || 0;
 
-        $this->updated_by = $userId;
+        $this->saveWithHistory([
+            'comment'           => $comment,
+            'deposit_action_id' => DepositActions::ActionIncomeId()
+        ]);
+    }
 
+    /**
+     * @param null|string $comment
+     */
+    public function stopped(?string $comment = null)
+    {
+        $this->status_id = DepositStatuses::StatusStopId();
+        $this->updated_by = Auth::id() || 0;
+
+        $this->saveWithHistory([
+            'comment'           => $comment,
+            'deposit_action_id' => DepositActions::ActionStoppedId()
+        ]);
+    }
+
+    /**
+     * @param null|string $comment
+     */
+    public function toVerification(?string $comment = null)
+    {
+        $this->status_id = DepositStatuses::StatusVerificationId();
+        $this->updated_by = Auth::id() || 0;
+
+        $this->saveWithHistory([
+            'comment'           => $comment,
+            'deposit_action_id' => DepositActions::ActionVerificationId()
+        ]);
+    }
+
+    /**
+     * @param array $extendData
+     *
+     * @return DepositHistory
+     */
+    private function getHistory(array $extendData)
+    {
         $history = new DepositHistory();
 
         $history->deposit_id = $this->id;
         $history->sum_before = $this->original['sum'];
-        $history->sum_after = $this->sum;
-        $history->created_by = $userId;
-        $history->created_at = $this->created_at;
-        $history->deposit_action_id = DepositActions::ActionIncomeId();
+        $history->sum_after  = $this->sum;
+        $history->created_by = Auth::id() || 0;
+        $history->created_at = $this->original['income_at'];
 
-        if ($comment !== null) {
-            $history->comment = $comment;
-        }
+        if (empty($extendData['comment']))
+            unset($extendData['comment']);
 
+        foreach ($extendData as $key => $val)
+            $history->{$key} = $val;
+
+        return $history;
+    }
+
+    /**
+     * @param array $extendData
+     */
+    private function saveWithHistory(array $extendData)
+    {
+        $history = $this->getHistory($extendData);
         $history->save();
         $this->save();
     }

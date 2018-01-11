@@ -51,7 +51,7 @@
 
         computed : {
             api : () => window.apis.depositHistory,
-            title : () => that.depositId ? `Deposit history #${that.number}` : 'Deposit history'
+            title : () => that.number ? `Deposit history #${that.number}` : 'Deposit history'
         },
 
         methods : {
@@ -65,19 +65,12 @@
                 sum : 0,
                 histories : [],
                 errMessage : null,
-                actionLabels : {
-                    1 : 'Created',
-                    2 : 'Stopped',
-                    3 : 'Verificaion',
-                    4 : 'Income'
-                }
-
+                actionLabels : {}
             };
         },
 
         created: function () {
             that = this;
-
             that.depositId = that.$route ? that.$route.params.depositId : null;
 
             that.$root.title = that.title;
@@ -88,8 +81,9 @@
 
             that.api.getAll(that.depositId)
                 .then(depositHistory => {
+                    that.actionLabels = depositHistory.actions;
+                    that.number = that.depositId;
                     that.status = depositHistory.status;
-                    that.number = depositHistory.number;
                     that.sum    = depositHistory.sum;
 
                     if (!depositHistory.history.length) {
@@ -97,8 +91,7 @@
                         return false;
                     }
 
-                    that.histories = depositHistory.history.sort((prev, next) => next.date_action.localeCompare(prev.date_action));
-
+                    that.histories = depositHistory.history;
                 })
                 .catch(err => console.error(`Error get deposit history`, err))
         }

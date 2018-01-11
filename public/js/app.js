@@ -16719,6 +16719,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 var that = void 0;
 
@@ -16732,6 +16738,7 @@ var that = void 0;
             default: true
         }
     },
+
     data: function data() {
         var sortOrders = {};
         var that = this;
@@ -16745,6 +16752,7 @@ var that = void 0;
             sortOrders: sortOrders
         };
     },
+
     methods: {
         getKeyLabel: function getKeyLabel(key) {
             if ((typeof key === 'undefined' ? 'undefined' : _typeof(key)) !== 'object') {
@@ -16773,7 +16781,11 @@ var that = void 0;
             that.sortOrders[key] = that.sortOrders[key] * -1;
         }
     },
+
     computed: {
+        countColumn: function countColumn() {
+            return (that.number ? 1 : 0) + that.columns.length;
+        },
         filteredData: function filteredData() {
             var sortKey = that.sortKey;
             var filterKey = that.filterKey && that.filterKey.toLowerCase();
@@ -16856,30 +16868,45 @@ var render = function() {
     _vm._v(" "),
     _c(
       "tbody",
-      _vm._l(_vm.filteredData, function(entry, index) {
-        return _c(
-          "tr",
-          [
-            _vm.number ? _c("td", [_vm._v(_vm._s(index + 1))]) : _vm._e(),
-            _vm._v(" "),
-            _vm._l(_vm.columns, function(key) {
-              return _c(
-                "td",
+      [
+        _vm._l(_vm.filteredData, function(entry, index) {
+          return _vm.data.length
+            ? _c(
+                "tr",
                 [
-                  typeof key === "object" && key.comp
-                    ? _c(key.comp, {
-                        tag: "component",
-                        attrs: { entry: entry }
-                      })
-                    : _c("span", [_vm._v(_vm._s(entry[_vm.getKeyVal(key)]))])
+                  _vm.number ? _c("td", [_vm._v(_vm._s(index + 1))]) : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.columns, function(key) {
+                    return _c(
+                      "td",
+                      [
+                        typeof key === "object" && key.comp
+                          ? _c(key.comp, {
+                              tag: "component",
+                              attrs: { entry: entry }
+                            })
+                          : _c("span", [
+                              _vm._v(_vm._s(entry[_vm.getKeyVal(key)]))
+                            ])
+                      ],
+                      1
+                    )
+                  })
                 ],
-                1
+                2
               )
-            })
-          ],
-          2
-        )
-      })
+            : _vm._e()
+        }),
+        _vm._v(" "),
+        !_vm.data.length
+          ? _c("tr", [
+              _c("td", { attrs: { colspan: _vm.countColumn } }, [
+                _vm._v("Empty")
+              ])
+            ])
+          : _vm._e()
+      ],
+      2
     )
   ])
 }
@@ -17961,7 +17988,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("h4", [_vm._v("Total")]),
         _vm._v(" "),
         _c("div", [
@@ -20124,7 +20151,7 @@ var that = void 0;
             return window.apis.depositHistory;
         },
         title: function title() {
-            return that.depositId ? 'Deposit history #' + that.number : 'Deposit history';
+            return that.number ? 'Deposit history #' + that.number : 'Deposit history';
         }
     },
 
@@ -20141,19 +20168,12 @@ var that = void 0;
             sum: 0,
             histories: [],
             errMessage: null,
-            actionLabels: {
-                1: 'Created',
-                2: 'Stopped',
-                3: 'Verificaion',
-                4: 'Income'
-            }
-
+            actionLabels: {}
         };
     },
 
     created: function created() {
         that = this;
-
         that.depositId = that.$route ? that.$route.params.depositId : null;
 
         that.$root.title = that.title;
@@ -20163,8 +20183,9 @@ var that = void 0;
         }
 
         that.api.getAll(that.depositId).then(function (depositHistory) {
+            that.actionLabels = depositHistory.actions;
+            that.number = that.depositId;
             that.status = depositHistory.status;
-            that.number = depositHistory.number;
             that.sum = depositHistory.sum;
 
             if (!depositHistory.history.length) {
@@ -20172,9 +20193,7 @@ var that = void 0;
                 return false;
             }
 
-            that.histories = depositHistory.history.sort(function (prev, next) {
-                return next.date_action.localeCompare(prev.date_action);
-            });
+            that.histories = depositHistory.history;
         }).catch(function (err) {
             return console.error('Error get deposit history', err);
         });

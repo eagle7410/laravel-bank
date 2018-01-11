@@ -16719,6 +16719,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 var that = void 0;
 
@@ -16732,6 +16738,7 @@ var that = void 0;
             default: true
         }
     },
+
     data: function data() {
         var sortOrders = {};
         var that = this;
@@ -16745,6 +16752,7 @@ var that = void 0;
             sortOrders: sortOrders
         };
     },
+
     methods: {
         getKeyLabel: function getKeyLabel(key) {
             if ((typeof key === 'undefined' ? 'undefined' : _typeof(key)) !== 'object') {
@@ -16773,7 +16781,11 @@ var that = void 0;
             that.sortOrders[key] = that.sortOrders[key] * -1;
         }
     },
+
     computed: {
+        countColumn: function countColumn() {
+            return (that.number ? 1 : 0) + that.columns.length;
+        },
         filteredData: function filteredData() {
             var sortKey = that.sortKey;
             var filterKey = that.filterKey && that.filterKey.toLowerCase();
@@ -16856,30 +16868,45 @@ var render = function() {
     _vm._v(" "),
     _c(
       "tbody",
-      _vm._l(_vm.filteredData, function(entry, index) {
-        return _c(
-          "tr",
-          [
-            _vm.number ? _c("td", [_vm._v(_vm._s(index + 1))]) : _vm._e(),
-            _vm._v(" "),
-            _vm._l(_vm.columns, function(key) {
-              return _c(
-                "td",
+      [
+        _vm._l(_vm.filteredData, function(entry, index) {
+          return _vm.data.length
+            ? _c(
+                "tr",
                 [
-                  typeof key === "object" && key.comp
-                    ? _c(key.comp, {
-                        tag: "component",
-                        attrs: { entry: entry }
-                      })
-                    : _c("span", [_vm._v(_vm._s(entry[_vm.getKeyVal(key)]))])
+                  _vm.number ? _c("td", [_vm._v(_vm._s(index + 1))]) : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.columns, function(key) {
+                    return _c(
+                      "td",
+                      [
+                        typeof key === "object" && key.comp
+                          ? _c(key.comp, {
+                              tag: "component",
+                              attrs: { entry: entry }
+                            })
+                          : _c("span", [
+                              _vm._v(_vm._s(entry[_vm.getKeyVal(key)]))
+                            ])
+                      ],
+                      1
+                    )
+                  })
                 ],
-                1
+                2
               )
-            })
-          ],
-          2
-        )
-      })
+            : _vm._e()
+        }),
+        _vm._v(" "),
+        !_vm.data.length
+          ? _c("tr", [
+              _c("td", { attrs: { colspan: _vm.countColumn } }, [
+                _vm._v("Empty")
+              ])
+            ])
+          : _vm._e()
+      ],
+      2
     )
   ])
 }
@@ -17961,7 +17988,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("h4", [_vm._v("Total")]),
         _vm._v(" "),
         _c("div", [
@@ -20124,7 +20151,7 @@ var that = void 0;
             return window.apis.depositHistory;
         },
         title: function title() {
-            return that.depositId ? 'Deposit history #' + that.number : 'Deposit history';
+            return that.number ? 'Deposit history #' + that.number : 'Deposit history';
         }
     },
 
@@ -20141,19 +20168,12 @@ var that = void 0;
             sum: 0,
             histories: [],
             errMessage: null,
-            actionLabels: {
-                1: 'Created',
-                2: 'Stopped',
-                3: 'Verificaion',
-                4: 'Income'
-            }
-
+            actionLabels: {}
         };
     },
 
     created: function created() {
         that = this;
-
         that.depositId = that.$route ? that.$route.params.depositId : null;
 
         that.$root.title = that.title;
@@ -20163,8 +20183,9 @@ var that = void 0;
         }
 
         that.api.getAll(that.depositId).then(function (depositHistory) {
+            that.actionLabels = depositHistory.actions;
+            that.number = that.depositId;
             that.status = depositHistory.status;
-            that.number = depositHistory.number;
             that.sum = depositHistory.sum;
 
             if (!depositHistory.history.length) {
@@ -20172,9 +20193,7 @@ var that = void 0;
                 return false;
             }
 
-            that.histories = depositHistory.history.sort(function (prev, next) {
-                return next.date_action.localeCompare(prev.date_action);
-            });
+            that.histories = depositHistory.history;
         }).catch(function (err) {
             return console.error('Error get deposit history', err);
         });
@@ -22453,107 +22472,8 @@ for (var name in includes) {
 module.exports = [{"number":25,"status":1,"sum":125,"percent":25,"lastIncome":25},{"number":26,"status":2,"sum":200,"percent":25,"lastIncome":50},{"number":27,"status":3,"sum":200,"percent":25,"lastIncome":0}]
 
 /***/ }),
-/* 152 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const__ = __webpack_require__(1);
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    "25": {
-        "number": 25,
-        "status": 1,
-        "sum": 125,
-        "history": [{
-            "action": __WEBPACK_IMPORTED_MODULE_0__const__["c" /* depositHistoryActions */].create,
-            "sum_before": 0,
-            "sum_after": 100,
-            "date_action": "2017/11/1",
-            "comment": ""
-        }, {
-            "action": "income",
-            "sum_before": 100,
-            "sum_after": 125,
-            "date_action": "2017/12/1",
-            "comment": ""
-        }]
-    },
-    "26": {
-        "number": 26,
-        "status": 2,
-        "sum": 125,
-        "history": [{
-            "action": __WEBPACK_IMPORTED_MODULE_0__const__["c" /* depositHistoryActions */].create,
-            "sum_before": 0,
-            "sum_after": 100,
-            "date_action": "2017/09/1",
-            "comment": ""
-        }, {
-            "action": __WEBPACK_IMPORTED_MODULE_0__const__["c" /* depositHistoryActions */].income,
-            "sum_before": 100,
-            "sum_after": 125,
-            "date_action": "2017/10/1",
-            "comment": ""
-        }, {
-            "action": __WEBPACK_IMPORTED_MODULE_0__const__["c" /* depositHistoryActions */].income,
-            "sum_before": 125,
-            "sum_after": 150,
-            "date_action": "2017/11/1",
-            "comment": ""
-        }, {
-            "action": __WEBPACK_IMPORTED_MODULE_0__const__["c" /* depositHistoryActions */].income,
-            "sum_before": 150,
-            "sum_after": 175,
-            "date_action": "2017/11/1",
-            "comment": ""
-        }, {
-            "action": __WEBPACK_IMPORTED_MODULE_0__const__["c" /* depositHistoryActions */].income,
-            "sum_before": 175,
-            "sum_after": 200,
-            "date_action": "2017/12/1",
-            "comment": ""
-        }, {
-            "action": __WEBPACK_IMPORTED_MODULE_0__const__["c" /* depositHistoryActions */].verification,
-            "sum_before": 200,
-            "sum_after": 200,
-            "date_action": "2017/12/2",
-            "comment": ""
-        }, {
-            "action": __WEBPACK_IMPORTED_MODULE_0__const__["c" /* depositHistoryActions */].stopped,
-            "sum_before": 200,
-            "sum_after": 200,
-            "date_action": "2017/12/3",
-            "comment": ""
-        }]
-    },
-    "27": {
-        "number": 27,
-        "status": 3,
-        "sum": 125,
-        "history": [{
-            "action": __WEBPACK_IMPORTED_MODULE_0__const__["c" /* depositHistoryActions */].create,
-            "sum_before": 0,
-            "sum_after": 200,
-            "date_action": "2017/12/1",
-            "comment": ""
-        }, {
-            "action": __WEBPACK_IMPORTED_MODULE_0__const__["c" /* depositHistoryActions */].verification,
-            "sum_before": 0,
-            "sum_after": 200,
-            "date_action": "2017/12/2",
-            "comment": ""
-        }]
-    }
-});
-
-/***/ }),
-/* 153 */
-/***/ (function(module, exports) {
-
-module.exports = {"totalSum":525,"totalDeposits":400,"depositsCountActive":1,"depositsCountStopped":1,"depositsCountVerification":1}
-
-/***/ }),
+/* 152 */,
+/* 153 */,
 /* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -53807,13 +53727,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__test_js_client_assets_deposit_history__ = __webpack_require__(152);
-
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     getAll: function getAll(depositId) {
         return new Promise(function (ok, bad) {
-            ok(__WEBPACK_IMPORTED_MODULE_0__test_js_client_assets_deposit_history__["a" /* default */][depositId]);
+            $.get("/deposit-history/" + depositId).done(ok).fail(bad);
         });
     }
 });
@@ -53823,14 +53741,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__test_js_client_assets_dash_json__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__test_js_client_assets_dash_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__test_js_client_assets_dash_json__);
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
     get: function get() {
         return new Promise(function (ok, bad) {
-            ok(__WEBPACK_IMPORTED_MODULE_0__test_js_client_assets_dash_json___default.a);
+            $.get('/deposits-stats').done(ok).fail(bad);
         });
     }
 });

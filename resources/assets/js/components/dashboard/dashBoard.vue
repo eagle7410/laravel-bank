@@ -13,7 +13,7 @@
                     <div>Verification: {{depositsCountVerification}}</div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <h4>Total</h4>
                 <div>
                     <div>Sum: {{totalSum}}</div>

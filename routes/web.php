@@ -36,3 +36,5 @@ Route::get('/clients' , 'ClientsController@index')->name('clients');
 
 Route::post('/deposit', 'DepositController@save')->name('deposit-save');
 Route::get('/deposits', 'DepositsController@index')->name('deposits');
+Route::get('/deposit-history/{number}', 'DepositHistoryController@index')->name('deposit-history');
+Route::get('/deposits-stats', 'DepositsStatsController@index')->name('deposit-stats');

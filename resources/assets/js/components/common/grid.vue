@@ -13,12 +13,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(entry, index) in filteredData">
+        <tr
+            v-if="data.length"
+            v-for="(entry, index) in filteredData"
+        >
             <td v-if="number">{{ index + 1 }}</td>
             <td v-for="key in columns" >
                 <component v-if="typeof key === 'object' && key.comp" :is="key.comp" :entry="entry"></component>
                 <span v-else>{{entry[getKeyVal(key)]}}</span>
             </td>
+        </tr>
+        <tr v-if="!data.length">
+            <td :colspan="countColumn">Empty</td>
         </tr>
         </tbody>
     </table>
@@ -36,6 +42,7 @@
                 default : true
             }
         },
+
         data: function() {
             let sortOrders = {};
             let that = this;
@@ -47,6 +54,7 @@
                 sortOrders: sortOrders
             };
         },
+
         methods: {
             getKeyLabel : key => {
                 if (typeof key !== 'object') {
@@ -75,7 +83,9 @@
                 that.sortOrders[key] = that.sortOrders[key] * -1
             }
         },
+
         computed: {
+            countColumn : () => ((that.number ? 1 : 0) + that.columns.length),
             filteredData: () => {
                 var sortKey = that.sortKey
                 var filterKey = that.filterKey && that.filterKey.toLowerCase()
