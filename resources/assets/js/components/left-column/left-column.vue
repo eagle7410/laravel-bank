@@ -5,8 +5,12 @@
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
-                <div class="pull-left image">
-                    <img :src="imgSrc" class="img-circle" alt="User Image">
+                <div class="pull-left " >
+                    <a href="https://ru.gravatar.com/">
+                        <div class="image">
+                            <gravatar :email="userEmail" alt="User Image"></gravatar>
+                        </div>
+                    </a>
                 </div>
                 <div class="pull-left info">
                     <p>{{userName}} {{userSurname}}</p>
@@ -19,16 +23,29 @@
     </aside>
 </template>
 <script>
+    import Gravatar from 'vue-gravatar';
     let that;
 
     export default {
+        components : {
+            Gravatar
+        },
+
         computed : {
             userSurname : () => that.$root.userSurname,
             userName    : () => that.$root.userName,
-            imgSrc      : () => that.$root.userAvatarSrc,
+            userEmail   : () => that.$root.userEmail,
         },
         created : function () {
             that = this;
         }
     }
 </script>
+<style scope>
+    .image > img {
+        width: 100%;
+        max-width: 45px;
+        height: auto;
+        border-radius: 50%;
+    }
+</style>

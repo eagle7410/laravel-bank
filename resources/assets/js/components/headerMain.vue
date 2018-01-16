@@ -15,34 +15,19 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img :src="userAvatarSrc" class="user-image" alt="User Image">
+                            <gravatar :email="userEmail" alt="User Image" class="user-image"></gravatar>
                             <span class="hidden-xs">Alexander Pierce</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img :src="userAvatarSrc" class="img-circle" alt="User Image">
-
+                                <gravatar :email="userEmail" alt="User Image" class="img-circle"></gravatar>
                                 <p>
                                     {{userName}} {{userSurname}} - Web Developer
                                     <small>Member since Dec. 2017</small>
                                 </p>
                             </li>
-                            <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
-                            </li>
+
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
@@ -72,19 +57,29 @@
 </template>
 
 <script>
+    import Gravatar from 'vue-gravatar';
     let that;
     
     export default {
+        components : {
+            Gravatar
+        },
+
         computed : {
-            appName       : () => that.$root.appName,
-            userName      : () => that.$root.userName,
-            userSurname   : () => that.$root.userSurname,
-            userAvatarSrc : () => that.$root.userAvatarSrc,
-            csrfToken     : () => that.$root.csrfToken,
-            logoutAction  : () => that.$root.logoutAction,
+            appName      : () => that.$root.appName,
+            userName     : () => that.$root.userName,
+            userSurname  : () => that.$root.userSurname,
+            userEmail    : () => that.$root.userEmail,
+            csrfToken    : () => that.$root.csrfToken,
+            logoutAction : () => that.$root.logoutAction,
         },
         created : function () {
             that = this;
         }
     }
 </script>
+<style scopre>
+    .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+        padding: 6px;
+    }
+</style>

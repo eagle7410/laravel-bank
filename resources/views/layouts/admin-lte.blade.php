@@ -16,6 +16,7 @@
 <div id="app" class="wrapper"
      app-name="{{config('app.name', 'Laravel')}}"
      user-avatar-src="{{asset('images/boxed-bg.jpg')}}"
+     user-email="{{auth()->user()->email}}"
      user-name="Alexander"
      user-surname="Pierce"
      csrf-token="{{csrf_token()}}"

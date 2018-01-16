@@ -3,7 +3,7 @@ export default [
     'app-name',
     'user-name',
     'user-surname',
-    'user-avatar-src',
+    'user-email',
     'csrf-token',
     'logout-action',
 ]

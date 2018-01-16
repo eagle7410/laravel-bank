@@ -5,7 +5,9 @@
             <th v-if="number">#</th>
             <th v-for="key in columns"
                 @click="sortBy(getKeyVal(key))"
-                :class="{ active: sortKey == getKeyVal(key) }">
+                :class="{ active: sortKey == getKeyVal(key) }"
+                scope="col"
+            >
                 {{ getKeyLabel(key)| capitalize }}
                 <span class="arrow" :class="sortOrders[getKeyVal(key)] > 0 ? 'asc' : 'dsc'">
           </span>
