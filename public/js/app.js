@@ -53316,6 +53316,7 @@ __webpack_require__(178);
 __webpack_require__(179);
 __webpack_require__(180);
 __webpack_require__(181);
+__webpack_require__(235);
 
 /***/ }),
 /* 178 */
@@ -54152,6 +54153,44 @@ if (false) {
     label: 'Date created',
     alias: 'created'
 }]);
+
+/***/ }),
+/* 235 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+
+
+// Create bus.
+var bus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({});
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.mixin({
+    computed: {
+        emitter: function emitter() {
+            return bus;
+        }
+    },
+    methods: {
+        listen: function listen(event, handler) {
+            var emitter = this.emitter;
+            emitter.$off(event);
+            emitter.$on(event, handler);
+        },
+        listeners: function listeners(objectHandlers) {
+            var _this = this;
+
+            Object.keys(objectHandlers).map(function (event) {
+                return _this.listen(event, objectHandlers[event]);
+            });
+        },
+        $fire: function $fire(event, data) {
+            this.emitter.$emit(event, data);
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

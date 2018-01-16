@@ -20,23 +20,23 @@ class DepositActionsSeeder extends Seeder
             $arStatuses = [
                 [
                     'name' => 'Create',
-                    'alias' => 'create'
+                    'alias' => DepositActions::ALIAS_CREATE
                 ],
                 [
                     'name' => 'Stopped',
-                    'alias' => 'stopped'
+                    'alias' => DepositActions::ALIAS_STOPPED
                 ],
                 [
                     'name' => 'On verification',
-                    'alias' => 'verification'
+                    'alias' => DepositActions::ALIAS_VERIFICATION
                 ],
                 [
                     'name' => 'Add income',
-                    'alias' => 'income'
+                    'alias' => DepositActions::ALIAS_INCOME
                 ],
                 [
-                    'name' => 'actived',
-                    'alias' => 'Actived',
+                    'name' => 'Actived',
+                    'alias' => DepositActions::ALIAS_ACTIVED,
                 ]
             ];
 
