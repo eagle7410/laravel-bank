@@ -55,6 +55,14 @@ class Deposits extends DepositsBase
             ->get();
     }
 
+    public function getIncomeSum()
+    {
+        $sumInvest = (float) $this->createInfo->sum_after;
+        $rate = (float) $this->percent / 100;
+
+        return $sumInvest * $rate;
+    }
+
     /**
      * @param float $income
      * @param null|string $comment
@@ -99,6 +107,54 @@ class Deposits extends DepositsBase
         ]);
     }
 
+    /**
+     * @param null|string $comment
+     */
+    public function actived(?string $comment = null)
+    {
+        $dateDt = new DateTime();
+
+        $statuses = DepositStatuses::listIdAlias();
+
+        switch ($statuses[$this->status_id]) {
+            case DepositStatuses::ALIAS_STOP:
+            case DepositStatuses::ALIAS_VERIFICATION:
+                $incomeAtDt = DateHelper::getDateTimeFromString($this->income_at);
+
+                if ($incomeAtDt->format(DateHelper::DATE_FORMAT_RESPONSE) < $incomeAtDt->format(DateHelper::DATE_FORMAT_RESPONSE)) {
+                    $this->income_at = DateHelper::dateAfterMonth($dateDt->format(DateHelper::DATE_FORMAT_DB));
+                }
+
+                break;
+            default :
+                return;
+        }
+
+        $this->status_id = DepositStatuses::StatusActiveId();
+        $this->updated_by = Auth::id() || 0;
+
+        $this->saveWithHistory([
+            'comment'           => $comment,
+            'deposit_action_id' => DepositActions::ActionActivedId()
+        ]);
+    }
+
+    public function changeStatus(int $status, ?string $comment = null)
+    {
+        $statuses = DepositStatuses::listIdAlias();
+        $statusAlias = $statuses[$status];
+
+        switch ($statusAlias) {
+            case DepositStatuses::ALIAS_VERIFICATION:
+                $this->toVerification($comment);
+                break;
+            case DepositStatuses::ALIAS_STOP:
+                $this->stopped($comment);
+                break;
+            case DepositStatuses::ALIAS_ACTIVE:
+                $this->actived($comment);
+        }
+    }
     /**
      * @param array $extendData
      *

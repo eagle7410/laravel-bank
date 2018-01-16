@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DateHelper;
 use App\Models\Deposits\Deposits;
 use Illuminate\Http\Request;
 use DateTime;
@@ -24,5 +25,23 @@ class DepositController extends EmployeeController
             ]);
 
             Deposits::create($data);
+    }
+
+
+    public function changeStatus(Request $request)
+    {
+        $data = $request->validate([
+            'id'     => 'required|numeric|exists:deposits,id',
+            'status' => 'required|numeric|exists:deposit_statuses,id',
+        ]);
+
+        $deposit = Deposits::find($data['id']);
+        $deposit->changeStatus((int) $data['status']);
+
+        return [
+            'income' => DateHelper::dateStringToShowFormat($deposit->income_at),
+            'updated' => DateHelper::dateStringToShowFormat($deposit->updated_at),
+            'status' => $deposit->status_id
+        ];
     }
 }

@@ -172,8 +172,8 @@
                 if (!isHasError) {
                     if (
                         !that._minValidate('sum', 1) ||
-                        !that._minValidate('percent', 0.01)
-//                        !that._isFutureOrNowDay()
+                        !that._minValidate('percent', 0.01) ||
+                        !that._isFutureOrNowDay()
                     ) {
                         isHasError = true;
                     }

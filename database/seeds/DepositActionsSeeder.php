@@ -15,7 +15,7 @@ class DepositActionsSeeder extends Seeder
         $count = \App\Models\Deposits\DepositActions::count();
 
         if ($count === 0) {
-            DepositActions::whereIn('id', [1,2,3,4])->delete();
+            DepositActions::whereIn('id', [1,2,3,4,5])->delete();
 
             $arStatuses = [
                 [
@@ -34,6 +34,10 @@ class DepositActionsSeeder extends Seeder
                     'name' => 'Add income',
                     'alias' => 'income'
                 ],
+                [
+                    'name' => 'actived',
+                    'alias' => 'Actived',
+                ]
             ];
 
             foreach ($arStatuses as $data) {

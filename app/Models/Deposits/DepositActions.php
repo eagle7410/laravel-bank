@@ -10,6 +10,7 @@ class DepositActions extends Model
     const ALIAS_INCOME       = 'income';
     const ALIAS_STOPPED      = 'stopped';
     const ALIAS_VERIFICATION = 'verification';
+    const ALIAS_ACTIVED      = 'actived';
     /**
      * @var bool
      */
@@ -27,6 +28,14 @@ class DepositActions extends Model
     protected $fillable = [
         'name', 'alias', 'desc',
     ];
+
+    /**
+     * @return mixed
+     */
+    public static function ActionActivedId()
+    {
+        return self::where('alias', self::ALIAS_ACTIVED)->first()->id;
+    }
 
     /**
      * @return mixed

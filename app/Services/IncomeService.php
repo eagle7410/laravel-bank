@@ -43,11 +43,7 @@ class IncomeService
     public function addIncome()
     {
         foreach ($this->deposits as $deposit)
-        {
-            $sumInvest = (float) $deposit->createInfo->sum_after;
-            $rate = (float) $deposit->percent / 100;
-            $deposit->addIncome($sumInvest * $rate);
-        }
+            $deposit->addIncome($deposit->getIncomeSum());
     }
 
 }

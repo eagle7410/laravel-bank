@@ -1,6 +1,6 @@
 const extend = {
     sumProp : function(prop) {
-        return this.reduce((sum, el) => sum + (isNaN(el[prop]) ? 0 : el[prop]), 0);
+        return this.reduce((sum, el) => sum + (isNaN(el[prop]) ? 0 : Number(el[prop])), 0);
     }
 };
 

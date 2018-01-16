@@ -18,9 +18,15 @@ class DepositsStatsController extends Controller
 
     public function index()
     {
-        if (auth()->user()->hasRole(User::ROLE_EMPLOYEE)) {
+        $user = auth()->user();
+
+        if ($user->hasRole(User::ROLE_EMPLOYEE)) {
             return DepositsStats::total();
+        } else if ($user->hasRole(User::ROLE_CLIENT)) {
+            echo 'DOIt';
+            // TODO: IGOR
+        }else{
+            abort(403, 'Access denied');
         }
-        // TODO: IGOR for client
     }
 }

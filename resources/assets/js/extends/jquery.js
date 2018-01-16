@@ -1,4 +1,4 @@
-jQuery.each( [ "put", "delete" ], function( i, method ) {
+jQuery.each( [ "put", "delete", 'patch' ], function( i, method ) {
     jQuery[ method ] = function( url, data, callback, type ) {
         if ( jQuery.isFunction( data ) ) {
             type = type || callback;

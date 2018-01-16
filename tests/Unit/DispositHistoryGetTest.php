@@ -55,6 +55,8 @@ class DispositHistoryGetTest extends \Illuminate\Foundation\Testing\TestCase
 
     public function testGetHisroty()
     {
+        $nowDt = new DateTime();
+
         $res = $this->call('GET', 'deposit-history/d1');
         $res->assertJson(array (
             'actions' =>
@@ -80,7 +82,7 @@ class DispositHistoryGetTest extends \Illuminate\Foundation\Testing\TestCase
                             'comment' => NULL,
                             'sum_before' => '0.0',
                             'sum_after' => '1000.0',
-                            'date_action' => '2018/01/11',
+                            'date_action' => $nowDt->format('Y/m/d'),
                         ),
                 ),
             'status' => '1',
