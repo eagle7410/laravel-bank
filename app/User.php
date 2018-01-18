@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Helpers\DateHelper;
+use App\Models\Profiles\ProfileBase;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
@@ -12,6 +14,10 @@ class User extends Authenticatable
     const ROLE_CLIENT = 'client';
     use Notifiable;
     use HasRoles;
+
+    private $profileCache = null;
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -30,4 +36,67 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function Profile()
+    {
+        return $this->hasOne(ProfileBase::class);
+    }
+
+    public function name_first(): string
+    {
+        return $this->getProfileProp('name_first');
+    }
+
+    public function name_last(): string
+    {
+        return $this->getProfileProp('name_last');
+    }
+
+    public function desc(): string
+    {
+        return $this->getProfileProp('desc');
+    }
+    
+    public function post(): string
+    {
+        $post = $this->getProfileProp('post');
+
+        if (empty($post)) {
+            $post = $this->hasRole(self::ROLE_EMPLOYEE) ? 'Not assigned' : 'Client';
+        }
+
+        return $post;
+    }
+
+    public function member(): string
+    {
+        return DateHelper::dateStringToMemberFormat($this->created_at);
+    }
+
+    private function getProfileProp(string $prop)
+    {
+        $this->getProfile();
+
+        return $this->profileCache->{$prop} ;
+    }
+
+    private function getProfile()
+    {
+        if (!empty($this->profileCache)) {
+            return;
+        }
+
+        $this->profileCache = $this->profile;
+
+        if (empty($this->profileCache)) {
+            $isEmployee = $this->hasRole(self::ROLE_EMPLOYEE);
+
+            $this->profileCache = (object) [
+                'post' => $isEmployee ? 'Not assigned' : 'Client',
+                'name_last' => $isEmployee ? 'Employee' : 'Client',
+                'name_first' => 'Dear',
+                'desc' => ''
+            ];
+        }
+    }
 }

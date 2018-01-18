@@ -28,8 +28,8 @@ const app = new Vue({
     el: '#app',
     props : initHtmlProps.map(prop => prop.htmlAttrToVueProp()),
     data: {
-        title: 'Title',
-        leftMenu : leftMenuListEmployee,
+        title            : 'Title',
+        leftMenu         : leftMenuListEmployee,
         statuses : {
             depositsStatus
         }
@@ -54,5 +54,14 @@ const app = new Vue({
                 'X-CSRF-TOKEN': that.csrfToken
             }
         });
+    },
+    created : function () {
+        let that = this;
+
+        that.listen('NEW_PROFILE_DATA', data => {
+            that.userName = data.name_first;
+            that.userSurname = data.name_last;
+        });
     }
+
 });

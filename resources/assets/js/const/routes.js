@@ -10,5 +10,8 @@ export default {
     },
     def : {
         path : '/'
+    },
+    profile : {
+        path : '/profile'
     }
 };

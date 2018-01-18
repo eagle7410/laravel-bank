@@ -31,7 +31,7 @@
                 type: String|Object,
             },
             err : {
-                defailt : null
+                default : null
             },
             label : {
                 type: String,

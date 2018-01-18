@@ -9,6 +9,7 @@ import status from './status'
 import actions from './actions'
 import action from './action'
 import clients from './clients'
+import profile from './profile'
 
 export default {
     depositHistory,
@@ -21,5 +22,6 @@ export default {
     status,
     actions,
     action,
-    clients
+    clients,
+    profile
 }

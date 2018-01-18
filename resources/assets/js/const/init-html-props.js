@@ -4,6 +4,8 @@ export default [
     'user-name',
     'user-surname',
     'user-email',
+    'user-post',
+    'user-member',
     'csrf-token',
     'logout-action',
 ]

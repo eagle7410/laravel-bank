@@ -8,6 +8,17 @@ class DateHelper
     const DATE_FORMAT_RESPONSE = 'Y/m/d';
     const DATE_FORMAT_SHOW = 'd-m-Y';
     const DATE_FORMAT_DB = 'Y-m-d H:i:s';
+    const DATE_FORMAT_MEMBER = 'M. Y';
+
+    /**
+     * @param string $date
+     *
+     * @return string
+     */
+    public static function dateStringToMemberFormat(string $date)
+    {
+        return self::getDateTimeFromString($date)->format(self::DATE_FORMAT_MEMBER);
+    }
 
     /**
      * @param string $date

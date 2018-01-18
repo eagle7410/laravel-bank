@@ -28,7 +28,7 @@
                 required : true,
             },
             err : {
-                defailt : null
+                default : null
             },
             label : {
                 type: String,

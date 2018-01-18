@@ -1,7 +1,12 @@
 import Vue from 'vue';
 
 // Create bus.
-const bus = new Vue({});
+const bus = new Vue({
+    // For devTools
+    beforeCreate: function () {
+        this._routerRoot = {};
+    }
+});
 
 Vue.mixin({
     computed : {

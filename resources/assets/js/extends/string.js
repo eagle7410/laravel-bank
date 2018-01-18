@@ -12,6 +12,9 @@ const extend = {
             .join('')
             .firstCharToLower();
     },
+    vuePropToModelAttr : function () {
+        return this.toString().replace(/([A-Z])/g, '_$1').toLowerCase()
+    },
     toDateFormat : function (format) {
         let string = this.toString().trim();
 

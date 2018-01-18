@@ -39,3 +39,5 @@ Route::patch('/deposit', 'DepositController@changeStatus')->name('deposit-change
 Route::get('/deposits', 'DepositsController@index')->name('deposits');
 Route::get('/deposit-history/{number}', 'DepositHistoryController@index')->name('deposit-history');
 Route::get('/deposits-stats', 'DepositsStatsController@index')->name('deposit-stats');
+
+Route::put('/profile' , 'ProfileController@index')->name('profile-update');

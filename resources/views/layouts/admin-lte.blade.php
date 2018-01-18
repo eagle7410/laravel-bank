@@ -15,10 +15,11 @@
 
 <div id="app" class="wrapper"
      app-name="{{config('app.name', 'Laravel')}}"
-     user-avatar-src="{{asset('images/boxed-bg.jpg')}}"
      user-email="{{auth()->user()->email}}"
-     user-name="Alexander"
-     user-surname="Pierce"
+     user-name="{{auth()->user()->name_first()}}"
+     user-surname="{{auth()->user()->name_last()}}"
+     user-member="{{auth()->user()->member()}}"
+     user-post="{{auth()->user()->post()}}"
      csrf-token="{{csrf_token()}}"
      logout-action="{{ route('logout') }}"
 >

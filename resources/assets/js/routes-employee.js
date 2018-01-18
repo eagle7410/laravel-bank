@@ -1,5 +1,5 @@
 import {routesEmployee as routes} from './const'
-import DashBoard from './components/dashboard/dashBoard'
+import Share from  './routes/share'
 import Deposits from './components/deposits/deposits'
 import Deposit from './components/deposits/deposit'
 import Users from './components/users/users'
@@ -15,26 +15,9 @@ import {
 } from './const/breadcrumbs'
 
 export default [
+    ...Share,
     ...routesDepositStatuses,
     ...routesDepositActions,
-    {
-        path: '/',
-        component: DashBoard,
-        meta : {
-            breadcrumbs : [
-                breadcrumbDash
-            ]
-        }
-    },
-    {
-        ...routes.dash,
-        component: DashBoard,
-        meta : {
-            breadcrumbs : [
-                breadcrumbDash
-            ]
-        }
-    },
     {
         ...routes.usrs,
         component: Users,

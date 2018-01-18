@@ -59,5 +59,6 @@ const app = new Vue({
             that[prop.htmlAttrToVueProp()] = val;
 
         });
-    }
+    },
+
 });

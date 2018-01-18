@@ -1,13 +1,9 @@
 import {routes, iconClasses} from './const'
-import DashBoard from './components/dashboard/dashBoard.vue'
+import Share from  './routes/share'
 import MyDeposits from './components/my-deposits/my-deposits.vue'
 import MyDepositHistory from './components/my-deposit-history/my-deposit-history'
 
-const breadcrumbDash = {
-    label : 'DashBoard',
-    route : routes.dash,
-    iconClass : iconClasses.dash
-};
+
 const breadcrumbDeposits = {
     label : 'My deposits',
     route : routes.deposits,
@@ -15,26 +11,7 @@ const breadcrumbDeposits = {
 };
 
 export default [
-    {
-        path: '/',
-        component: DashBoard,
-        meta : {
-            breadcrumbs : [
-                breadcrumbDash
-            ]
-        }
-
-    },
-    {
-        ...routes.dash,
-        component: DashBoard,
-        meta : {
-            breadcrumbs : [
-                breadcrumbDash
-            ]
-        }
-
-    },
+    ...Share,
     {
         ...routes.deposits,
         component: MyDeposits,
