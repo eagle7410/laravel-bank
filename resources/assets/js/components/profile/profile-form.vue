@@ -1,15 +1,12 @@
 <template>
     <div class="col-md-4 profile-form">
         <form>
-            <div class="alert alert-success"
-                 v-if="isShowMessOk"
-            >
-                <i href="#" class="close"  aria-label="close" title="close"
-                   @click.prevent="clickCloseOkMess"
-                >×</i>
-                <b>Success!</b> Profile updated.
-            </div>
+            <alert-success :is-show="isShowMessOk" message="Profile updated."
+                           @ALERT_SUCCESS_CLOSE="isShowMessOk = false"
+            ></alert-success>
+
             <server_error_view :serverErrors="serverErrors"></server_error_view>
+
             <component v-for="(field, inx) in fields"
                        v-model="field.val"
                        v-bind="field.attrs"
@@ -26,9 +23,14 @@
 </template>
 <script>
     import apis from '../../apis/employee'
+    import AlertSuccess from '../common/alert-success.vue'
     let that;
 
     export default {
+        components : {
+            AlertSuccess,
+        },
+
         props : {
             defData : Object
         },
@@ -70,9 +72,6 @@
                     that.serverErrors = responseJSON.errors
                 }
             },
-            clickCloseOkMess : () => {
-                that.isShowMessOk = false;
-            },
             clickSubmit : () => {
                 if (!that._validate()) {
                     return false;
@@ -101,7 +100,7 @@
                         attrs   : {
                             name        : 'nameFirst',
                             label       : 'Name',
-                            help        :'Is field is required',
+                            help        : 'Is field is required',
                             placeholder : 'Enter name',
                         }
                     },
@@ -112,7 +111,7 @@
                         attrs   : {
                             name        : 'nameLast',
                             label       : 'Surname',
-                            help        :'Is field is required',
+                            help        : 'Is field is required',
                             placeholder : 'Enter surname',
                         }
                     }
