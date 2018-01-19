@@ -23,7 +23,7 @@ class DepositsStatsController extends Controller
         if ($user->hasRole(User::ROLE_EMPLOYEE)) {
             return DepositsStats::total();
         } else if ($user->hasRole(User::ROLE_CLIENT)) {
-            echo 'DOIt';
+            echo 'DepositsStats@index@client';
             // TODO: IGOR
         }else{
             abort(403, 'Access denied');

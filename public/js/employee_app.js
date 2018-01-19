@@ -55568,7 +55568,6 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
             that.userSurname = data.name_last;
         });
     }
-
 });
 
 /***/ }),
