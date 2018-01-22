@@ -25,8 +25,8 @@
 <script>
 
     import Modal from '../common/modal'
-    import {routesEmployee as routes, employeeDepositGrid} from '../../const'
-    import {depositsStatus} from '../../const'
+    import {routesEmployee as routes, depositGrid} from '../../const'
+    import {employeeDepositsStatus} from '../../const'
 
     let that;
 
@@ -44,7 +44,7 @@
             return {
                 title: 'Deposits',
                 deposits : [],
-                gridColumns : employeeDepositGrid,
+                gridColumns : depositGrid,
                 modalTitle  : '',
                 depositId   : null,
                 depositNewStatus : null,

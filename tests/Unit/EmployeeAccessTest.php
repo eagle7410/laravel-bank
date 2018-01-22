@@ -127,6 +127,7 @@ class EmployeeAccessTest extends \Illuminate\Foundation\Testing\TestCase
             switch ("{$request->url}@{$request->method}") {
                 case 'home@GET':
                 case 'profile@PUT':
+                case 'deposits@GET':
                 case 'deposits-stats@GET':
                 case 'deposit-history/d1@GET':
                     break;

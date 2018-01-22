@@ -9,6 +9,7 @@ import leftMenuListEmployee from './left-menu-list-employee'
 import depositsStatus from './deposits-status'
 import depositHistoryActions from './deposit-history-actions'
 import employeeDepositGrid from './employee-deposit-grid'
+import depositGrid from './deposit-grid'
 
 export {
     routes,
@@ -21,5 +22,6 @@ export {
     leftMenuListEmployee,
     depositsStatus,
     depositHistoryActions,
-    employeeDepositGrid
+    employeeDepositGrid,
+    depositGrid,
 };

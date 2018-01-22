@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use DateTime;
 
 
-class DepositController extends EmployeeController
+class DepositController extends EmployeeBaseController
 {
     public function save(Request $request)
         {

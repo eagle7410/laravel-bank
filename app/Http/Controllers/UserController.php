@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
-class UserController extends EmployeeController
+class UserController extends EmployeeBaseController
 {
     public function save(Request $request)
     {

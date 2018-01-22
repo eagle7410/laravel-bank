@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Support\Facades\Auth;
 
-class EmployeeController extends Controller
+class EmployeeBaseController extends AuthBaseController
 {
     /**
      * RolesController constructor.
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        parent::__construct();
         $this->middleware(['role:'.User::ROLE_EMPLOYEE]);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Deposits\DepositActions;
 use Illuminate\Http\Request;
 
-class ActionController extends EmployeeController
+class ActionController extends EmployeeBaseController
 {
     public function index(Request $request)
     {

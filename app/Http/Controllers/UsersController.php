@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\Validator;
-
-class UsersController extends EmployeeController
+class UsersController extends EmployeeBaseController
 {
     public function index()
     {

@@ -188,17 +188,20 @@ module.exports = function normalizeComponent (
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__deposits_status__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__deposit_history_actions__ = __webpack_require__(185);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__employee_deposit_grid__ = __webpack_require__(186);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_1__routes__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_2__routes_employee__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__deposit_grid__ = __webpack_require__(252);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_1__routes__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_2__routes_employee__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__components__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_4__componentsEmployee__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_5__init_html_props__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_0__icon_classes__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_6__left_menu_list__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_7__left_menu_list_employee__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_5__init_html_props__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__icon_classes__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_6__left_menu_list__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_7__left_menu_list_employee__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_8__deposits_status__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_9__deposit_history_actions__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_10__employee_deposit_grid__["a"]; });
+/* unused harmony reexport depositHistoryActions */
+/* unused harmony reexport employeeDepositGrid */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_11__deposit_grid__["a"]; });
+
 
 
 
@@ -13714,7 +13717,7 @@ module.exports = Component.exports
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__deposit__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__deposit_history__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_deposit_history__ = __webpack_require__(253);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_dash__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_profile__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__users__ = __webpack_require__(152);
@@ -13739,7 +13742,7 @@ module.exports = Component.exports
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    depositHistory: __WEBPACK_IMPORTED_MODULE_1__deposit_history__["a" /* default */],
+    depositHistory: __WEBPACK_IMPORTED_MODULE_1__common_deposit_history__["a" /* default */],
     deposit: __WEBPACK_IMPORTED_MODULE_0__deposit__["a" /* default */],
     dash: __WEBPACK_IMPORTED_MODULE_2__common_dash__["a" /* default */],
     users: __WEBPACK_IMPORTED_MODULE_4__users__["a" /* default */],
@@ -19280,7 +19283,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return window.apis.action;
         },
         routeBack: function routeBack() {
-            return __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depActions;
+            return __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depActions;
         }
     }
 });
@@ -19340,8 +19343,8 @@ var that = void 0;
     data: function data() {
         return {
             title: 'Deposits actions',
-            routeEdit: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depActionEdit,
-            routeCreate: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depActionCreate,
+            routeEdit: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depActionEdit,
+            routeCreate: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depActionCreate,
             actions: []
         };
     },
@@ -19430,7 +19433,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return window.apis.status;
         },
         routeBack: function routeBack() {
-            return __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depStatuses;
+            return __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatuses;
         }
     }
 });
@@ -19490,8 +19493,8 @@ var that = void 0;
     data: function data() {
         return {
             title: 'Deposits statuses',
-            routeEdit: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depStatusEdit,
-            routeCreate: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depStatusCreate,
+            routeEdit: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusEdit,
+            routeCreate: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusCreate,
             statuses: []
         };
     },
@@ -19985,7 +19988,7 @@ var that = void 0;
         },
         clickBack: function clickBack() {
             if (that.$router) {
-                that.$router.push(__WEBPACK_IMPORTED_MODULE_2__const__["k" /* routesEmployee */].deposits);
+                that.$router.push(__WEBPACK_IMPORTED_MODULE_2__const__["j" /* routesEmployee */].deposits);
             }
         }
     },
@@ -20215,7 +20218,7 @@ var that = void 0;
         return {
             title: 'Deposits',
             deposits: [],
-            gridColumns: __WEBPACK_IMPORTED_MODULE_1__const__["e" /* employeeDepositGrid */],
+            gridColumns: __WEBPACK_IMPORTED_MODULE_1__const__["c" /* depositGrid */],
             modalTitle: '',
             depositId: null,
             depositNewStatus: null
@@ -20225,7 +20228,7 @@ var that = void 0;
     methods: {
         clickNew: function clickNew() {
             if (that.$router) {
-                that.$router.push(__WEBPACK_IMPORTED_MODULE_1__const__["k" /* routesEmployee */].depCreate);
+                that.$router.push(__WEBPACK_IMPORTED_MODULE_1__const__["j" /* routesEmployee */].depCreate);
             }
         }
     },
@@ -20243,17 +20246,17 @@ var that = void 0;
                 that.depositNewStatus = data.status;
 
                 switch (data.status) {
-                    case __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].active:
+                    case depositsStatus.active:
                         modalTitle = 'Deposit to verification stopped';
-                        that.depositNewStatus = __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].verification;
+                        that.depositNewStatus = depositsStatus.verification;
                         break;
-                    case __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].verification:
+                    case depositsStatus.verification:
                         modalTitle = 'Deposit be stopped';
-                        that.depositNewStatus = __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].stopped;
+                        that.depositNewStatus = depositsStatus.stopped;
                         break;
-                    case __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].stopped:
+                    case depositsStatus.stopped:
                         modalTitle = 'Deposit be running';
-                        that.depositNewStatus = __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].active;
+                        that.depositNewStatus = depositsStatus.active;
                         break;
                 }
 
@@ -20711,7 +20714,7 @@ var that = void 0;
 
     data: function data() {
         return {
-            routeProfile: __WEBPACK_IMPORTED_MODULE_1__const__["j" /* routes */].profile
+            routeProfile: __WEBPACK_IMPORTED_MODULE_1__const__["i" /* routes */].profile
         };
     },
 
@@ -21296,13 +21299,13 @@ var that = void 0;
 
         that.items = (that.$root.leftMenu || []).map(function (item) {
             if (!item.route) {
-                item.route = __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routes */].def;
+                item.route = __WEBPACK_IMPORTED_MODULE_0__const__["i" /* routes */].def;
             }
 
             if (item.subs) {
                 item.subs = item.subs.map(function (sub) {
                     if (!sub.route) {
-                        sub.route = __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routes */].def;
+                        sub.route = __WEBPACK_IMPORTED_MODULE_0__const__["i" /* routes */].def;
                     }
 
                     return sub;
@@ -21889,13 +21892,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 var that = void 0;
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    methods: {
+        emitEvent: function emitEvent(data) {
+            return that.$fire('DEPOSIT_ACTION', data);
+        }
+    },
+
     props: {
-        deposit: {
+        entry: {
             type: Object,
             required: true
         }
@@ -21909,7 +21927,7 @@ var that = void 0;
 
     computed: {
         historyHref: function historyHref() {
-            return '#/deposit-history/' + that.deposit.number;
+            return '#/deposit-history/' + that.entry.number;
         }
     },
 
@@ -21934,22 +21952,74 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _vm.deposit.status === _vm.statuses.stopped
-      ? _c("a", { staticClass: "action" }, [
-          _c("i", {
-            staticClass: "fa fa-play",
-            attrs: { "aria-hidden": "true", title: "Run" }
-          })
-        ])
+    _vm.entry.status === _vm.statuses.stopped ||
+    _vm.entry.status === _vm.statuses.verification
+      ? _c(
+          "a",
+          {
+            staticClass: "action",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.emitEvent({
+                  status: _vm.statuses.stopped,
+                  id: _vm.entry.id
+                })
+              }
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fa fa-play",
+              attrs: { "aria-hidden": "true", title: "Run" }
+            })
+          ]
+        )
       : _vm._e(),
     _vm._v(" "),
-    _vm.deposit.status === _vm.statuses.active
-      ? _c("a", { staticClass: "action" }, [
-          _c("i", {
-            staticClass: "fa fa-stop",
-            attrs: { "aria-hidden": "true", title: "Stop" }
-          })
-        ])
+    _vm.entry.status === _vm.statuses.active
+      ? _c(
+          "a",
+          {
+            staticClass: "action",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.emitEvent({ status: _vm.statuses.active, id: _vm.entry.id })
+              }
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fa fa-stop",
+              attrs: { "aria-hidden": "true", title: "Stop" }
+            })
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.entry.status === _vm.statuses.verification
+      ? _c(
+          "a",
+          {
+            staticClass: "action",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.emitEvent({
+                  status: _vm.statuses.verification,
+                  id: _vm.entry.id
+                })
+              }
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fa fa-check-circle-o",
+              attrs: { "aria-hidden": "true", title: "Checked" }
+            })
+          ]
+        )
       : _vm._e()
   ])
 }
@@ -22009,6 +22079,9 @@ exports.push([module.i, "\n.alert[data-v-436b5f54] {\n    padding: 0.2em 5px;\n}
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_modal__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__common_modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const__ = __webpack_require__(1);
 //
 //
 //
@@ -22035,33 +22108,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
+
 
 var that = void 0;
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        Modal: __WEBPACK_IMPORTED_MODULE_0__common_modal___default.a
+    },
 
     computed: {
         apiDeposits: function apiDeposits() {
@@ -22069,16 +22126,17 @@ var that = void 0;
         },
         totalSum: function totalSum() {
             return that.deposits.sumProp('sum');
-        },
-        totalLastIncome: function totalLastIncome() {
-            return that.deposits.sumProp('lastIncome');
         }
     },
 
     data: function data() {
         return {
             title: 'My deposits',
-            deposits: []
+            deposits: [],
+            gridColumns: __WEBPACK_IMPORTED_MODULE_1__const__["c" /* depositGrid */],
+            modalTitle: '',
+            depositId: null,
+            depositNewStatus: null
         };
     },
 
@@ -22091,6 +22149,55 @@ var that = void 0;
             return that.deposits = deposits || [];
         }).catch(function (err) {
             return console.error('Error get deposits');
+        });
+
+        that.listeners({
+            DEPOSIT_ACTION: function DEPOSIT_ACTION(data) {
+                var modalTitle = 'Unknown status';
+
+                that.depositId = data.id;
+                that.depositNewStatus = data.status;
+
+                switch (data.status) {
+                    case __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].active:
+                        modalTitle = 'Deposit to verification stopped';
+                        that.depositNewStatus = __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].verification;
+                        break;
+                    case __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].verification:
+                        modalTitle = 'Deposit be stopped';
+                        that.depositNewStatus = __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].stopped;
+                        break;
+                    case __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].stopped:
+                        modalTitle = 'Deposit be running';
+                        that.depositNewStatus = __WEBPACK_IMPORTED_MODULE_1__const__["d" /* depositsStatus */].active;
+                        break;
+                }
+
+                that.modalTitle = modalTitle;
+
+                that.$fire('SHOW_MODAL');
+            },
+            MODAL_SAVE: function MODAL_SAVE() {
+                that.apiDeposits.changeStatus({
+                    id: that.depositId,
+                    status: that.depositNewStatus
+                }).then(function (data) {
+                    var deposit = that.deposits.find(function (deposit) {
+                        return deposit.id === that.depositId;
+                    });
+
+                    Object.keys(data).map(function (prop) {
+                        if (deposit[prop]) {
+                            deposit[prop] = data[prop];
+                        }
+                    });
+
+                    that.depositId = null;
+                    that.depositNewStatus = null;
+                }).catch(function (err) {
+                    return console.error('Error change deposit', err);
+                });
+            }
         });
     }
 });
@@ -22108,104 +22215,44 @@ var render = function() {
       _c("h3", { staticClass: "box-title" }, [_vm._v(_vm._s(_vm.title) + ".")])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "box-body" }, [
-      _c("table", { staticClass: "table table-striped" }, [
-        _vm._m(0, false, false),
+    _c(
+      "div",
+      { staticClass: "box-body" },
+      [
+        _c("div", { staticClass: "box-header with-border" }, [
+          _c("h3", { staticClass: "box-title" }, [
+            _vm._v(
+              _vm._s(_vm.title) + ". Total sum " + _vm._s(_vm.totalSum) + "$"
+            )
+          ])
+        ]),
         _vm._v(" "),
         _c(
-          "tbody",
+          "div",
+          { staticClass: "box-body" },
           [
-            !_vm.deposits.length
-              ? _c("tr", [
-                  _c("td", { attrs: { colspan: "7" } }, [
-                    _vm._v("You don't have deposits")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm._l(_vm.deposits, function(deposit, index) {
-              return _c("tr", [
-                _c("th", { attrs: { scope: "row" } }, [
-                  _vm._v(_vm._s(index + 1))
-                ]),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  [_c("my_deposits_actions", { attrs: { deposit: deposit } })],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "th",
-                  { attrs: { scope: "col" } },
-                  [
-                    _c("my_deposits_status_label", {
-                      attrs: { status: deposit.status }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(deposit.number))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(deposit.sum))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(deposit.percent))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(deposit.lastIncome))])
-              ])
+            _c("grid", {
+              attrs: { data: _vm.deposits, columns: _vm.gridColumns }
             })
           ],
-          2
+          1
         ),
         _vm._v(" "),
-        _vm.deposits.length
-          ? _c("tfoot", [
-              _c("tr", [
-                _vm._m(1, false, false),
-                _vm._v(" "),
-                _c("td", { attrs: { colspan: "2" } }, [
-                  _vm._v(_vm._s(_vm.totalSum))
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.totalLastIncome))])
-              ])
-            ])
-          : _vm._e()
-      ])
-    ])
+        _c("modal", {
+          attrs: {
+            title: _vm.modalTitle,
+            "body-html": "<p>Are you sure of the status change?</p>",
+            "btn-save": "Yes",
+            "btn-save-css": "btn btn-danger",
+            "btn-close": "Cancel"
+          }
+        })
+      ],
+      1
+    )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Actions")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Status")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Number")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Sum, $")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Percent, %")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Last income, $")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { colspan: "4" } }, [_c("b", [_vm._v("Total")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -22736,20 +22783,7 @@ var that = void 0;
 });
 
 /***/ }),
-/* 151 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    getAll: function getAll(depositId) {
-        return new Promise(function (ok, bad) {
-            $.get("/deposit-history/" + depositId).done(ok).fail(bad);
-        });
-    }
-});
-
-/***/ }),
+/* 151 */,
 /* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -23973,7 +24007,7 @@ var that = void 0;
         },
         redirectToUsers: function redirectToUsers() {
             if (that.$router) {
-                that.$router.push(__WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].usrs);
+                that.$router.push(__WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].usrs);
             }
         }
     },
@@ -24273,7 +24307,7 @@ var that = void 0;
     methods: {
         clickNewUser: function clickNewUser() {
             if (that.$router) {
-                that.$router.push(__WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].new_usr);
+                that.$router.push(__WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].new_usr);
             }
         }
     },
@@ -24475,7 +24509,7 @@ for (var name in includes) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
+/* unused harmony default export */ var _unused_webpack_default_export = ({
     create: 1,
     stopped: 2,
     verification: 3,
@@ -24491,7 +24525,7 @@ for (var name in includes) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_deposits_actions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_deposits_actions__);
 
 
-/* harmony default export */ __webpack_exports__["a"] = ([{ label: 'Action', comp: __WEBPACK_IMPORTED_MODULE_0__components_deposits_actions___default.a }, { label: 'Status', comp: 'my_deposits_status_label' }, 'number', 'email', {
+/* unused harmony default export */ var _unused_webpack_default_export = ([{ label: 'Action', comp: __WEBPACK_IMPORTED_MODULE_0__components_deposits_actions___default.a }, { label: 'Status', comp: 'my_deposits_status_label' }, 'number', 'email', {
     label: 'Sum, $',
     alias: 'sum'
 }, {
@@ -24530,22 +24564,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ([_extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routes */].def, {
+/* harmony default export */ __webpack_exports__["a"] = ([_extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["i" /* routes */].def, {
     component: __WEBPACK_IMPORTED_MODULE_1__components_dashboard_dashBoard_vue___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["a" /* breadcrumbDash */]]
     }
-}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routes */].dash, {
+}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["i" /* routes */].dash, {
     component: __WEBPACK_IMPORTED_MODULE_1__components_dashboard_dashBoard_vue___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["a" /* breadcrumbDash */]]
     }
-}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routes */].profile, {
+}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["i" /* routes */].profile, {
     component: __WEBPACK_IMPORTED_MODULE_2__components_profile_profile_vue___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["a" /* breadcrumbDash */], {
             label: 'You profile',
-            route: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routes */].profile
+            route: __WEBPACK_IMPORTED_MODULE_0__const__["i" /* routes */].profile
         }]
     }
 })]);
@@ -55524,7 +55558,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     mixins: [__WEBPACK_IMPORTED_MODULE_2__app_common__["a" /* default */]],
     data: {
-        leftMenu: __WEBPACK_IMPORTED_MODULE_5__const__["i" /* leftMenuListEmployee */]
+        leftMenu: __WEBPACK_IMPORTED_MODULE_5__const__["h" /* leftMenuListEmployee */]
     },
     router: router
 });
@@ -55565,44 +55599,44 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ([].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__routes_share__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_7__routes_deposit_statuses__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_8__routes_deposit_actions__["a" /* default */]), [_extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].usrs, {
+/* harmony default export */ __webpack_exports__["a"] = ([].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__routes_share__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_7__routes_deposit_statuses__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_8__routes_deposit_actions__["a" /* default */]), [_extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].usrs, {
     component: __WEBPACK_IMPORTED_MODULE_4__components_users_users___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_9__const_breadcrumbs__["a" /* breadcrumbDash */], {
             label: 'Users',
-            route: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].usrs
+            route: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].usrs
         }]
     }
-}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].new_usr, {
+}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].new_usr, {
     component: __WEBPACK_IMPORTED_MODULE_5__components_user_new_user___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_9__const_breadcrumbs__["a" /* breadcrumbDash */], __WEBPACK_IMPORTED_MODULE_9__const_breadcrumbs__["e" /* breadcrumbUsers */], {
             label: 'New',
-            route: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].usrs
+            route: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].usrs
         }]
     }
-}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].deposits, {
+}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].deposits, {
     component: __WEBPACK_IMPORTED_MODULE_2__components_deposits_deposits___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_9__const_breadcrumbs__["a" /* breadcrumbDash */], {
             label: 'Deposits',
-            route: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].deposits
+            route: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].deposits
         }]
     }
-}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depCreate, {
+}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depCreate, {
     component: __WEBPACK_IMPORTED_MODULE_3__components_deposits_deposit___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_9__const_breadcrumbs__["a" /* breadcrumbDash */], __WEBPACK_IMPORTED_MODULE_9__const_breadcrumbs__["d" /* breadcrumbDeposits */], {
             label: 'Create',
-            route: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depCreate
+            route: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depCreate
         }]
     }
-}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depositHistory, {
+}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depositHistory, {
     component: __WEBPACK_IMPORTED_MODULE_6__components_my_deposit_history_my_deposit_history___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_9__const_breadcrumbs__["a" /* breadcrumbDash */], __WEBPACK_IMPORTED_MODULE_9__const_breadcrumbs__["d" /* breadcrumbDeposits */], {
             label: 'Deposit history',
-            route: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depositHistory
+            route: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depositHistory
         }]
     }
 })]));
@@ -55626,23 +55660,23 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ([_extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depStatusCreate, {
+/* harmony default export */ __webpack_exports__["a"] = ([_extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusCreate, {
     component: __WEBPACK_IMPORTED_MODULE_2__components_deposits_statuses_status___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["a" /* breadcrumbDash */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["d" /* breadcrumbDeposits */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["c" /* breadcrumbDepositStatuses */], {
             label: 'Create',
-            route: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depStatusCreate
+            route: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusCreate
         }]
     }
-}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depStatusEdit, {
+}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusEdit, {
     component: __WEBPACK_IMPORTED_MODULE_2__components_deposits_statuses_status___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["a" /* breadcrumbDash */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["d" /* breadcrumbDeposits */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["c" /* breadcrumbDepositStatuses */], {
             label: 'Edit',
-            route: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depStatusEdit
+            route: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusEdit
         }]
     }
-}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depStatuses, {
+}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatuses, {
     component: __WEBPACK_IMPORTED_MODULE_1__components_deposits_statuses_statuses___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["a" /* breadcrumbDash */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["d" /* breadcrumbDeposits */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["c" /* breadcrumbDepositStatuses */]]
@@ -55668,23 +55702,23 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ([_extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depActionCreate, {
+/* harmony default export */ __webpack_exports__["a"] = ([_extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depActionCreate, {
     component: __WEBPACK_IMPORTED_MODULE_2__components_deposits_actions_action___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["a" /* breadcrumbDash */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["d" /* breadcrumbDeposits */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["b" /* breadcrumbDepositActions */], {
             label: 'Create',
-            route: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depStatusCreate
+            route: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusCreate
         }]
     }
-}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depActionEdit, {
+}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depActionEdit, {
     component: __WEBPACK_IMPORTED_MODULE_2__components_deposits_actions_action___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["a" /* breadcrumbDash */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["d" /* breadcrumbDeposits */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["b" /* breadcrumbDepositActions */], {
             label: 'Edit',
-            route: __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depStatusEdit
+            route: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusEdit
         }]
     }
-}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["k" /* routesEmployee */].depActions, {
+}), _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depActions, {
     component: __WEBPACK_IMPORTED_MODULE_1__components_deposits_actions_actions___default.a,
     meta: {
         breadcrumbs: [__WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["a" /* breadcrumbDash */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["d" /* breadcrumbDeposits */], __WEBPACK_IMPORTED_MODULE_3__const_breadcrumbs__["b" /* breadcrumbDepositActions */]]
@@ -55729,7 +55763,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     el: '#app',
-    props: __WEBPACK_IMPORTED_MODULE_2__const__["g" /* initHtmlProps */].map(function (prop) {
+    props: __WEBPACK_IMPORTED_MODULE_2__const__["f" /* initHtmlProps */].map(function (prop) {
         return prop.htmlAttrToVueProp();
     }),
     data: function data() {
@@ -55744,7 +55778,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         var that = this;
 
         // Properties get from root elements and set to app props.
-        __WEBPACK_IMPORTED_MODULE_2__const__["g" /* initHtmlProps */].map(function (prop) {
+        __WEBPACK_IMPORTED_MODULE_2__const__["f" /* initHtmlProps */].map(function (prop) {
             var val = '';
 
             if (that.$el.attributes[prop] && that.$el.attributes[prop].value) {
@@ -55766,6 +55800,43 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         that.listen('NEW_PROFILE_DATA', function (data) {
             that.userName = data.name_first;
             that.userSurname = data.name_last;
+        });
+    }
+});
+
+/***/ }),
+/* 252 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_deposits_actions__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_deposits_actions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_deposits_actions__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ([{ label: 'Action', comp: __WEBPACK_IMPORTED_MODULE_0__components_deposits_actions___default.a }, { label: 'Status', comp: 'my_deposits_status_label' }, 'number', {
+    label: 'Sum, $',
+    alias: 'sum'
+}, {
+    label: 'Percent, %',
+    alias: 'percent'
+}, {
+    label: 'Date start',
+    alias: 'start'
+}, {
+    label: 'Date next income',
+    alias: 'income'
+}]);
+
+/***/ }),
+/* 253 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    getAll: function getAll(depositId) {
+        return new Promise(function (ok, bad) {
+            $.get("/deposit-history/" + depositId).done(ok).fail(bad);
         });
     }
 });

@@ -4,26 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Deposits\DepositsStats;
 use App\User;
-use Illuminate\Http\Request;
 
-class DepositsStatsController extends Controller
+class DepositsStatsController extends AuthBaseController
 {
-    /**
-     * RolesController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
-        $user = auth()->user();
-
-        if ($user->hasRole(User::ROLE_EMPLOYEE)) {
+        if ($this->user->hasRole(User::ROLE_EMPLOYEE)) {
             return DepositsStats::total();
-        } else if ($user->hasRole(User::ROLE_CLIENT)) {
-            return DepositsStats::total($user->id);
+        } else if ($this->user->hasRole(User::ROLE_CLIENT)) {
+            return DepositsStats::total($this->user->id);
         }else{
             abort(403, 'Access denied');
         }

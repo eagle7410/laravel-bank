@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
-class RolesController extends EmployeeController
+class RolesController extends EmployeeBaseController
 {
     public function index()
     {
