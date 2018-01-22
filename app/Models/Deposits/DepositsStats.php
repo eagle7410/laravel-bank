@@ -11,7 +11,7 @@ class DepositsStats extends DepositsBase
 
     public static function total(?int $userId = null): array
     {
-        $totalSum = self::sum('sum');
+        $totalSum = self::totalDepositsSum($userId);
         $totalDeposits = self::totalDeposit($userId);
 
         $counts = self::countsDepositByStatuses($userId);
@@ -45,6 +45,14 @@ class DepositsStats extends DepositsBase
         ];
     }
 
+    public static function totalDepositsSum(?int $userId)
+    {
+        if (empty($userId)) {
+            return self::sum('sum');
+        }
+
+        return self::where('user_id', $userId)->sum('sum');
+    }
     /**
      * @param int|null $userId
      *

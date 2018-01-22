@@ -24,5 +24,4 @@ class ProfileController extends Controller
 
         Profile::create($data);
     }
-
 }
