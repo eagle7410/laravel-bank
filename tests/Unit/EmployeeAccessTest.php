@@ -130,6 +130,7 @@ class EmployeeAccessTest extends \Illuminate\Foundation\Testing\TestCase
                 case 'deposits@GET':
                 case 'deposits-stats@GET':
                 case 'deposit-history/d1@GET':
+                case 'deposit@'.self::METHOD_PATCH:
                     break;
                 default:
                     $request->status = 403;

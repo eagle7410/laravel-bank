@@ -55633,6 +55633,11 @@ var breadcrumbDeposits = {
         return new Promise(function (ok, bad) {
             $.get('/deposits').done(ok).fail(bad);
         });
+    },
+    changeStatus: function changeStatus(data) {
+        return new Promise(function (ok, bad) {
+            $.patch('/deposit', data).done(ok).fail(bad);
+        });
     }
 });
 

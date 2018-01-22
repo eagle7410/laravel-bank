@@ -5,4 +5,9 @@ export default {
             .fail(bad);
 
     }),
+    changeStatus: (data) => new Promise((ok, bad) => {
+        $.patch('/deposit', data)
+            .done(ok)
+            .fail(bad);
+    }),
 };

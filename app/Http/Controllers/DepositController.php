@@ -4,27 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Helpers\DateHelper;
 use App\Models\Deposits\Deposits;
+use App\User;
 use Illuminate\Http\Request;
 use DateTime;
 
 
-class DepositController extends EmployeeBaseController
+class DepositController extends AuthBaseController
 {
     public function save(Request $request)
-        {
-            $yesterday = new DateTime();
-            $yesterday->setTime(0, 0, 1);
-            $yesterday->modify('-1 day');
+    {
+        if (!$this->user->hasRole(User::ROLE_EMPLOYEE)) {
+            return abort(403, 'Access denied');
+        }
 
-            $data = $request->validate([
-                'number'    => 'required|string|unique:deposits',
-                'sum'       => 'required|numeric|min:1',
-                'percent'   => 'required|numeric|min:0.01',
-                'user_id'   => 'required|numeric|exists:users,id',
-                'start_at'  => 'required|date|after:"'.$yesterday->format('Y/m/d').' 00:00:00"',
-            ]);
+        $yesterday = new DateTime();
+        $yesterday->setTime(0, 0, 1);
+        $yesterday->modify('-1 day');
 
-            Deposits::create($data);
+        $data = $request->validate([
+            'number'    => 'required|string|unique:deposits',
+            'sum'       => 'required|numeric|min:1',
+            'percent'   => 'required|numeric|min:0.01',
+            'user_id'   => 'required|numeric|exists:users,id',
+            'start_at'  => 'required|date|after:"'.$yesterday->format('Y/m/d').' 00:00:00"',
+        ]);
+
+        Deposits::create($data);
     }
 
 
