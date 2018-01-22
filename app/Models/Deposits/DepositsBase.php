@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class DepositsBase extends Model
 {
+    const TABLE_NAME = 'deposits';
+
     /**
      * @var string
      */
-    protected $table = 'deposits';
+    protected $table = self::TABLE_NAME;
     /**
      **
      * The attributes that are mass assignable.

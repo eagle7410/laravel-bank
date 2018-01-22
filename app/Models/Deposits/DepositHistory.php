@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DepositHistory extends Model
 {
+    const TABLE_NAME = 'deposit_history';
     /*
     * @var bool
     */
@@ -13,5 +14,11 @@ class DepositHistory extends Model
     /**
      * @var string
      */
-    protected $table = 'deposit_history';
+    protected $table = self::TABLE_NAME;
+
+    public function deposit()
+    {
+        return $this->belongsTo(DepositsBase::class, 'id', 'deposit_id');
+    }
+
 }

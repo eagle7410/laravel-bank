@@ -9,14 +9,12 @@ class DepositsStats extends DepositsBase
     protected function create(array $data) {throw new \Error(__METHOD__ . '. Not create');}
     public function save(array $options = []){throw new \Error(__METHOD__ . '. Not save');}
 
-    public static function total()
+    public static function total(?int $userId = null): array
     {
         $totalSum = self::sum('sum');
-        $totalDeposits = DepositHistory::where('deposit_action_id', DepositActions::ActionCreateId())->sum('sum_after');
+        $totalDeposits = self::totalDeposit($userId);
 
-        $counts = self::groupBy('status_id')
-            ->select(DB::raw('count(id) as deposit_count, status_id'))
-            ->get();
+        $counts = self::countsDepositByStatuses($userId);
 
         $listStatuses = DepositStatuses::listIdAlias();
 
@@ -45,6 +43,51 @@ class DepositsStats extends DepositsBase
             "depositsCountStopped"      => $depositsCountStopped,
             "depositsCountVerification" => $depositsCountVerification
         ];
+    }
 
+    /**
+     * @param int|null $userId
+     *
+     * @return mixed
+     */
+    protected static function countsDepositByStatuses(?int $userId)
+    {
+        $query = self::groupBy('status_id')
+            ->select(DB::raw('count(id) as deposit_count, status_id'));
+
+        return self::filterByUser($query, $userId)->get();
+    }
+
+    /**
+     * @param int|null $userId
+     *
+     * @return mixed
+     */
+    protected static function totalDeposit(?int $userId)
+    {
+        $query = DepositHistory::where('deposit_action_id', DepositActions::ActionCreateId());
+
+        return self::filterByUser($query, $userId, true)->sum('sum_after');
+    }
+
+    /**
+     * @param $query
+     * @param int|null $userId
+     * @param bool $joinTable
+     *
+     * @return mixed
+     */
+    protected static function filterByUser($query ,?int $userId, bool $joinTable = false)
+    {
+        if (!empty($userId)) {
+            if ($joinTable) {
+                $query->join(DepositsBase::TABLE_NAME, 'deposit_id', DepositsBase::TABLE_NAME . '.id')
+                    ->where(DepositsBase::TABLE_NAME . '.user_id', $userId);
+            } else {
+                $query->where('user_id', $userId);
+            }
+        }
+
+        return $query;
     }
 }

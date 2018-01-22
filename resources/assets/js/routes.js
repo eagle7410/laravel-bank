@@ -3,6 +3,9 @@ import Share from  './routes/share'
 import MyDeposits from './components/my-deposits/my-deposits.vue'
 import MyDepositHistory from './components/my-deposit-history/my-deposit-history'
 
+import {
+    breadcrumbDash,
+} from './const/breadcrumbs'
 
 const breadcrumbDeposits = {
     label : 'My deposits',
