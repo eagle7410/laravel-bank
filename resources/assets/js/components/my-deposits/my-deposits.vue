@@ -1,25 +1,22 @@
 <template>
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">{{title}}.</h3>
+            <h3 class="box-title">{{title}}. Total sum {{totalSum}}$</h3>
         </div>
         <div class="box-body">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{title}}. Total sum {{totalSum}}$</h3>
-            </div>
-            <div class="box-body">
-                <grid :data="deposits" :columns="gridColumns"
-                ></grid>
-            </div>
-            <modal
-                    :title="modalTitle"
-                    body-html="<p>Are you sure of the status change?</p>"
-                    btn-save="Yes"
-                    btn-save-css="btn btn-danger"
-                    btn-close="Cancel"
-
-            ></modal>
+            <grid
+                :data="deposits"
+                :columns="gridColumns"
+            ></grid>
         </div>
+        <modal
+                :title="modalTitle"
+                body-html="<p>Are you sure of the status change?</p>"
+                btn-save="Yes"
+                btn-save-css="btn btn-danger"
+                btn-close="Cancel"
+
+        ></modal>
         <!-- /.box-body -->
     </div>
 </template>
@@ -60,7 +57,6 @@
             that.apiDeposits.getAll()
                 .then(deposits => that.deposits = deposits || [])
                 .catch(err => console.error(`Error get deposits`));
-
             that.listeners({
                 DEPOSIT_ACTION : data => {
                     let modalTitle = 'Unknown status';

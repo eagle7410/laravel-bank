@@ -15,6 +15,5 @@ describe('Deposit', () => {
         const vm = new Vue(Deposit).$mount();
         vm.deposits = deposits;
         expect(vm.totalSum).toBe(525);
-        expect(vm.totalLastIncome).toBe(75);
     });
 });

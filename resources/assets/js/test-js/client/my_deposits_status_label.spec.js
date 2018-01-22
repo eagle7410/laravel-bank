@@ -6,7 +6,7 @@ import {depositsStatus} from '../../const'
 // возвращающая строку с результатами рендеринга
 function getComponentWithProps (Component, propsData) {
     const Constructor = Vue.extend(Component);
-    const vm = new Constructor({ propsData: propsData }).$mount();
+    const vm = new Constructor({ propsData: propsData || {} }).$mount();
     return vm;
 }
 
@@ -19,26 +19,22 @@ describe('Deposits Label', () => {
         const defaultData = DepositLabel.data();
 
         expect(defaultData.statuses).toBe(depositsStatus);
-        expect(defaultData.cssClass).toBe('');
-        expect(defaultData.label).toBe('');
     });
 
     it('Check status active', () => {
 
-        const $el = getComponentWithProps(DepositLabel, {status : depositsStatus.active});
-        const data = $el.data;
+        const $el = getComponentWithProps(DepositLabel);
 
-        expect($el.label).toBe('Active');
-        expect($el.cssClass).toBe('green')
+        expect($el.label(depositsStatus.active)).toBe('Active');
+        expect($el.cssClass(depositsStatus.active)).toBe('alert bg-green')
     });
 
     it('Check status Stopped', () => {
 
-        const $el = getComponentWithProps(DepositLabel, {status : depositsStatus.stopped});
-        const data = $el.data;
+        const $el = getComponentWithProps(DepositLabel);
 
-        expect($el.label).toBe('Stopped');
-        expect($el.cssClass).toBe('red')
+        expect($el.label(depositsStatus.stopped)).toBe('Stopped');
+        expect($el.cssClass(depositsStatus.stopped)).toBe('alert bg-red')
     });
 
     it('Check status verification', () => {
@@ -46,7 +42,7 @@ describe('Deposits Label', () => {
         const $el = getComponentWithProps(DepositLabel, {status : depositsStatus.verification});
         const data = $el.data;
 
-        expect($el.label).toBe('On verification');
-        expect($el.cssClass).toBe('yellow');
+        expect($el.label(depositsStatus.verification)).toBe('On verification');
+        expect($el.cssClass(depositsStatus.verification)).toBe('alert bg-yellow');
     });
 });

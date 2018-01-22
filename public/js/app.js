@@ -22105,9 +22105,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 
@@ -22150,7 +22147,6 @@ var that = void 0;
         }).catch(function (err) {
             return console.error('Error get deposits');
         });
-
         that.listeners({
             DEPOSIT_ACTION: function DEPOSIT_ACTION(data) {
                 var modalTitle = 'Unknown status';
@@ -22210,47 +22206,41 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "box" }, [
-    _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v(_vm._s(_vm.title) + ".")])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "box-body" },
-      [
-        _c("div", { staticClass: "box-header with-border" }, [
-          _c("h3", { staticClass: "box-title" }, [
-            _vm._v(
-              _vm._s(_vm.title) + ". Total sum " + _vm._s(_vm.totalSum) + "$"
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "box-body" },
-          [
-            _c("grid", {
-              attrs: { data: _vm.deposits, columns: _vm.gridColumns }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("modal", {
-          attrs: {
-            title: _vm.modalTitle,
-            "body-html": "<p>Are you sure of the status change?</p>",
-            "btn-save": "Yes",
-            "btn-save-css": "btn btn-danger",
-            "btn-close": "Cancel"
-          }
-        })
-      ],
-      1
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "box" },
+    [
+      _c("div", { staticClass: "box-header with-border" }, [
+        _c("h3", { staticClass: "box-title" }, [
+          _vm._v(
+            _vm._s(_vm.title) + ". Total sum " + _vm._s(_vm.totalSum) + "$"
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "box-body" },
+        [
+          _c("grid", {
+            attrs: { data: _vm.deposits, columns: _vm.gridColumns }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("modal", {
+        attrs: {
+          title: _vm.modalTitle,
+          "body-html": "<p>Are you sure of the status change?</p>",
+          "btn-save": "Yes",
+          "btn-save-css": "btn btn-danger",
+          "btn-close": "Cancel"
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
