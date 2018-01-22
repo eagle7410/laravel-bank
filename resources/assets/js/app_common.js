@@ -1,39 +1,23 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router'
-import routes from './routes-employee'
-import {componentsEmployee, initHtmlProps, depositsStatus, leftMenuListEmployee} from './const'
-import api from './apis/employee';
-
 require('./bootstrap');
 require('./extends');
 
+import Vue from 'vue';
+import VueRouter from 'vue-router'
+import {initHtmlProps, depositsStatus} from './const'
+
 Vue.use(VueRouter);
 
-// Registration components
-for (let name in componentsEmployee)
-    Vue.component(name, componentsEmployee[name]);
-
-// Init routes
-const router = new VueRouter({
-    linkActiveClass: 'active', // active class for non-exact links.
-    linkExactActiveClass: 'active', // active class for *exact* links.
-    routes, // short for `routes: routes`
-});
-
-window.apis = api;
-
-// Init App
-const app = new Vue({
+export default {
     el: '#app',
     props : initHtmlProps.map(prop => prop.htmlAttrToVueProp()),
-    data: {
-        title    : 'Title',
-        leftMenu : leftMenuListEmployee,
-        statuses : {
-            depositsStatus
+    data  : function () {
+        return {
+            title    : 'Title',
+            statuses : {
+                depositsStatus
+            }
         }
     },
-    router,
     beforeMount: function () {
         const that = this;
 
@@ -62,4 +46,4 @@ const app = new Vue({
             that.userSurname = data.name_last;
         });
     }
-});
+}

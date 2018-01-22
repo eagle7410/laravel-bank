@@ -42,7 +42,7 @@
 
 <!-- custom js here -->
 @role('employee')
-    <script type="text/javascript" src="{{asset('js/employee_app.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/app_employee.js')}}"></script>
 @else
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 @endrole
