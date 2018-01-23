@@ -4,6 +4,7 @@ import AppCommon from './app_common'
 import routes from './routes-employee'
 import api from './apis/employee';
 import {componentsEmployee, leftMenuListEmployee} from './const'
+import store from './store'
 
 // Registration components
 for (let name in componentsEmployee)
@@ -24,4 +25,5 @@ const app = new Vue({
         leftMenu : leftMenuListEmployee,
     },
     router,
+    store
 });

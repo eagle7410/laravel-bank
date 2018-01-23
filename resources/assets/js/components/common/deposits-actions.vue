@@ -26,8 +26,35 @@
     let that;
 
     export default {
+
         methods : {
-            emitEvent : data => that.$fire('DEPOSIT_ACTION', data),
+            emitEvent(data) {
+                let title = 'Unknown status';
+                let { id: depositId, status: depositNewStatus} = data;
+
+                switch (depositNewStatus) {
+                    case depositsStatus.active:
+                        title = 'Deposit to verification stopped';
+                        depositNewStatus = depositsStatus.verification;
+                        break;
+                    case depositsStatus.verification:
+                        title = 'Deposit be stopped';
+                        depositNewStatus = depositsStatus.stopped;
+                        break;
+                    case depositsStatus.stopped:
+                        title = 'Deposit be running';
+                        depositNewStatus = depositsStatus.active;
+                        break;
+                }
+
+
+                that.$store.commit('setDepositsData', {
+                    depositId,
+                    depositNewStatus
+                });
+
+                that.$store.commit('modalOpen', {title});
+            },
         },
 
         props : {

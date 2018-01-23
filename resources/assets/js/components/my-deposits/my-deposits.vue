@@ -4,19 +4,9 @@
             <h3 class="box-title">{{title}}. Total sum {{totalSum}}$</h3>
         </div>
         <div class="box-body">
-            <grid
-                :data="deposits"
-                :columns="gridColumns"
-            ></grid>
+            <grid :data="deposits" :columns="gridColumns"></grid>
         </div>
-        <modal
-                :title="modalTitle"
-                body-html="<p>Are you sure of the status change?</p>"
-                btn-save="Yes"
-                btn-save-css="btn btn-danger"
-                btn-close="Cancel"
-
-        ></modal>
+        <modal></modal>
         <!-- /.box-body -->
     </div>
 </template>
@@ -34,19 +24,38 @@
         },
 
         computed : {
-            apiDeposits     : () => window.apis.deposit,
-            totalSum        : () => that.deposits.sumProp('sum'),
+            apiDeposits       : () => window.apis.deposit,
+            totalSum          : () => that.deposits.sumProp('sum'),
+            _storeDeposits    : () => that.$store.state.deposits,
+            deposits          : () => that._storeDeposits.deposits,
+            depositId         : () => that._storeDeposits.depositId,
+            depositNewStatus  : () => that._storeDeposits.depositNewStatus,
+            dataChangeStatus  : () => ({
+                id : that.depositId,
+                status : that.depositNewStatus
+            })
         },
 
         data: function () {
             return {
                 title: 'My deposits',
-                deposits : [],
                 gridColumns : depositGrid,
                 modalTitle  : '',
-                depositId   : null,
-                depositNewStatus : null,
             };
+        },
+
+        methods : {
+            cancelChangeStatus : () => {
+                that.$store.commit('setDepositsData', {
+                    depositId : null,
+                    depositNewStatus : null,
+                });
+            },
+            applyNewDepositStatus : () => {
+                that.apiDeposits.changeStatus(that.dataChangeStatus)
+                    .then(() => that.$store.commit('applyNewStatus'))
+                    .catch(err => console.error('Error change deposit', err))
+            }
         },
 
         created: function () {
@@ -54,56 +63,20 @@
 
             that.$root.title = that.title;
 
-            that.apiDeposits.getAll()
-                .then(deposits => that.deposits = deposits || [])
-                .catch(err => console.error(`Error get deposits`));
-            that.listeners({
-                DEPOSIT_ACTION : data => {
-                    let modalTitle = 'Unknown status';
-
-                    that.depositId = data.id;
-                    that.depositNewStatus = data.status;
-
-                    switch (data.status) {
-                        case depositsStatus.active:
-                            modalTitle = 'Deposit to verification stopped';
-                            that.depositNewStatus = depositsStatus.verification;
-                            break;
-                        case depositsStatus.verification:
-                            modalTitle = 'Deposit be stopped';
-                            that.depositNewStatus = depositsStatus.stopped;
-                            break;
-                        case depositsStatus.stopped:
-                            modalTitle = 'Deposit be running';
-                            that.depositNewStatus = depositsStatus.active;
-                            break;
-                    }
-
-                    that.modalTitle = modalTitle;
-
-                    that.$fire('SHOW_MODAL');
-                },
-                MODAL_SAVE : () => {
-                    that.apiDeposits.changeStatus({
-                        id : that.depositId,
-                        status : that.depositNewStatus
-                    })
-                        .then((data) => {
-                            let deposit = that.deposits.find(deposit => deposit.id === that.depositId);
-
-                            Object.keys(data).map(prop => {
-                                if (deposit[prop]) {
-                                    deposit[prop] = data[prop]
-                                }
-                            });
-
-                            that.depositId = null;
-                            that.depositNewStatus = null;
-                        })
-                        .catch(err => console.error('Error change deposit', err))
-                }
+            that.$store.commit('setModalData', {
+                callCancel : that.cancelChangeStatus,
+                callSave   : that.applyNewDepositStatus,
+                bodyHtml   : "<p>Are you sure of the status change?</p>",
+                btnSave    : "Yes",
+                btnSaveCss : "btn btn-danger",
+                btnClose   : "Cancel"
             });
 
+            that.apiDeposits.getAll()
+                .then(deposits => that.$store.commit('setDepositsData', {
+                    deposits : deposits || []
+                }))
+                .catch(err => console.error(`Error get deposits`));
         }
     }
 </script>

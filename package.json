@@ -46,7 +46,8 @@
     "vue": "^2.1.10",
     "vue-gravatar": "1.1.3",
     "vue-router": "3.0.1",
-    "vuejs-datepicker": "0.9.22"
+    "vuejs-datepicker": "0.9.22",
+    "vuex": "3.0.1"
   },
   "name": "laravel-bank",
   "description": "<p align=\"center\"><img src=\"https://laravel.com/assets/img/components/logo-laravel.svg\"></p>",

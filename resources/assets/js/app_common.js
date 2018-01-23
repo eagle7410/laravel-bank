@@ -9,7 +9,19 @@ Vue.use(VueRouter);
 
 export default {
     el: '#app',
-    props : initHtmlProps.map(prop => prop.htmlAttrToVueProp()),
+    computed : {
+        _storeProfile () { return this.$store.state.profile },
+        _storeApp     () { return this.$store.state.appInfo },
+        csrfToken     () { return this._storeApp.csrfToken },
+        logoutAction  () { return this._storeApp.logoutAction },
+        appName       () { return this._storeApp.appName },
+        userName      () { return this._storeProfile.name },
+        userSurname   () { return this._storeProfile.surname },
+        userEmail     () { return this._storeProfile.email },
+        userPost      () { return this._storeProfile.post },
+        userMember    () { return this._storeProfile.member },
+
+    },
     data  : function () {
         return {
             title    : 'Title',
@@ -20,7 +32,8 @@ export default {
     },
     beforeMount: function () {
         const that = this;
-
+        const profile = {};
+        const appInfo = {};
         // Properties get from root elements and set to app props.
         initHtmlProps.map(prop => {
             let val =  '';
@@ -29,8 +42,15 @@ export default {
                 val = that.$el.attributes[prop].value;
             }
 
-            that[prop.htmlAttrToVueProp()] = val;
+            if (prop.substr(0,4) === 'user') {
+                profile[prop.replace(/user\-/g, '')] = val;
+            } else {
+                appInfo[prop.htmlAttrToVueProp()] = val;
+            }
         });
+
+        that.$store.commit('setProfile', profile);
+        that.$store.commit('setAppInfo', appInfo);
 
         $.ajaxSetup({
             headers : {
@@ -41,9 +61,5 @@ export default {
     created : function () {
         let that = this;
 
-        that.listen('NEW_PROFILE_DATA', data => {
-            that.userName    = data.name_first;
-            that.userSurname = data.name_last;
-        });
     }
 }

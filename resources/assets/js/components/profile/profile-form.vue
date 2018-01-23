@@ -31,12 +31,11 @@
             AlertSuccess,
         },
 
-        props : {
-            defData : Object
-        },
-
         computed : {
-            apiProfile : () => apis.profile,
+            _storeProfile : () => that.$store.state.profile,
+            name          : () => that._storeProfile.name,
+            surname       : () => that._storeProfile.surname,
+            apiProfile    : () => apis.profile,
         },
 
         methods : {
@@ -81,7 +80,10 @@
 
                 that.apiProfile.update(data)
                     .then(() => {
-                        that.$fire('NEW_PROFILE_DATA', data);
+                        that.$store.commit('setProfile', {
+                            name    : that.fields[0].val,
+                            surname : that.fields[1].val,
+                        });
                         that.isShowMessOk = true;
                     })
                     .catch(that._handelError);
@@ -97,6 +99,7 @@
                         comp    : 'form_input',
                         err     : null,
                         require : true,
+                        store   : 'name',
                         attrs   : {
                             name        : 'nameFirst',
                             label       : 'Name',
@@ -108,6 +111,7 @@
                         comp    : 'form_input',
                         err     : null,
                         require : true,
+                        store   : 'surname',
                         attrs   : {
                             name        : 'nameLast',
                             label       : 'Surname',
@@ -122,7 +126,7 @@
 
         created: function () {
             that = this;
-            that.fields.map(field => field.val = that.defData[field.attrs.name] || null );
+            that.fields.map(field => field.val = that[field.store] || null );
         }
     }
 </script>

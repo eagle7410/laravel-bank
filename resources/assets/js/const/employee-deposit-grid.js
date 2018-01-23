@@ -1,4 +1,4 @@
-import Actions from '../components/deposits/actions';
+import Actions from '../components/common/deposits-actions';
 
 export default [
     {label : 'Action', comp: Actions},

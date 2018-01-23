@@ -73,7 +73,6 @@
 
     export default {
 
-
         created: function () {
             that = this;
 

@@ -12,7 +12,6 @@ const includes = {
     settings_slidebar        : 'settingsSlidebar',
     breadcrumb               : 'breadcrumb',
     my_deposits_status_label : 'status-label',
-    my_deposits_actions      : 'my-deposits/actions',
     form_input               : 'common/form-input',
     server_error_view        : 'common/server-error-view',
 };

@@ -36,16 +36,17 @@
                                     that.depositsCountActive +
                                     that.depositsCountVerification,
             totalIncome:   () => that.totalSum - that.totalDeposits,
+            _storeDash                : () => that.$store.state.dash,
+            totalSum                  : () => that._storeDash.totalSum,
+            totalDeposits             : () => that._storeDash.totalDeposits,
+            depositsCountActive       : () => that._storeDash.depositsCountActive,
+            depositsCountStopped      : () => that._storeDash.depositsCountStopped,
+            depositsCountVerification : () => that._storeDash.depositsCountVerification,
         },
 
         data: function () {
             return {
                 title: 'Dashboard',
-                totalSum: 0,
-                totalDeposits: 0,
-                depositsCountActive: 0,
-                depositsCountStopped: 0,
-                depositsCountVerification: 0,
             };
         },
 
@@ -55,7 +56,7 @@
             that.$root.title = that.title;
 
             that.api.get()
-                .then(data => Object.keys(that._data).map(key => that[key] = data[key] || that[key]))
+                .then(data => that.$store.commit('setDashData', data))
                 .catch(err => console.error('Error get dash stats', err))
         }
     }

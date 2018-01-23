@@ -4,11 +4,9 @@
             <h3 class="box-title">{{title}}.</h3>
         </div>
         <div class="box-body">
-            <profile-form
-                    :def-data="defData"
-            ></profile-form>
+            <profile-form></profile-form>
             <div class="col-md-5">
-                <gravatar :email="userEmail" alt="User Image" class="image"></gravatar>
+                <gravatar :email="email" alt="User Image" class="image"></gravatar>
                 <div class="avatar-desc">
                     For change avatar use service <a href="https://ru.gravatar.com/">Gravatar</a>
                 </div>
@@ -29,29 +27,16 @@
             ProfileForm
         },
         computed : {
-            title : () =>`Profile: ${that.userName} ${that.userSurname} (${that.userEmail})`,
-            defData : () => ({
-                nameFirst : that.userName,
-                nameLast  : that.userSurname,
-            })
-        },
-
-        methods : {
-            safeSetFromRoot : prop => {
-                that[prop] = that.$root[prop] || '';
-            }
+            _storeProfile: () =>  that.$store.state.profile,
+            name    : () => that._storeProfile.name,
+            surname : () => that._storeProfile.surname,
+            email   : () => that._storeProfile.email,
+            title   : () =>`Profile: ${that.name} ${that.surname} (${that.email})`,
         },
 
         created: function () {
             that = this;
-
             that.$root.title = 'Profile';
-
-            [
-                'userName',
-                'userSurname',
-                'userEmail',
-            ].map(prop => that.safeSetFromRoot(prop));
         }
     }
 </script>

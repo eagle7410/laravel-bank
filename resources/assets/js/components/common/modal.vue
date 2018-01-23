@@ -31,46 +31,16 @@
     let that;
 
     export default {
-        props : {
-            show : {
-                type: Boolean,
-                default : false
-            },
-            title : {
-                type : String,
-                default : 'Default Modal'
-            },
-            btnClose : {
-                type : String,
-                default : 'Close'
-            },
-            btnSave : {
-                type : String,
-                default : 'Save'
-            },
-            btnSaveCss : {
-                type : String,
-                default : 'btn btn-primary'
-            },
-            bodyComp : {
-                type : Object,
-                default : null,
-            },
-            bodyHtml : {
-                type : String,
-                default : ''
-            },
-            eventOpen : {
-                type : String,
-                default : 'SHOW_MODAL'
-            },
-            eventSave : {
-                type : String,
-                default : 'MODAL_SAVE'
-            },
-        },
 
         computed : {
+            _storeModal : () => that.$store.state.modal,
+            bodyHtml    : () => that._storeModal.bodyHtml,
+            bodyComp    : () => that._storeModal.bodyComp,
+            btnSaveCss  : () => that._storeModal.btnSaveCss,
+            btnSave     : () => that._storeModal.btnSave,
+            btnClose    : () => that._storeModal.btnClose,
+            title       : () => that._storeModal.title,
+            isShow      : () => that._storeModal.isShow,
             cssModal : () => {
                 let css = 'modal';
 
@@ -82,24 +52,13 @@
             }
         },
 
-        data : function () {
-            return {
-                isShow : false
-            }
-        },
-
         methods : {
-            clickClose : () => that.isShow = false,
-            clickSave  : () => {
-                that.emitter.$emit(that.eventSave);
-                that.clickClose();
-            }
+            clickClose : () => that.$store.commit('modalCancel'),
+            clickSave  : () => that.$store.commit('modalSave'),
         },
 
         created: function () {
             that = this;
-            that.isShow = that.show;
-            that.listen(that.eventOpen, () => that.isShow = true);
         }
     }
 </script>
