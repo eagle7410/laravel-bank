@@ -1,6 +1,6 @@
 <template>
     <div class="actions">
-        <a class="action" :href="historyHref" >
+        <a class="action" :href="historyHref(entry.number)" >
             <i class="fa fa-history" aria-hidden="true" title="history"></i>
         </a>
         <a class="action" v-if="entry.status === statuses.stopped || entry.status === statuses.verification"
@@ -55,6 +55,7 @@
 
                 that.$store.commit('modalOpen', {title});
             },
+            historyHref : number => `#/deposit-history/${number}`,
         },
 
         props : {
@@ -68,10 +69,6 @@
             return {
                 statuses : depositsStatus
             }
-        },
-
-        computed : {
-            historyHref : () => `#/deposit-history/${that.entry.number}`,
         },
 
         created: function () {

@@ -13,7 +13,10 @@ describe('Deposit', () => {
 
     it('Check total sum and total last income', () => {
         const vm = new Vue(Deposit).$mount();
-        vm.deposits = deposits;
+        vm.$store = {state : {
+            deposits : {deposits},
+            commit : (name, data) => {}
+        }};
         expect(vm.totalSum).toBe(525);
     });
 });

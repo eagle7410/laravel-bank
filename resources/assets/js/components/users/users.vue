@@ -46,14 +46,15 @@
     export default {
 
         computed : {
-            api     : () => window.apis.users,
+            api         : () => window.apis.users,
+            _storeUsers : () => that.$store.state.users,
+            users       : () => that._storeUsers.users,
         },
 
         data: function () {
             return {
                 title: 'Users',
                 dateFormat : 'd-m-y h:i',
-                users : [],
             };
         },
 
@@ -71,7 +72,7 @@
             that.$root.title = that.title;
 
             that.api.get()
-                .then(users => that.users = users || [])
+                .then(users => that.$store.commit('setUsers', users || []))
                 .catch(err => console.error('Error get users', err))
 
         }

@@ -47590,7 +47590,6 @@ __webpack_require__(73);
 __webpack_require__(74);
 __webpack_require__(75);
 __webpack_require__(76);
-__webpack_require__(77);
 
 /***/ }),
 /* 73 */
@@ -47750,49 +47749,7 @@ jQuery.each(["put", "delete", 'patch'], function (i, method) {
 });
 
 /***/ }),
-/* 77 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-
-
-// Create bus.
-var bus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
-    // For devTools
-    beforeCreate: function beforeCreate() {
-        this._routerRoot = {};
-    }
-});
-
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.mixin({
-    computed: {
-        emitter: function emitter() {
-            return bus;
-        }
-    },
-    methods: {
-        listen: function listen(event, handler) {
-            var emitter = this.emitter;
-            emitter.$off(event);
-            emitter.$on(event, handler);
-        },
-        listeners: function listeners(objectHandlers) {
-            var _this = this;
-
-            Object.keys(objectHandlers).map(function (event) {
-                return _this.listen(event, objectHandlers[event]);
-            });
-        },
-        $fire: function $fire(event, data) {
-            this.emitter.$emit(event, data);
-        }
-    }
-});
-
-/***/ }),
+/* 77 */,
 /* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -48152,6 +48109,10 @@ var that = void 0;
             });
 
             that.$store.commit('modalOpen', { title: title });
+        },
+
+        historyHref: function historyHref(number) {
+            return '#/deposit-history/' + number;
         }
     },
 
@@ -48168,12 +48129,6 @@ var that = void 0;
         };
     },
 
-    computed: {
-        historyHref: function historyHref() {
-            return '#/deposit-history/' + that.entry.number;
-        }
-    },
-
     created: function created() {
         that = this;
     }
@@ -48188,12 +48143,19 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "actions" }, [
-    _c("a", { staticClass: "action", attrs: { href: _vm.historyHref } }, [
-      _c("i", {
-        staticClass: "fa fa-history",
-        attrs: { "aria-hidden": "true", title: "history" }
-      })
-    ]),
+    _c(
+      "a",
+      {
+        staticClass: "action",
+        attrs: { href: _vm.historyHref(_vm.entry.number) }
+      },
+      [
+        _c("i", {
+          staticClass: "fa fa-history",
+          attrs: { "aria-hidden": "true", title: "history" }
+        })
+      ]
+    ),
     _vm._v(" "),
     _vm.entry.status === _vm.statuses.stopped ||
     _vm.entry.status === _vm.statuses.verification
@@ -50586,14 +50548,19 @@ var that = void 0;
         return {
             title: 'Deposits actions',
             routeEdit: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depActionEdit,
-            routeCreate: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depActionCreate,
-            actions: []
+            routeCreate: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depActionCreate
         };
     },
 
     computed: {
         api: function api() {
             return window.apis.actions;
+        },
+        _storeActions: function _storeActions() {
+            return that.$store.state.actions;
+        },
+        actions: function actions() {
+            return that._storeActions.items;
         }
     },
 
@@ -50602,7 +50569,7 @@ var that = void 0;
         that.$root.title = that.title;
 
         that.api.get().then(function (actions) {
-            return that.actions = actions || [];
+            return that.$store.commit('setActions', actions || []);
         }).catch(function (err) {
             return console.error('Error get actions', err);
         });
@@ -50736,14 +50703,19 @@ var that = void 0;
         return {
             title: 'Deposits statuses',
             routeEdit: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusEdit,
-            routeCreate: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusCreate,
-            statuses: []
+            routeCreate: __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatusCreate
         };
     },
 
     computed: {
         api: function api() {
             return window.apis.statuses;
+        },
+        _storeStatuses: function _storeStatuses() {
+            return that.$store.state.statuses;
+        },
+        statuses: function statuses() {
+            return that._storeStatuses.items;
         }
     },
 
@@ -50752,7 +50724,7 @@ var that = void 0;
         that.$root.title = that.title;
 
         that.api.get().then(function (statuses) {
-            return that.statuses = statuses || [];
+            return that.$store.commit('setStatuses', statuses || []);
         }).catch(function (err) {
             return console.error('Error get statuses', err);
         });
@@ -51225,14 +51197,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-
 
 
 
@@ -51251,17 +51215,31 @@ var that = void 0;
         },
         totalSum: function totalSum() {
             return that.deposits.sumProp('sum');
+        },
+        _storeDeposits: function _storeDeposits() {
+            return that.$store.state.deposits;
+        },
+        deposits: function deposits() {
+            return that._storeDeposits.deposits;
+        },
+        depositId: function depositId() {
+            return that._storeDeposits.depositId;
+        },
+        depositNewStatus: function depositNewStatus() {
+            return that._storeDeposits.depositNewStatus;
+        },
+        dataChangeStatus: function dataChangeStatus() {
+            return {
+                id: that.depositId,
+                status: that.depositNewStatus
+            };
         }
     },
 
     data: function data() {
         return {
             title: 'Deposits',
-            deposits: [],
-            gridColumns: __WEBPACK_IMPORTED_MODULE_1__const__["c" /* depositGrid */],
-            modalTitle: '',
-            depositId: null,
-            depositNewStatus: null
+            gridColumns: __WEBPACK_IMPORTED_MODULE_1__const__["c" /* depositGrid */]
         };
     },
 
@@ -51270,6 +51248,19 @@ var that = void 0;
             if (that.$router) {
                 that.$router.push(__WEBPACK_IMPORTED_MODULE_1__const__["j" /* routesEmployee */].depCreate);
             }
+        },
+        cancelChangeStatus: function cancelChangeStatus() {
+            that.$store.commit('setDepositsData', {
+                depositId: null,
+                depositNewStatus: null
+            });
+        },
+        applyNewDepositStatus: function applyNewDepositStatus() {
+            that.apiDeposits.changeStatus(that.dataChangeStatus).then(function () {
+                return that.$store.commit('applyNewStatus');
+            }).catch(function (err) {
+                return console.error('Error change deposit', err);
+            });
         }
     },
 
@@ -51278,57 +51269,19 @@ var that = void 0;
 
         that.$root.title = that.title;
 
-        that.listeners({
-            DEPOSIT_ACTION: function DEPOSIT_ACTION(data) {
-                var modalTitle = 'Unknown status';
-
-                that.depositId = data.id;
-                that.depositNewStatus = data.status;
-
-                switch (data.status) {
-                    case depositsStatus.active:
-                        modalTitle = 'Deposit to verification stopped';
-                        that.depositNewStatus = depositsStatus.verification;
-                        break;
-                    case depositsStatus.verification:
-                        modalTitle = 'Deposit be stopped';
-                        that.depositNewStatus = depositsStatus.stopped;
-                        break;
-                    case depositsStatus.stopped:
-                        modalTitle = 'Deposit be running';
-                        that.depositNewStatus = depositsStatus.active;
-                        break;
-                }
-
-                that.modalTitle = modalTitle;
-
-                that.$fire('SHOW_MODAL');
-            },
-            MODAL_SAVE: function MODAL_SAVE() {
-                that.apiDeposits.changeStatus({
-                    id: that.depositId,
-                    status: that.depositNewStatus
-                }).then(function (data) {
-                    var deposit = that.deposits.find(function (deposit) {
-                        return deposit.id === that.depositId;
-                    });
-
-                    Object.keys(data).map(function (prop) {
-                        if (deposit[prop]) {
-                            deposit[prop] = data[prop];
-                        }
-                    });
-
-                    that.depositId = null;
-                    that.depositNewStatus = null;
-                }).catch(function (err) {
-                    return console.error('Error change deposit', err);
-                });
-            }
+        that.$store.commit('setModalData', {
+            callCancel: that.cancelChangeStatus,
+            callSave: that.applyNewDepositStatus,
+            bodyHtml: "<p>Are you sure of the status change?</p>",
+            btnSave: "Yes",
+            btnSaveCss: "btn btn-danger",
+            btnClose: "Cancel"
         });
 
         that.apiDeposits.getAll().then(function (deposits) {
-            return that.deposits = deposits || [];
+            return that.$store.commit('setDepositsData', {
+                deposits: deposits || []
+            });
         }).catch(function (err) {
             return console.error('Error get deposits');
         });
@@ -51374,15 +51327,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("modal", {
-        attrs: {
-          title: _vm.modalTitle,
-          "body-html": "<p>Are you sure of the status change?</p>",
-          "btn-save": "Yes",
-          "btn-save-css": "btn btn-danger",
-          "btn-close": "Cancel"
-        }
-      })
+      _c("modal")
     ],
     1
   )
@@ -51471,7 +51416,7 @@ var staticRenderFns = [
         _c(
           "a",
           { attrs: { href: "https://github.com/eagle7410/laravel-bank" } },
-          [_vm._v("Igor Scherbina")]
+          [_vm._v("Igor Stcherbina")]
         ),
         _vm._v(".")
       ]),
@@ -52923,8 +52868,7 @@ var that = void 0;
     data: function data() {
         return {
             title: 'My deposits',
-            gridColumns: __WEBPACK_IMPORTED_MODULE_1__const__["c" /* depositGrid */],
-            modalTitle: ''
+            gridColumns: __WEBPACK_IMPORTED_MODULE_1__const__["c" /* depositGrid */]
         };
     },
 
@@ -55047,14 +54991,19 @@ var that = void 0;
     computed: {
         api: function api() {
             return window.apis.users;
+        },
+        _storeUsers: function _storeUsers() {
+            return that.$store.state.users;
+        },
+        users: function users() {
+            return that._storeUsers.users;
         }
     },
 
     data: function data() {
         return {
             title: 'Users',
-            dateFormat: 'd-m-y h:i',
-            users: []
+            dateFormat: 'd-m-y h:i'
         };
     },
 
@@ -55072,7 +55021,7 @@ var that = void 0;
         that.$root.title = that.title;
 
         that.api.get().then(function (users) {
-            return that.users = users || [];
+            return that.$store.commit('setUsers', users || []);
         }).catch(function (err) {
             return console.error('Error get users', err);
         });
@@ -55361,48 +55310,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 })]);
 
 /***/ }),
-/* 216 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(217);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_actions__ = __webpack_require__(218);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_statuses__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_profile__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_app__ = __webpack_require__(221);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_dash__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_deposits__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_modal__ = __webpack_require__(224);
-
-
-//modules
-
-
-
-
-
-
-
-
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
-
-var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
-    modules: {
-        actions: __WEBPACK_IMPORTED_MODULE_2__modules_actions__["a" /* default */],
-        statuses: __WEBPACK_IMPORTED_MODULE_3__modules_statuses__["a" /* default */],
-        profile: __WEBPACK_IMPORTED_MODULE_4__modules_profile__["a" /* default */],
-        appInfo: __WEBPACK_IMPORTED_MODULE_5__modules_app__["a" /* default */],
-        dash: __WEBPACK_IMPORTED_MODULE_6__modules_dash__["a" /* default */],
-        deposits: __WEBPACK_IMPORTED_MODULE_7__modules_deposits__["a" /* default */],
-        modal: __WEBPACK_IMPORTED_MODULE_8__modules_modal__["a" /* default */]
-    }
-});
-
-/* harmony default export */ __webpack_exports__["a"] = (store);
-
-/***/ }),
+/* 216 */,
 /* 217 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -56348,28 +56256,8 @@ var index_esm = {
 
 
 /***/ }),
-/* 218 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-    state: {
-        items: []
-    }
-});
-
-/***/ }),
-/* 219 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-    state: {
-        items: []
-    }
-});
-
-/***/ }),
+/* 218 */,
+/* 219 */,
 /* 220 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -56538,7 +56426,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes__ = __webpack_require__(227);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__apis_client__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__const__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_store_client__ = __webpack_require__(254);
 
 
 
@@ -56565,7 +56453,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         leftMenu: __WEBPACK_IMPORTED_MODULE_5__const__["g" /* leftMenuList */]
     },
     router: router,
-    store: __WEBPACK_IMPORTED_MODULE_6__store__["a" /* default */]
+    store: __WEBPACK_IMPORTED_MODULE_6__store_store_client__["a" /* default */]
 });
 
 /***/ }),
@@ -56659,6 +56547,65 @@ var breadcrumbDeposits = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_profile__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_app__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_dash__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_deposits__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_modal__ = __webpack_require__(224);
+
+
+//modules
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
+
+var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
+    modules: {
+        profile: __WEBPACK_IMPORTED_MODULE_2__modules_profile__["a" /* default */],
+        appInfo: __WEBPACK_IMPORTED_MODULE_3__modules_app__["a" /* default */],
+        dash: __WEBPACK_IMPORTED_MODULE_4__modules_dash__["a" /* default */],
+        deposits: __WEBPACK_IMPORTED_MODULE_5__modules_deposits__["a" /* default */],
+        modal: __WEBPACK_IMPORTED_MODULE_6__modules_modal__["a" /* default */]
+    }
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (store);
 
 /***/ })
 /******/ ]);

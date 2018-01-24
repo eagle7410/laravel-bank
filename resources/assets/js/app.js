@@ -4,7 +4,7 @@ import AppCommon from './app_common'
 import routes from './routes'
 import api from './apis/client';
 import {components, leftMenuList } from './const'
-import store from './store'
+import store from './store/store-client'
 
 // Registration components
 for (let name in components)

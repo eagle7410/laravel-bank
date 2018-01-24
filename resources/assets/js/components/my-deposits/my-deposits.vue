@@ -40,7 +40,6 @@
             return {
                 title: 'My deposits',
                 gridColumns : depositGrid,
-                modalTitle  : '',
             };
         },
 

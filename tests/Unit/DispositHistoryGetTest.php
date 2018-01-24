@@ -74,7 +74,7 @@ class DispositHistoryGetTest extends \Illuminate\Foundation\Testing\TestCase
                             'comment' => NULL,
                             'sum_before' => '1000.0',
                             'sum_after' => '1250.0',
-                            'date_action' => '2018/02/01',
+                            'date_action' =>  $nowDt->format('Y/m/d'),
                         ),
                     1 =>
                         array (

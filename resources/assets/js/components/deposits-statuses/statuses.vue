@@ -20,12 +20,13 @@
                 title : 'Deposits statuses',
                 routeEdit : routes.depStatusEdit,
                 routeCreate : routes.depStatusCreate,
-                statuses : []
             }
         },
 
         computed : {
-            api : () => window.apis.statuses
+            api            : () => window.apis.statuses,
+            _storeStatuses : () => that.$store.state.statuses,
+            statuses       : () => that._storeStatuses.items,
         },
 
         created: function () {
@@ -33,7 +34,7 @@
             that.$root.title = that.title;
 
             that.api.get()
-                .then(statuses => that.statuses = statuses || [])
+                .then(statuses => that.$store.commit('setStatuses', statuses || []))
                 .catch(err => console.error('Error get statuses', err))
         }
     }

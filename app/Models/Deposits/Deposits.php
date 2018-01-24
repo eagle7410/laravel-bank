@@ -168,7 +168,8 @@ class Deposits extends DepositsBase
         $history->sum_before = $this->original['sum'];
         $history->sum_after  = $this->sum;
         $history->created_by = Auth::id() || 0;
-        $history->created_at = $this->original['income_at'];
+        $now = new DateTime();
+        $history->created_at = $now->format(DateHelper::DATE_FORMAT_DB);
 
         if (empty($extendData['comment']))
             unset($extendData['comment']);

@@ -6,10 +6,10 @@ require('../../extends');
 
 describe('DashBoard', () => {
     const vm = new Vue(DashBoard).$mount();
-
-    for (let key in dash) {
-        vm[key] = dash[key];
-    }
+    vm.$store = {state : {
+        dash : dash,
+        commit : (name, data) => {}
+    }};
 
     it('Check default title', () => {
         expect(vm.title).toBe('Dashboard');

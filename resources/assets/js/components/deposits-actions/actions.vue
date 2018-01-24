@@ -20,12 +20,13 @@
                 title : 'Deposits actions',
                 routeEdit : routes.depActionEdit,
                 routeCreate : routes.depActionCreate,
-                actions : []
             }
         },
 
         computed : {
-            api : () => window.apis.actions
+            api            : () => window.apis.actions,
+            _storeActions : () => that.$store.state.actions,
+            actions       : () => that._storeActions.items,
         },
 
         created: function () {
@@ -33,7 +34,7 @@
             that.$root.title = that.title;
 
             that.api.get()
-                .then(actions => that.actions = actions || [])
+                .then(actions => that.$store.commit('setActions', actions || []))
                 .catch(err => console.error('Error get actions', err))
         }
     }
