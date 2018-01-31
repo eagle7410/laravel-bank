@@ -106,7 +106,12 @@
                             percent : deposit.percent
                         });
                     }
-                }
+                },
+                {
+                    chanel : 'deposits',
+                    event  : 'DepositChangeStatusEvent',
+                    handle : res => that.$store.commit('depositNewStatus', res.data)
+                },
             ]);
 
         }

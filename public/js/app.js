@@ -54761,6 +54761,12 @@ var that = void 0;
                     percent: deposit.percent
                 });
             }
+        }, {
+            chanel: 'deposits',
+            event: 'DepositChangeStatusEvent',
+            handle: function handle(res) {
+                return that.$store.commit('depositNewStatus', res.data);
+            }
         }]);
     }
 });
@@ -56398,8 +56404,10 @@ var that = void 0;
             });
         }
 
+        var depositChanel = 'user.' + that.userId + '.deposits';
+
         window.Echo.addHandles('userDeposit', [{
-            chanel: 'user.' + that.userId + '.deposits',
+            chanel: depositChanel,
             event: 'UserDepositAddEvent',
             handle: function handle(res) {
                 var deposit = res.data;
@@ -56413,6 +56421,12 @@ var that = void 0;
                     income: deposit.income_at.toDateFormat('d-m-y'),
                     percent: deposit.percent
                 });
+            }
+        }, {
+            chanel: depositChanel,
+            event: 'UserDepositChangeStatusEvent',
+            handle: function handle(res) {
+                return that.$store.commit('depositNewStatus', res.data);
             }
         }]);
     }
@@ -59899,6 +59913,13 @@ var index_esm = {
 
             state.depositId = null;
             state.depositNewStatus = null;
+        },
+        depositNewStatus: function depositNewStatus(state, data) {
+            var deposit = state.deposits.find(function (deposit) {
+                return deposit.id === data.id;
+            });
+            deposit.status = data.status;
+            deposit.income = data.income;
         }
     }
 });

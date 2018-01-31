@@ -26,6 +26,11 @@ export default {
 
             state.depositId = null;
             state.depositNewStatus = null;
+        },
+        depositNewStatus (state, data) {
+            let deposit = state.deposits.find(deposit => deposit.id === data.id);
+            deposit.status = data.status;
+            deposit.income = data.income;
         }
     }
 }

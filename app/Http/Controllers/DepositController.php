@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DepositChangeStatusEvent;
 use App\Events\DepositCreateEvent;
 use App\Events\UserDepositAddEvent;
+use App\Events\UserDepositChangeStatusEvent;
 use App\Helpers\DateHelper;
 use App\Models\Deposits\Deposits;
 use App\User;
@@ -49,10 +51,19 @@ class DepositController extends AuthBaseController
         $deposit = Deposits::find($data['id']);
         $deposit->changeStatus((int) $data['status']);
 
-        return [
+        $changesData = [
             'income' => DateHelper::dateStringToShowFormat($deposit->income_at),
             'updated' => DateHelper::dateStringToShowFormat($deposit->updated_at),
-            'status' => $deposit->status_id
+            'status' => $deposit->status_id,
+            'id' => $deposit->id
         ];
+
+        broadcast(new DepositChangeStatusEvent($changesData))->toOthers();
+
+        if ($this->user->hasRole(User::ROLE_EMPLOYEE)) {
+            event(new UserDepositChangeStatusEvent($changesData, $deposit->user_id));
+        }
+
+        return $changesData;
     }
 }

@@ -82,9 +82,11 @@
                     .catch(err => console.error(`Error get deposits`));
             }
 
+            let depositChanel = `user.${that.userId}.deposits`;
+
             window.Echo.addHandles('userDeposit', [
                 {
-                    chanel : `user.${that.userId}.deposits`,
+                    chanel : depositChanel,
                     event  : 'UserDepositAddEvent',
                     handle : res => {
                         let deposit = res.data;
@@ -99,7 +101,12 @@
                             percent : deposit.percent
                         });
                     }
-                }
+                },
+                {
+                    chanel : depositChanel,
+                    event  : 'UserDepositChangeStatusEvent',
+                    handle : res => that.$store.commit('depositNewStatus', res.data)
+                },
             ]);
         }
     }
