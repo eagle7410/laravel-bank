@@ -6,6 +6,8 @@
         <div class="box-body">
             <div class="col-md-4">
                 <form>
+                    <server_error_view :serverErrors="serverErrors"></server_error_view>
+
                     <div :class="cssProp('name')">
                         <label for="login">Login</label>
                         <input type="text" class="form-control" id="login" aria-describedby="emailHelp" placeholder="Enter login"
@@ -67,7 +69,8 @@
                     role      : that.role,
                     password  : that.password,
                 };
-            }
+            },
+
         },
 
         data: function () {
@@ -83,7 +86,8 @@
                     email     : null,
                     role      : null,
                     password  : null,
-                }
+                },
+                serverErrors : {},
             };
         },
 
@@ -122,14 +126,23 @@
 
                 that.apiUser.save(data)
                     .then(() => that.redirectToUsers())
-                    .catch(err => console.error('Error save user', err));
+                    .catch(that._handelError);
             },
             clickBack : () => that.redirectToUsers(),
             redirectToUsers : () => {
                 if (that.$router) {
                     that.$router.push(routes.usrs);
                 }
-            }
+            },
+            _handelError : err => {
+                console.error('Error ', err);
+
+                const responseJSON = err.responseJSON;
+
+                if (responseJSON.errors) {
+                    that.serverErrors = responseJSON.errors
+                }
+            },
         },
 
         created: function () {
@@ -139,7 +152,7 @@
 
             that.apiRoles.get()
                 .then(roles => that.roles = roles || [])
-                .catch(err => console.error('Error get roles', err))
+                .catch(that._handelError)
 
         }
     }

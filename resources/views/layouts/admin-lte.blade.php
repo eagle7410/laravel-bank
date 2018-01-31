@@ -41,6 +41,8 @@
 </div>
 
 <!-- custom js here -->
+<script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
+
 @role('employee')
     <script type="text/javascript" src="{{asset('js/app_employee.js')}}"></script>
 @else

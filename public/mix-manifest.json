@@ -1,6 +1,5 @@
 {
-    "/test-js/client/dash.spec.js": "/test-js/client/dash.spec.js",
-    "/test-js/client/my-deposits.spec.js": "/test-js/client/my-deposits.spec.js",
-    "/test-js/client/my-deposit-history.spec.js": "/test-js/client/my-deposit-history.spec.js",
-    "/test-js/client/my_deposits_status_label.spec.js": "/test-js/client/my_deposits_status_label.spec.js"
+    "/js/app_employee.js": "/js/app_employee.js",
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css"
 }

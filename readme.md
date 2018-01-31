@@ -1,3 +1,4 @@
+
 ## Run deposits income from console
 php artisan deposits:income
 
@@ -9,6 +10,9 @@ php artisan deposits:income 2018-01-01
 sudo apt-get install php7.1-sqlite3  
 sudo service apache2 restart  
 composer require doctrine/dbal
+
+## Install redis on ubuntu
+sudo apt-get install redis-server
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 

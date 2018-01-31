@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserCreateEvent;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,8 @@ class UserController extends EmployeeBaseController
         $user = User::create($data);
         $user->save();
         $user->assignRole($data['role']);
+
+        event(new UserCreateEvent($user));
 
         return $user;
     }

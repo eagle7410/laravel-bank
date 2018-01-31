@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\HelloyEvent;
 use App\User;
 
 class UsersController extends EmployeeBaseController

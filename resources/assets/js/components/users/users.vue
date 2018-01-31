@@ -46,9 +46,10 @@
     export default {
 
         computed : {
-            api         : () => window.apis.users,
-            _storeUsers : () => that.$store.state.users,
-            users       : () => that._storeUsers.users,
+            api          : () => window.apis.users,
+            _storeUsers  : () => that.$store.state.users,
+            users        : () => that._storeUsers.users.sort((prev, next) => next.id - prev.id),
+            isEmptyUsers : () => !that._storeUsers.users.length
         },
 
         data: function () {
@@ -71,9 +72,19 @@
 
             that.$root.title = that.title;
 
-            that.api.get()
-                .then(users => that.$store.commit('setUsers', users || []))
-                .catch(err => console.error('Error get users', err))
+            if (that.isEmptyUsers) {
+                that.api.get()
+                    .then(users => that.$store.commit('setUsers', users || []))
+                    .catch(err => console.error('Error get users', err));
+            }
+
+            window.Echo.addHandles([
+                {
+                    chanel : 'users',
+                    event  : 'UserCreateEvent',
+                    handle : res => that.$store.commit('addUser', res.data)
+                }
+            ]);
 
         }
     }
