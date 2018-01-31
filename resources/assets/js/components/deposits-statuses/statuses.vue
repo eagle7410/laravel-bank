@@ -27,15 +27,18 @@
             api            : () => window.apis.statuses,
             _storeStatuses : () => that.$store.state.statuses,
             statuses       : () => that._storeStatuses.items,
+            isInit         : () => that._storeStatuses.isInit,
         },
 
         created: function () {
             that = this;
             that.$root.title = that.title;
 
-            that.api.get()
-                .then(statuses => that.$store.commit('setStatuses', statuses || []))
-                .catch(err => console.error('Error get statuses', err))
+            if (!that.isInit) {
+                that.api.get()
+                    .then(statuses => that.$store.commit('setStatuses', statuses || []))
+                    .catch(err => console.error('Error get statuses', err))
+            }
         }
     }
 </script>

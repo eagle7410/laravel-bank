@@ -24,8 +24,9 @@
         },
 
         computed : {
-            api            : () => window.apis.actions,
+            api           : () => window.apis.actions,
             _storeActions : () => that.$store.state.actions,
+            isInit        : () => that._storeActions.isInit,
             actions       : () => that._storeActions.items,
         },
 
@@ -33,9 +34,11 @@
             that = this;
             that.$root.title = that.title;
 
-            that.api.get()
-                .then(actions => that.$store.commit('setActions', actions || []))
-                .catch(err => console.error('Error get actions', err))
+            if (!that.isInit) {
+                that.api.get()
+                    .then(actions => that.$store.commit('setActions', actions || []))
+                    .catch(err => console.error('Error get actions', err))
+            }
         }
     }
 </script>

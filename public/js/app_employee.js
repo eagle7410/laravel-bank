@@ -54013,6 +54013,9 @@ var that = void 0;
         _storeActions: function _storeActions() {
             return that.$store.state.actions;
         },
+        isInit: function isInit() {
+            return that._storeActions.isInit;
+        },
         actions: function actions() {
             return that._storeActions.items;
         }
@@ -54022,11 +54025,13 @@ var that = void 0;
         that = this;
         that.$root.title = that.title;
 
-        that.api.get().then(function (actions) {
-            return that.$store.commit('setActions', actions || []);
-        }).catch(function (err) {
-            return console.error('Error get actions', err);
-        });
+        if (!that.isInit) {
+            that.api.get().then(function (actions) {
+                return that.$store.commit('setActions', actions || []);
+            }).catch(function (err) {
+                return console.error('Error get actions', err);
+            });
+        }
     }
 });
 
@@ -54170,6 +54175,9 @@ var that = void 0;
         },
         statuses: function statuses() {
             return that._storeStatuses.items;
+        },
+        isInit: function isInit() {
+            return that._storeStatuses.isInit;
         }
     },
 
@@ -54177,11 +54185,13 @@ var that = void 0;
         that = this;
         that.$root.title = that.title;
 
-        that.api.get().then(function (statuses) {
-            return that.$store.commit('setStatuses', statuses || []);
-        }).catch(function (err) {
-            return console.error('Error get statuses', err);
-        });
+        if (!that.isInit) {
+            that.api.get().then(function (statuses) {
+                return that.$store.commit('setStatuses', statuses || []);
+            }).catch(function (err) {
+                return console.error('Error get statuses', err);
+            });
+        }
     }
 });
 
@@ -60262,12 +60272,14 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: {
-        items: []
+        items: [],
+        isInit: false
     },
     mutations: {
         setActions: function setActions(state, actions) {
             if (Array.isArray(actions) && actions.length) {
                 state.items = actions;
+                state.isInit = true;
             }
         }
     }
@@ -60280,12 +60292,14 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: {
-        items: []
+        items: [],
+        isInit: false
     },
     mutations: {
         setStatuses: function setStatuses(state, statuses) {
             if (Array.isArray(statuses) && statuses.length) {
                 state.items = statuses;
+                state.isInit = true;
             }
         }
     }

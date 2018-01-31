@@ -54013,6 +54013,9 @@ var that = void 0;
         _storeActions: function _storeActions() {
             return that.$store.state.actions;
         },
+        isInit: function isInit() {
+            return that._storeActions.isInit;
+        },
         actions: function actions() {
             return that._storeActions.items;
         }
@@ -54022,11 +54025,13 @@ var that = void 0;
         that = this;
         that.$root.title = that.title;
 
-        that.api.get().then(function (actions) {
-            return that.$store.commit('setActions', actions || []);
-        }).catch(function (err) {
-            return console.error('Error get actions', err);
-        });
+        if (!that.isInit) {
+            that.api.get().then(function (actions) {
+                return that.$store.commit('setActions', actions || []);
+            }).catch(function (err) {
+                return console.error('Error get actions', err);
+            });
+        }
     }
 });
 
@@ -54170,6 +54175,9 @@ var that = void 0;
         },
         statuses: function statuses() {
             return that._storeStatuses.items;
+        },
+        isInit: function isInit() {
+            return that._storeStatuses.isInit;
         }
     },
 
@@ -54177,11 +54185,13 @@ var that = void 0;
         that = this;
         that.$root.title = that.title;
 
-        that.api.get().then(function (statuses) {
-            return that.$store.commit('setStatuses', statuses || []);
-        }).catch(function (err) {
-            return console.error('Error get statuses', err);
-        });
+        if (!that.isInit) {
+            that.api.get().then(function (statuses) {
+                return that.$store.commit('setStatuses', statuses || []);
+            }).catch(function (err) {
+                return console.error('Error get statuses', err);
+            });
+        }
     }
 });
 
