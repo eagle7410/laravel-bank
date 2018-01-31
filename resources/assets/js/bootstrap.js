@@ -52,8 +52,20 @@ window.Echo = new Echo({
     key: "e09cafb796d9114bd9d9bf58b36e38a3",
 });
 
-window.Echo.addHandles = arHandles => arHandles.map(obHandle =>
-    window.Echo[obHandle.type || 'private'](obHandle.chanel)
-        .listen(obHandle.event, obHandle.handle)
-);
+window.Echo.includesHandles = {};
+window.Echo.addHandles = (alias, arHandles) => {
+
+    let echo = window.Echo;
+
+    if (echo.includesHandles[alias]) {
+        return;
+    }
+
+    arHandles.map(obHandle =>
+        echo[obHandle.type || 'private'](obHandle.chanel)
+            .listen(obHandle.event, obHandle.handle)
+    );
+
+    echo.includesHandles[alias] = true;
+};
 

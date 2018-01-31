@@ -16208,8 +16208,8 @@ window._ = __webpack_require__(41);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(43);
-  __webpack_require__(44);
+    window.$ = window.jQuery = __webpack_require__(43);
+    __webpack_require__(44);
 } catch (e) {}
 __webpack_require__(45);
 /**
@@ -16248,15 +16248,25 @@ var token = document.head.querySelector('meta[name="csrf-token"]');
 window.Pusher = __webpack_require__(47);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
-  broadcaster: 'socket.io',
-  host: window.location.hostname + ':6001',
-  key: "e09cafb796d9114bd9d9bf58b36e38a3"
+    broadcaster: 'socket.io',
+    host: window.location.hostname + ':6001',
+    key: "e09cafb796d9114bd9d9bf58b36e38a3"
 });
 
-window.Echo.addHandles = function (arHandles) {
-  return arHandles.map(function (obHandle) {
-    return window.Echo[obHandle.type || 'private'](obHandle.chanel).listen(obHandle.event, obHandle.handle);
-  });
+window.Echo.includesHandles = {};
+window.Echo.addHandles = function (alias, arHandles) {
+
+    var echo = window.Echo;
+
+    if (echo.includesHandles[alias]) {
+        return;
+    }
+
+    arHandles.map(function (obHandle) {
+        return echo[obHandle.type || 'private'](obHandle.chanel).listen(obHandle.event, obHandle.handle);
+    });
+
+    echo.includesHandles[alias] = true;
 };
 
 /***/ }),
@@ -58496,7 +58506,7 @@ var that = void 0;
             });
         }
 
-        window.Echo.addHandles([{
+        window.Echo.addHandles('userComp', [{
             chanel: 'users',
             event: 'UserCreateEvent',
             handle: function handle(res) {

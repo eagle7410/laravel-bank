@@ -78,7 +78,7 @@
                     .catch(err => console.error('Error get users', err));
             }
 
-            window.Echo.addHandles([
+            window.Echo.addHandles('userComp', [
                 {
                     chanel : 'users',
                     event  : 'UserCreateEvent',
