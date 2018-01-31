@@ -20,6 +20,7 @@
      user-surname="{{auth()->user()->name_last()}}"
      user-member="{{auth()->user()->member()}}"
      user-post="{{auth()->user()->post()}}"
+     user-id="{{auth()->user()->id}}"
      csrf-token="{{csrf_token()}}"
      logout-action="{{ route('logout') }}"
 >

@@ -1,10 +1,11 @@
 export default {
     state: {
-        name: 'Dear',
-        surname: 'Client',
-        email: '',
-        post: 'Client',
-        member: ''
+        id      : null,
+        name    : 'Dear',
+        surname : 'Client',
+        email   : '',
+        post    : 'Client',
+        member  : '',
     },
     mutations: {
         setProfile(state, profile) {

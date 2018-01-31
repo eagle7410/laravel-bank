@@ -6,6 +6,7 @@ export default [
     'user-email',
     'user-post',
     'user-member',
+    'user-id',
     'csrf-token',
     'logout-action',
 ]

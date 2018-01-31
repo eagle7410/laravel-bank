@@ -18,3 +18,11 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('users', function ($user) {
     return $user;
 });
+
+Broadcast::channel('deposits', function ($user) {
+    return $user;
+});
+
+Broadcast::channel('user.{user}.deposits', function ($user, $userId) {
+    return $user->id = $userId;
+});

@@ -3,6 +3,7 @@ export default {
         deposits : [],
         depositId   : null,
         depositNewStatus : null,
+        isInit : false,
     },
     mutations: {
         setDepositsData(state, data) {
@@ -11,6 +12,12 @@ export default {
                     state[p] = data[p];
                 }
             }
+
+            state.isInit = true;
+
+        },
+        addDeposit (state, deposit) {
+            state.deposits =[deposit].concat(state.deposits);
         },
         applyNewStatus (state, data) {
             let deposit = state.deposits.find(deposit => deposit.id === state.depositId);

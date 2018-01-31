@@ -54687,6 +54687,9 @@ var that = void 0;
                 id: that.depositId,
                 status: that.depositNewStatus
             };
+        },
+        isDepositsInit: function isDepositsInit() {
+            return that._storeDeposits.isInit;
         }
     },
 
@@ -54732,13 +54735,33 @@ var that = void 0;
             btnClose: "Cancel"
         });
 
-        that.apiDeposits.getAll().then(function (deposits) {
-            return that.$store.commit('setDepositsData', {
-                deposits: deposits || []
+        if (!that.isDepositsInit) {
+            that.apiDeposits.getAll().then(function (deposits) {
+                return that.$store.commit('setDepositsData', {
+                    deposits: deposits || []
+                });
+            }).catch(function (err) {
+                return console.error('Error get deposits');
             });
-        }).catch(function (err) {
-            return console.error('Error get deposits');
-        });
+        }
+
+        window.Echo.addHandles('addDeposit', [{
+            chanel: 'deposits',
+            event: 'DepositCreateEvent',
+            handle: function handle(res) {
+                var deposit = res.data;
+
+                that.$store.commit('addDeposit', {
+                    status: deposit.status_id,
+                    sum: deposit.sum,
+                    number: deposit.number,
+                    id: deposit.id,
+                    start: deposit.start_at.toDateFormat('d-m-y'),
+                    income: deposit.income_at.toDateFormat('d-m-y'),
+                    percent: deposit.percent
+                });
+            }
+        }]);
     }
 });
 
@@ -56316,6 +56339,15 @@ var that = void 0;
                 id: that.depositId,
                 status: that.depositNewStatus
             };
+        },
+        isDepositsInit: function isDepositsInit() {
+            return that._storeDeposits.isInit;
+        },
+        _storeProfile: function _storeProfile() {
+            return that.$store.state.profile;
+        },
+        userId: function userId() {
+            return that._storeProfile.id;
         }
     },
 
@@ -56356,13 +56388,33 @@ var that = void 0;
             btnClose: "Cancel"
         });
 
-        that.apiDeposits.getAll().then(function (deposits) {
-            return that.$store.commit('setDepositsData', {
-                deposits: deposits || []
+        if (!that.isDepositsInit) {
+            that.apiDeposits.getAll().then(function (deposits) {
+                return that.$store.commit('setDepositsData', {
+                    deposits: deposits || []
+                });
+            }).catch(function (err) {
+                return console.error('Error get deposits');
             });
-        }).catch(function (err) {
-            return console.error('Error get deposits');
-        });
+        }
+
+        window.Echo.addHandles('userDeposit', [{
+            chanel: 'user.' + that.userId + '.deposits',
+            event: 'UserDepositAddEvent',
+            handle: function handle(res) {
+                var deposit = res.data;
+
+                that.$store.commit('addDeposit', {
+                    status: deposit.status_id,
+                    sum: deposit.sum,
+                    number: deposit.number,
+                    id: deposit.id,
+                    start: deposit.start_at.toDateFormat('d-m-y'),
+                    income: deposit.income_at.toDateFormat('d-m-y'),
+                    percent: deposit.percent
+                });
+            }
+        }]);
     }
 });
 
@@ -58627,7 +58679,7 @@ for (var name in includes) {
 
 "use strict";
 // Properties get from root elements
-/* harmony default export */ __webpack_exports__["a"] = (['app-name', 'user-name', 'user-surname', 'user-email', 'user-post', 'user-member', 'csrf-token', 'logout-action']);
+/* harmony default export */ __webpack_exports__["a"] = (['app-name', 'user-name', 'user-surname', 'user-email', 'user-post', 'user-member', 'user-id', 'csrf-token', 'logout-action']);
 
 /***/ }),
 /* 184 */
@@ -59749,6 +59801,7 @@ var index_esm = {
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: {
+        id: null,
         name: 'Dear',
         surname: 'Client',
         email: '',
@@ -59821,7 +59874,8 @@ var index_esm = {
     state: {
         deposits: [],
         depositId: null,
-        depositNewStatus: null
+        depositNewStatus: null,
+        isInit: false
     },
     mutations: {
         setDepositsData: function setDepositsData(state, data) {
@@ -59830,6 +59884,11 @@ var index_esm = {
                     state[p] = data[p];
                 }
             }
+
+            state.isInit = true;
+        },
+        addDeposit: function addDeposit(state, deposit) {
+            state.deposits = [deposit].concat(state.deposits);
         },
         applyNewStatus: function applyNewStatus(state, data) {
             var deposit = state.deposits.find(function (deposit) {

@@ -37,7 +37,8 @@
             dataChangeStatus  : () => ({
                 id : that.depositId,
                 status : that.depositNewStatus
-            })
+            }),
+            isDepositsInit : () => that._storeDeposits.isInit
         },
 
         data: function () {
@@ -80,11 +81,34 @@
                 btnClose   : "Cancel"
             });
 
-            that.apiDeposits.getAll()
-                .then(deposits => that.$store.commit('setDepositsData', {
-                    deposits : deposits || []
-                }))
-                .catch(err => console.error(`Error get deposits`));
+            if (!that.isDepositsInit) {
+                that.apiDeposits.getAll()
+                    .then(deposits => that.$store.commit('setDepositsData', {
+                        deposits : deposits || []
+                    }))
+                    .catch(err => console.error(`Error get deposits`));
+            }
+
+            window.Echo.addHandles('addDeposit', [
+                {
+                    chanel : 'deposits',
+                    event  : 'DepositCreateEvent',
+                    handle : res => {
+                        let deposit = res.data;
+
+                        that.$store.commit('addDeposit', {
+                            status  : deposit.status_id,
+                            sum     : deposit.sum,
+                            number  : deposit.number,
+                            id      : deposit.id,
+                            start   : deposit.start_at.toDateFormat('d-m-y'),
+                            income  : deposit.income_at.toDateFormat('d-m-y'),
+                            percent : deposit.percent
+                        });
+                    }
+                }
+            ]);
+
         }
     }
 </script>

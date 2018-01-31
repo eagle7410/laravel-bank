@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DepositCreateEvent;
+use App\Events\UserDepositAddEvent;
 use App\Helpers\DateHelper;
 use App\Models\Deposits\Deposits;
 use App\User;
@@ -29,7 +31,11 @@ class DepositController extends AuthBaseController
             'start_at'  => 'required|date|after:"'.$yesterday->format('Y/m/d').' 00:00:00"',
         ]);
 
-        Deposits::create($data);
+        $deposit = Deposits::create($data);
+
+        event(new DepositCreateEvent($deposit));
+        event(new UserDepositAddEvent($deposit));
+
     }
 
 
