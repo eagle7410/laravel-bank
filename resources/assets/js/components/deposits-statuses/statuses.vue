@@ -39,6 +39,19 @@
                     .then(statuses => that.$store.commit('setStatuses', statuses || []))
                     .catch(err => console.error('Error get statuses', err))
             }
+
+            window.Echo.addHandles('depositStatusesComp', [
+                {
+                    chanel : 'deposit-statuses',
+                    event  : 'DepositStatusCreateEvent',
+                    handle : res => that.$store.commit('addStatus', res.data)
+                },
+                {
+                    chanel : 'deposit-statuses',
+                    event  : 'DepositStatusUpdateEvent',
+                    handle : res => that.$store.commit('updateStatus', res.data)
+                },
+            ]);
         }
     }
 </script>

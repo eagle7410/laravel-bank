@@ -27,7 +27,7 @@
                                 <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
                                 <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                                    <h4 class="control-sidebar-subheading">Langdon'oldStatus Birthday</h4>
 
                                     <p>Will be 23 on April 24th</p>
                                 </div>
@@ -199,7 +199,7 @@
             </div>
         </aside>
         <!-- /.control-sidebar -->
-        <!-- Add the sidebar's background. This div must be placed
+        <!-- Add the sidebar'oldStatus background. This div must be placed
              immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </li>

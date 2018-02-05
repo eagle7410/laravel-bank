@@ -32,7 +32,7 @@
             depositNewStatus  : () => that._storeDeposits.depositNewStatus,
             dataChangeStatus  : () => ({
                 id : that.depositId,
-                status : that.depositNewStatus
+                action : that.depositNewStatus
             }),
             isDepositsInit : () => that._storeDeposits.isInit,
             _storeProfile: () =>  that.$store.state.profile,
@@ -68,7 +68,7 @@
             that.$store.commit('setModalData', {
                 callCancel : that.cancelChangeStatus,
                 callSave   : that.applyNewDepositStatus,
-                bodyHtml   : "<p>Are you sure of the status change?</p>",
+                bodyHtml   : "<p>Are you sure of the action change?</p>",
                 btnSave    : "Yes",
                 btnSaveCss : "btn btn-danger",
                 btnClose   : "Cancel"
@@ -92,7 +92,7 @@
                         let deposit = res.data;
 
                         that.$store.commit('addDeposit', {
-                            status  : deposit.status_id,
+                            action  : deposit.status_id,
                             sum     : deposit.sum,
                             number  : deposit.number,
                             id      : deposit.id,

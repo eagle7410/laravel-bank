@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DepositStatusCreateEvent;
+use App\Events\DepositStatusUpdateEvent;
 use App\Models\Deposits\DepositStatuses;
 use Illuminate\Http\Request;
 
@@ -24,18 +26,22 @@ class StatusController extends EmployeeBaseController
 
         $status = DepositStatuses::create($data);
         $status->save();
+
+        event(new DepositStatusCreateEvent($status));
     }
 
     public function update(Request $request)
     {
         $data = $request->validate([
-            'name'     => 'required|string|max:255',
-            'id' => 'required|integer',
-            'desc'  => 'min:1'
+            'name' => 'required|string|max:255',
+            'id'   => 'required|integer',
+            'desc' => 'min:1'
         ]);
 
         $status = DepositStatuses::where('id', $data['id'])->first();
         $status->fill($data);
         $status->save();
+
+        event(new DepositStatusUpdateEvent($status));
     }
 }

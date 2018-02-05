@@ -13,12 +13,12 @@
     export default {
         data : function () {
             return {
-                title  : 'Deposits status',
+                title  : 'Deposits action',
             }
         },
 
         computed : {
-            api : () => window.apis.status,
+            api : () => window.apis.action,
             routeBack : () => routes.depStatuses
         }
     }

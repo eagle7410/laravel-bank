@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DepositActionCreateEvent;
+use App\Events\DepositActionUpdateEvent;
 use App\Models\Deposits\DepositActions;
 use Illuminate\Http\Request;
 
@@ -22,8 +24,10 @@ class ActionController extends EmployeeBaseController
             'desc'  => 'min:1'
         ]);
 
-        $status = DepositActions::create($data);
-        $status->save();
+        $action = DepositActions::create($data);
+        $action->save();
+
+        event(new DepositActionCreateEvent($action));
     }
 
     public function update(Request $request)
@@ -34,8 +38,10 @@ class ActionController extends EmployeeBaseController
             'desc'  => 'min:1'
         ]);
 
-        $status = DepositActions::where('id', $data['id'])->first();
-        $status->fill($data);
-        $status->save();
+        $action = DepositActions::where('id', $data['id'])->first();
+        $action->fill($data);
+        $action->save();
+
+        event(new DepositActionUpdateEvent($action));
     }
 }

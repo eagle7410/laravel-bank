@@ -51537,9 +51537,9 @@ var that = void 0;
 
     methods: {
         emitEvent: function emitEvent(data) {
-            var title = 'Unknown status';
+            var title = 'Unknown action';
             var depositId = data.id,
-                depositNewStatus = data.status;
+                depositNewStatus = data.action;
 
 
             switch (depositNewStatus) {
@@ -51611,8 +51611,8 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.entry.status === _vm.statuses.stopped ||
-    _vm.entry.status === _vm.statuses.verification
+    _vm.entry.action === _vm.statuses.stopped ||
+    _vm.entry.action === _vm.statuses.verification
       ? _c(
           "a",
           {
@@ -51621,7 +51621,7 @@ var render = function() {
               click: function($event) {
                 $event.preventDefault()
                 _vm.emitEvent({
-                  status: _vm.statuses.stopped,
+                  action: _vm.statuses.stopped,
                   id: _vm.entry.id
                 })
               }
@@ -51636,7 +51636,7 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _vm.entry.status === _vm.statuses.active
+    _vm.entry.action === _vm.statuses.active
       ? _c(
           "a",
           {
@@ -51644,7 +51644,7 @@ var render = function() {
             on: {
               click: function($event) {
                 $event.preventDefault()
-                _vm.emitEvent({ status: _vm.statuses.active, id: _vm.entry.id })
+                _vm.emitEvent({ action: _vm.statuses.active, id: _vm.entry.id })
               }
             }
           },
@@ -51657,7 +51657,7 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _vm.entry.status === _vm.statuses.verification
+    _vm.entry.action === _vm.statuses.verification
       ? _c(
           "a",
           {
@@ -51666,7 +51666,7 @@ var render = function() {
               click: function($event) {
                 $event.preventDefault()
                 _vm.emitEvent({
-                  status: _vm.statuses.verification,
+                  action: _vm.statuses.verification,
                   id: _vm.entry.id
                 })
               }
@@ -54032,6 +54032,20 @@ var that = void 0;
                 return console.error('Error get actions', err);
             });
         }
+
+        window.Echo.addHandles('depositActionsComp', [{
+            chanel: 'deposit-actions',
+            event: 'DepositActionCreateEvent',
+            handle: function handle(res) {
+                return that.$store.commit('addAction', res.data);
+            }
+        }, {
+            chanel: 'deposit-actions',
+            event: 'DepositActionUpdateEvent',
+            handle: function handle(res) {
+                return that.$store.commit('updateAction', res.data);
+            }
+        }]);
     }
 });
 
@@ -54092,13 +54106,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            title: 'Deposits status'
+            title: 'Deposits action'
         };
     },
 
     computed: {
         api: function api() {
-            return window.apis.status;
+            return window.apis.action;
         },
         routeBack: function routeBack() {
             return __WEBPACK_IMPORTED_MODULE_0__const__["j" /* routesEmployee */].depStatuses;
@@ -54192,6 +54206,20 @@ var that = void 0;
                 return console.error('Error get statuses', err);
             });
         }
+
+        window.Echo.addHandles('depositStatusesComp', [{
+            chanel: 'deposit-statuses',
+            event: 'DepositStatusCreateEvent',
+            handle: function handle(res) {
+                return that.$store.commit('addStatus', res.data);
+            }
+        }, {
+            chanel: 'deposit-statuses',
+            event: 'DepositStatusUpdateEvent',
+            handle: function handle(res) {
+                return that.$store.commit('updateStatus', res.data);
+            }
+        }]);
     }
 });
 
@@ -54695,7 +54723,7 @@ var that = void 0;
         dataChangeStatus: function dataChangeStatus() {
             return {
                 id: that.depositId,
-                status: that.depositNewStatus
+                action: that.depositNewStatus
             };
         },
         isDepositsInit: function isDepositsInit() {
@@ -54739,7 +54767,7 @@ var that = void 0;
         that.$store.commit('setModalData', {
             callCancel: that.cancelChangeStatus,
             callSave: that.applyNewDepositStatus,
-            bodyHtml: "<p>Are you sure of the status change?</p>",
+            bodyHtml: "<p>Are you sure of the action change?</p>",
             btnSave: "Yes",
             btnSaveCss: "btn btn-danger",
             btnClose: "Cancel"
@@ -54762,7 +54790,7 @@ var that = void 0;
                 var deposit = res.data;
 
                 that.$store.commit('addDeposit', {
-                    status: deposit.status_id,
+                    action: deposit.status_id,
                     sum: deposit.sum,
                     number: deposit.number,
                     id: deposit.id,
@@ -56114,7 +56142,7 @@ var that = void 0;
         return {
             depositId: null,
             number: null,
-            status: null,
+            action: null,
             sum: 0,
             histories: [],
             errMessage: null,
@@ -56135,7 +56163,7 @@ var that = void 0;
         that.api.getAll(that.depositId).then(function (depositHistory) {
             that.actionLabels = depositHistory.actions;
             that.number = that.depositId;
-            that.status = depositHistory.status;
+            that.action = depositHistory.action;
             that.sum = depositHistory.sum;
 
             if (!depositHistory.history.length) {
@@ -56164,8 +56192,8 @@ var render = function() {
         "h3",
         { staticClass: "box-title" },
         [
-          _vm.status
-            ? _c("my_deposits_status_label", { attrs: { status: _vm.status } })
+          _vm.action
+            ? _c("my_deposits_status_label", { attrs: { action: _vm.action } })
             : _vm._e(),
           _vm._v(
             " " + _vm._s(_vm.title) + " (" + _vm._s(_vm.sum) + "$).\n        "
@@ -56353,7 +56381,7 @@ var that = void 0;
         dataChangeStatus: function dataChangeStatus() {
             return {
                 id: that.depositId,
-                status: that.depositNewStatus
+                action: that.depositNewStatus
             };
         },
         isDepositsInit: function isDepositsInit() {
@@ -56398,7 +56426,7 @@ var that = void 0;
         that.$store.commit('setModalData', {
             callCancel: that.cancelChangeStatus,
             callSave: that.applyNewDepositStatus,
-            bodyHtml: "<p>Are you sure of the status change?</p>",
+            bodyHtml: "<p>Are you sure of the action change?</p>",
             btnSave: "Yes",
             btnSaveCss: "btn btn-danger",
             btnClose: "Cancel"
@@ -56423,7 +56451,7 @@ var that = void 0;
                 var deposit = res.data;
 
                 that.$store.commit('addDeposit', {
-                    status: deposit.status_id,
+                    action: deposit.status_id,
                     sum: deposit.sum,
                     number: deposit.number,
                     id: deposit.id,
@@ -57558,7 +57586,7 @@ var staticRenderFns = [
                     _vm._v(" "),
                     _c("div", { staticClass: "menu-info" }, [
                       _c("h4", { staticClass: "control-sidebar-subheading" }, [
-                        _vm._v("Langdon's Birthday")
+                        _vm._v("Langdon'oldStatus Birthday")
                       ]),
                       _vm._v(" "),
                       _c("p", [_vm._v("Will be 23 on April 24th")])
@@ -57954,7 +57982,7 @@ var that = void 0;
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        status: Number,
+        action: Number,
         entry: Object
     },
 
@@ -57964,11 +57992,11 @@ var that = void 0;
         }
     },
     methods: {
-        cssClass: function cssClass(status) {
+        cssClass: function cssClass(action) {
             var statuses = that.statuses;
             var cssClass = 'alert bg-';
 
-            switch (status) {
+            switch (action) {
                 case statuses.active:
                     cssClass += 'green';
                     break;
@@ -57982,11 +58010,11 @@ var that = void 0;
 
             return cssClass;
         },
-        label: function label(status) {
+        label: function label(action) {
             var label = '';
             var statuses = that.statuses;
 
-            switch (status) {
+            switch (action) {
                 case statuses.active:
                     label = 'Active';
                     break;
@@ -58025,14 +58053,14 @@ var render = function() {
     "b",
     {
       class: _vm.cssClass(
-        _vm.entry && _vm.entry.status ? _vm.entry.status : _vm.status
+        _vm.entry && _vm.entry.action ? _vm.entry.action : _vm.action
       )
     },
     [
       _vm._v(
         _vm._s(
           _vm.label(
-            _vm.entry && _vm.entry.status ? _vm.entry.status : _vm.status
+            _vm.entry && _vm.entry.action ? _vm.entry.action : _vm.action
           )
         )
       )

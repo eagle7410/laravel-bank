@@ -3,8 +3,8 @@
         <div class="box-header with-border">
             <h3 class="box-title">
                 <my_deposits_status_label
-                        v-if="status"
-                        :status="status"
+                        v-if="action"
+                        :action="action"
                 ></my_deposits_status_label> {{title}} ({{sum}}$).
             </h3>
         </div>
@@ -61,7 +61,7 @@
             return {
                 depositId : null,
                 number : null,
-                status : null,
+                action : null,
                 sum : 0,
                 histories : [],
                 errMessage : null,
@@ -83,7 +83,7 @@
                 .then(depositHistory => {
                     that.actionLabels = depositHistory.actions;
                     that.number = that.depositId;
-                    that.status = depositHistory.status;
+                    that.action = depositHistory.action;
                     that.sum    = depositHistory.sum;
 
                     if (!depositHistory.history.length) {

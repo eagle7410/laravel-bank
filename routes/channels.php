@@ -15,13 +15,16 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('users', function ($user) {
-    return $user;
-});
-
-Broadcast::channel('deposits', function ($user) {
-    return $user;
-});
+foreach ([
+    'users',
+    'deposits',
+    'deposit-statuses',
+    'deposit-actions',
+         ] as $chanel) {
+    Broadcast::channel($chanel, function ($user) {
+        return $user;
+    });
+}
 
 Broadcast::channel('user.{user}.deposits', function ($user, $userId) {
     return $user->id = $userId;

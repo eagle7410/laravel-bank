@@ -1,5 +1,5 @@
 <template>
-    <b :class="cssClass(entry && entry.status ? entry.status : status)">{{label(entry && entry.status ? entry.status : status)}}</b>
+    <b :class="cssClass(entry && entry.action ? entry.action : action)">{{label(entry && entry.action ? entry.action : action)}}</b>
 </template>
 <script>
     import {depositsStatus} from '../const'
@@ -7,7 +7,7 @@
 
     export default {
         props : {
-            status: Number,
+            action: Number,
             entry: Object
         },
 
@@ -15,11 +15,11 @@
             statusesValues : () => Object.values(that.depositsStatus),
         },
         methods : {
-            cssClass : (status) => {
+            cssClass : (action) => {
                 let statuses = that.statuses;
                 let cssClass = `alert bg-`;
 
-                switch (status) {
+                switch (action) {
                     case statuses.active :
                         cssClass += 'green';
                         break;
@@ -33,11 +33,11 @@
 
                 return cssClass;
             },
-            label : (status) => {
+            label : (action) => {
                 let label = '';
                 let statuses = that.statuses;
 
-                switch (status) {
+                switch (action) {
                     case statuses.active :
                         label = 'Active';
                         break;

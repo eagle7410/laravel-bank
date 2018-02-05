@@ -39,6 +39,19 @@
                     .then(actions => that.$store.commit('setActions', actions || []))
                     .catch(err => console.error('Error get actions', err))
             }
+
+            window.Echo.addHandles('depositActionsComp', [
+                {
+                    chanel : 'deposit-actions',
+                    event  : 'DepositActionCreateEvent',
+                    handle : res => that.$store.commit('addAction', res.data)
+                },
+                {
+                    chanel : 'deposit-actions',
+                    event  : 'DepositActionUpdateEvent',
+                    handle : res => that.$store.commit('updateAction', res.data)
+                },
+            ]);
         }
     }
 </script>
