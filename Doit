@@ -1,0 +1,21 @@
+tickets
+{
+    _id               : {type: Number, unique: true},
+    user_id           : {type: Number, require: true},
+    title             : {type: String, minlength: 1, require: true},
+    is_closed         : {type: Boolean, default: false},
+    is_unread_support : {type: Boolean, default: false},
+    created_at        : {type: Date, default: Date.now}
+    created_by        : {type: int}
+}
+
+ticket_messages
+
+{
+    _id        : {type: Number},
+    ticket_id  : {type: Number, require: true},
+    text       : {type: String, default: ''},
+    is_support : {type: Boolean, default: false},
+    created_at : {type: Ddate, default: Date.now}
+    created_by : {type: idnt}
+}

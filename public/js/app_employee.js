@@ -55530,6 +55530,8 @@ var render = function() {
               "ul",
               { staticClass: "nav navbar-nav" },
               [
+                _c("messages"),
+                _vm._v(" "),
                 _c("notifications"),
                 _vm._v(" "),
                 _c("task"),
