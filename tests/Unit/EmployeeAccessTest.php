@@ -1,6 +1,7 @@
 <?php
 namespace Tests\Unit;
 
+use App\Models\Notify\NotifyBaseModel;
 use App\User;
 use Illuminate\Support\Facades\Artisan;
 use Tests\Libs\RequestData;
@@ -36,6 +37,15 @@ class EmployeeAccessTest extends \Illuminate\Foundation\Testing\TestCase
         Artisan::call('db:seed');
         $user = User::find(1);
         $this->be($user);
+
+        $notice = new NotifyBaseModel();
+
+        $notice->data = 'test';
+        $notice->notifiable_id = 1;
+        $notice->id = 1;
+        $notice->type = self::class;
+        $notice->notifiable_type = self::class;
+        $notice->save();
     }
 
     public function tearDown()
@@ -104,6 +114,7 @@ class EmployeeAccessTest extends \Illuminate\Foundation\Testing\TestCase
             $reqDeposit,
             new RequestData('deposit-history/d1'),
             new RequestData('deposit', self::METHOD_PATCH, $testData->depositChangeStatus),
+            new RequestData('notify', self::METHOD_PATCH, ['id' => 1]),
         ];
 
         foreach ($arCheck as $request)
@@ -119,7 +130,7 @@ class EmployeeAccessTest extends \Illuminate\Foundation\Testing\TestCase
             $this->assertEquals($request->status, $response->getStatusCode(), "Bad status code {$request->method}|{$request->url}");
         }
 
-        $user = User::find(2);
+        $user = User::find(3);
         $this->be($user);
 
         foreach ($arCheck as $request)
@@ -131,13 +142,19 @@ class EmployeeAccessTest extends \Illuminate\Foundation\Testing\TestCase
                 case 'deposits-stats@GET':
                 case 'deposit-history/d1@GET':
                 case 'deposit@'.self::METHOD_PATCH:
+                case 'notify@'.self::METHOD_PATCH:
                     break;
                 default:
                     $request->status = 403;
             }
 
             $response = $this->call($request->method, $request->url, $request->data);
-            $this->assertEquals($request->status, $response->getStatusCode(), "Bag access {$request->method}|{$request->url}");
+
+            $this->assertEquals(
+                $request->status,
+                $response->getStatusCode(),
+                "Bag access {$request->method}|{$request->url}|{$response->getStatusCode()}"
+            );
         }
     }
 }
