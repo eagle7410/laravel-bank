@@ -3,5 +3,6 @@ export default {
     circle  : 'fa fa-circle-o',
     credit  : 'fa fa-credit-card',
     user    : 'fa fa-users',
-    profile : 'fa fa-address-card-o'
+    profile : 'fa fa-address-card-o',
+    bell    : 'fa fa-bell-o'
 };

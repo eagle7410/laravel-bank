@@ -9,6 +9,7 @@ import modal from './modules/modal'
 import users from './modules/users'
 import actions from './modules/actions'
 import statuses from './modules/statuses'
+import notices from './modules/notices'
 
 Vue.use(Vuex);
 
@@ -21,7 +22,8 @@ const store = new Vuex.Store({
         modal,
         users,
         actions,
-        statuses
+        statuses,
+        notices
     }
 });
 

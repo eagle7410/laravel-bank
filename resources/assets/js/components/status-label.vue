@@ -1,5 +1,5 @@
 <template>
-    <b :class="cssClass(entry && entry.action ? entry.action : action)">{{label(entry && entry.action ? entry.action : action)}}</b>
+    <b :class="cssClass(entry && entry.status ? entry.status : status)">{{label(entry && entry.status ? entry.status : status)}}</b>
 </template>
 <script>
     import {depositsStatus} from '../const'

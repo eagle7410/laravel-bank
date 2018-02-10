@@ -10,6 +10,12 @@ class DateHelper
     const DATE_FORMAT_DB = 'Y-m-d H:i:s';
     const DATE_FORMAT_MEMBER = 'M. Y';
 
+    public static function nowForDb()
+    {
+        $now = new DateTime();
+        return $now->format(self::DATE_FORMAT_DB);
+    }
+
     /**
      * @param string $date
      *

@@ -21,6 +21,7 @@
      user-member="{{auth()->user()->member()}}"
      user-post="{{auth()->user()->post()}}"
      user-id="{{auth()->user()->id}}"
+     user-notices="{{auth()->user()->notifications}}"
      csrf-token="{{csrf_token()}}"
      logout-action="{{ route('logout') }}"
 >

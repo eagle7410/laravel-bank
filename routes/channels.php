@@ -29,3 +29,7 @@ foreach ([
 Broadcast::channel('user.{user}.deposits', function ($user, $userId) {
     return $user->id = $userId;
 });
+
+Broadcast::channel('user.{user}.notify', function ($user, $userId) {
+    return $user->id = $userId;
+});

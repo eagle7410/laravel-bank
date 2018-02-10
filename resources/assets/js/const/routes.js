@@ -13,5 +13,12 @@ export default {
     },
     profile : {
         path : '/profile'
+    },
+    notifyRead : {
+        path : '/notices-read'
+    },
+    notifyUnread : {
+        path : '/notices-unread'
     }
+
 };

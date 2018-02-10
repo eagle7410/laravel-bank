@@ -41,3 +41,5 @@ Route::get('/deposit-history/{number}', 'DepositHistoryController@index')->name(
 Route::get('/deposits-stats', 'DepositsStatsController@index')->name('deposit-stats');
 
 Route::put('/profile' , 'ProfileController@index')->name('profile-update');
+
+Route::patch('/notify' , 'NotifyController@isRead')->name('notify-is-read');

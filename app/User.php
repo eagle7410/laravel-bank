@@ -2,22 +2,27 @@
 
 namespace App;
 
+use DateTime;
+use App\Events\UserAddDepositIncomeEvent;
 use App\Helpers\DateHelper;
 use App\Models\Profiles\ProfileBase;
+use App\Notifications\AddIncome;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notification;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     const ROLE_EMPLOYEE = 'employee';
-    const ROLE_CLIENT = 'client';
+    const ROLE_CLIENT   = 'client';
+    const ROLE_SYSTEM   = 'system';
+    const SYSTEM_USER_EMAIL = 'system@ua.com';
+
     use Notifiable;
     use HasRoles;
 
     private $profileCache = null;
-
-
 
     /**
      * The attributes that are mass assignable.
@@ -68,9 +73,32 @@ class User extends Authenticatable
         return $post;
     }
 
+    public static function getSystemUser() : User
+    {
+        return self::where(['email' => self::SYSTEM_USER_EMAIL])->first();
+    }
+
     public function member(): string
     {
         return DateHelper::dateStringToMemberFormat($this->created_at);
+    }
+
+    public function sendNotifyIncome($data)
+    {
+        foreach ($data as $item)
+        {
+            $notify = new AddIncome($item);
+            $this->notify($notify);
+            event(new UserAddDepositIncomeEvent($this, $this->lastNotify()));
+        }
+    }
+
+    /**
+     * Get the entity's read notifications.
+     */
+    public function lastNotify()
+    {
+        return $this->notifications()->first();
     }
 
     private function getProfileProp(string $prop)

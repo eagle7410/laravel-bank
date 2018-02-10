@@ -20,18 +20,19 @@
                 <i v-if="item.iconClass" :class="item.iconClass"></i>
                 <span>{{item.label}}</span>
                 <span
-                    v-if="item.labels && item.labels.length"
-                    class="pull-right-container">
-                        <small v-for="label in item.labels"
-                               :class="'label ' + label.class">
+                    v-if="item.labels || item.subs"
+                    class="pull-right-container"
+                >
+                        <i v-if="item.subs && item.subs.length"
+                           class="fa fa-angle-left pull-right"></i>
+
+                        <small
+                                v-for="label in item.labels"
+                                v-if="item.labels && item.labels.length && label.text"
+                               :class="`label ${label.class}`"
+                        >
                             {{label.text}}
                         </small>
-                </span>
-                <span class="pull-right-container"
-                      v-if="item.subs"
-                >
-                    <i v-if="item.subs && item.subs.length"
-                       class="fa fa-angle-left pull-right"></i>
                 </span>
             </router-link>
             <ul class="treeview-menu"
@@ -53,6 +54,9 @@
     let that;
 
     export default {
+        computed : {
+            _storeNotify : function() { return this.$store.state.notices },
+        },
 
         data : function() {
             return {
@@ -64,10 +68,20 @@
             getMainRoute : item => item.subs && item.subs.length ? {} : item.route,
         },
 
+        watch : {
+            '_storeNotify.unread.length' : {
+                handler : (after) => {
+                    let notice = that.items.find(item => item.label === 'Notices');
+                    notice.labels[0].text = after;
+                }
+            }
+        },
+
         created : function () {
             that = this;
 
             that.items = (that.$root.leftMenu || []).map(item => {
+
                 if (!item.route) {
                     item.route = routes.def;
                 }
@@ -81,7 +95,6 @@
                         return sub;
                     })
                 }
-
 
                 return item;
             });

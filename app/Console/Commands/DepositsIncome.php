@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Services\IncomeService;
+use App\User;
 use Illuminate\Console\Command;
 use DateTime;
 
@@ -25,6 +26,10 @@ class DepositsIncome extends Command
      * @var IncomeService
      */
     private $service;
+    /**
+     * @var User
+     */
+    private $user;
 
     /**
      * Create a new command instance.
@@ -56,7 +61,9 @@ class DepositsIncome extends Command
 
         $this->info("Start income for {$date->format($date->format('d-m-Y'))}!");
 
-        $this->service->byDate($date)->addIncome();
+        $this->service->byDate($date)
+            ->addIncome()
+            ->sendNotification();
 
         $this->info("Count deposits {$this->service->countDeposit()} add income!");
     }

@@ -13,6 +13,26 @@ export default [
         route : routes.usrs,
     },
     {
+        label : 'Notices',
+        labels : [
+            {
+                text  : 0,
+                class : 'pull-right bg-yellow'
+            }
+        ],
+        iconClass : iconClasses.bell,
+        subs : [
+            {
+                label : 'Unread',
+                route : routes.notifyUnread,
+            },
+            {
+                label : 'Read',
+                route : routes.notifyRead,
+            },
+        ]
+    },
+    {
         label : 'Deposits',
         iconClass : iconClasses.credit,
         subs : [

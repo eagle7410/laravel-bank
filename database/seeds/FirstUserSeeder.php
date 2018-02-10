@@ -15,13 +15,22 @@ class FirstUserSeeder extends Seeder
         $count = User::count();
 
         if ($count === 0) {
-            factory(User::class)->create([
+
+            $user = User::create([
                 'name' => 'MainTest',
                 'email' => 'testing@ua.com',
                 'password' => Hash::make( 'testing' )
-            ])->each(function ($u) {
-                $u->assignRole(User::ROLE_EMPLOYEE);
-            });
+            ]);
+            $user->assignRole(User::ROLE_EMPLOYEE);
+            $user->save();
+
+            $user = User::create([
+                'name' => 'system',
+                'email' => User::SYSTEM_USER_EMAIL,
+                'password' => Hash::make( 'system' )
+            ]);
+            $user->assignRole(User::ROLE_SYSTEM);
+            $user->save();
         }
     }
 }

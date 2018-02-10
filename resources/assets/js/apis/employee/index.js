@@ -10,6 +10,7 @@ import status from './status'
 import actions from './actions'
 import action from './action'
 import clients from './clients'
+import notify from '../common/notify'
 
 export default {
     depositHistory,
@@ -23,5 +24,6 @@ export default {
     actions,
     action,
     clients,
-    profile
+    profile,
+    notify
 }

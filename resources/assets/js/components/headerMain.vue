@@ -9,7 +9,7 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <messages></messages>
+                    <!--<messages></messages>-->
                     <notifications></notifications>
                     <task></task>
                     <!-- User Account: style can be found in dropdown.less -->
@@ -54,7 +54,7 @@
                             </li>
                         </ul>
                     </li>
-                    <settings_slidebar></settings_slidebar>
+                    <!--<settings_slidebar></settings_slidebar>-->
                 </ul>
             </div>
         </nav>

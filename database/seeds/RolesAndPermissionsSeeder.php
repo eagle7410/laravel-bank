@@ -22,6 +22,7 @@ class RolesAndPermissionsSeeder extends Seeder
             // create roles and assign existing permissions
             $role = Role::create(['name' => User::ROLE_EMPLOYEE]);
             $role = Role::create(['name' => User::ROLE_CLIENT]);
+            $role = Role::create(['name' => User::ROLE_SYSTEM]);
         }
     }
 }

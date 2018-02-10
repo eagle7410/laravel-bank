@@ -10,6 +10,8 @@ import depositsStatus from './deposits-status'
 import depositHistoryActions from './deposit-history-actions'
 import employeeDepositGrid from './employee-deposit-grid'
 import depositGrid from './deposit-grid'
+import notifyReadGrid from './notice-read-grid'
+import notifyUnreadGrid from './notice-unread-grid'
 
 export {
     routes,
@@ -24,4 +26,6 @@ export {
     depositHistoryActions,
     employeeDepositGrid,
     depositGrid,
+    notifyReadGrid,
+    notifyUnreadGrid
 };

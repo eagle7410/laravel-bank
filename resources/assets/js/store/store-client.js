@@ -6,6 +6,7 @@ import appInfo from './modules/app'
 import dash from './modules/dash'
 import deposits from './modules/deposits'
 import modal from './modules/modal'
+import notices from './modules/notices'
 
 Vue.use(Vuex);
 
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
         appInfo,
         dash,
         deposits,
-        modal
+        modal,
+        notices
     }
 });
 

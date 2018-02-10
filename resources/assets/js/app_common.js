@@ -20,6 +20,7 @@ export default {
         userEmail     () { return this._storeProfile.email },
         userPost      () { return this._storeProfile.post },
         userMember    () { return this._storeProfile.member },
+        userId        () { return this._storeProfile.id},
 
     },
     data  : function () {
@@ -57,6 +58,26 @@ export default {
                 'X-CSRF-TOKEN': that.csrfToken
             }
         });
+
+        that.$store.dispatch(
+            'setNotices',
+            that.$el.getAttribute('user-notices')
+        );
+
+        let notifyChanel =  `user.${that.userId}.notify`;
+
+        window.Echo.addHandles('app', [
+            {
+                chanel : notifyChanel,
+                event  : 'UserAddDepositIncomeEvent',
+                handle : res => {
+                    that.$store.commit(
+                        'noticeNew',
+                        window.notifyTools.getNoticeForStore(res.data)
+                    );
+                }
+            },
+        ]);
     },
     created : function () {
         let that = this;

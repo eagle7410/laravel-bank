@@ -32,7 +32,7 @@
             depositNewStatus  : () => that._storeDeposits.depositNewStatus,
             dataChangeStatus  : () => ({
                 id : that.depositId,
-                action : that.depositNewStatus
+                status : that.depositNewStatus
             }),
             isDepositsInit : () => that._storeDeposits.isInit,
             _storeProfile: () =>  that.$store.state.profile,
