@@ -24,7 +24,7 @@
                 type : String,
                 default : ''
             },
-            isClose : {
+            value  : {
                 type : Boolean,
                 default : true
             }
@@ -44,11 +44,13 @@
                     .closest('.box-toggle')
                     .find('.box-body')
                     .slideToggle();
+
+                this.$emit('input', this.isClosed);
             }
         },
 
         created : function () {
-            this.isClosed = this.isClose;
+            this.isClosed = this.value;
         },
         
         mounted : function () {

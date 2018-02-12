@@ -1,12 +1,20 @@
 export default {
     state: {
-        wait_answer   : [],
-        wait_question : [],
-        closed        : [],
-        dialogStore   : '',
-        isInitClosed  : false,
+        wait_answer         : [],
+        wait_question       : [],
+        closed              : [],
+        isWaitAnswerClose   : false,
+        isWaitQuestionClose : false,
+        dialogStore         : '',
+        isInitClosed        : false,
     },
     mutations: {
+        setIsQuestionClose : (state, value) => {
+            state.isWaitQuestionClose = value;
+        },
+        setIsAnswerClose : (state, value) => {
+            state.isWaitAnswerClose = value;
+        },
         clearDialogStore : (state) => {
             state.dialogStore = '';
         },

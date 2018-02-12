@@ -29,7 +29,7 @@
 
                 this.api.close(id)
                     .then(res => {
-                        this.$store.commit('closeTicket', {id, closed_at : res.closed_at})
+                        this.$store.commit('closeTicket', {id, closed_at : res.closed_at});
                         this.$router.push(routes.ticketsClose)
                     })
 

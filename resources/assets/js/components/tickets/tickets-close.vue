@@ -4,7 +4,7 @@
             <h3 class="box-title">This is closed tickets.</h3>
         </div>
         <div class="box-body">
-            <tickets-list :tickets="tickets"></tickets-list>
+            <tickets-list :tickets="ticketsClosed"></tickets-list>
         </div>
     </div>
 
@@ -18,26 +18,9 @@
             TicketsList
         },
 
-        data: function () {
-            return {
-                tickets : [
-                    {
-                        title : 'Ticket1',
-                        closed_at : '02-02-2018',
-                        id : 1
-                    },
-                    {
-                        title : 'Ticket2',
-                        closed_at : '02-02-2018',
-                        id : 2
-                    },
-                    {
-                        title : 'Ticket3',
-                        closed_at : '03-02-2018',
-                        id : 3
-                    }
-                ]
-            }
+        computed : {
+            _storeTickets : () => that.$store.state.tickets,
+            ticketsClosed  : () => that._storeTickets.closed
         },
 
         created: function () {
