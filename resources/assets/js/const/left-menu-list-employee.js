@@ -44,11 +44,11 @@ export default [
         subs : [
             {
                 label : 'Open',
-                route : routes.notifyUnread,
+                route : routes.ticketsOpen,
             },
             {
                 label : 'Close',
-                route : routes.notifyRead,
+                route : routes.ticketsClose,
             },
         ]
     },

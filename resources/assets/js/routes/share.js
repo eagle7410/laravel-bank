@@ -5,6 +5,7 @@ import NotifyRead from '../components/notify/notify-reads.vue'
 import NotifyUnread from '../components/notify/notify-unreads.vue'
 import TicketsClose from '../components/tickets/tickets-close.vue'
 import TicketDialog from '../components/tickets/ticket-dialog.vue'
+import TicketOpen from '../components/tickets/tickets-open.vue'
 import {
     breadcrumbDash,
     breadcrumbTicketOpen
@@ -95,6 +96,16 @@ export default [
                     label : 'Ticket dialog',
                     route : routes.ticketMess,
                 }
+            ]
+        }
+    },
+    {
+        ...routes.ticketsOpen,
+        component: TicketOpen,
+        meta : {
+            breadcrumbs : [
+                breadcrumbDash,
+                breadcrumbTicketOpen
             ]
         }
     },

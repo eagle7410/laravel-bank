@@ -3,7 +3,6 @@ import Share from  './routes/share'
 import MyDeposits from './components/my-deposits/my-deposits.vue'
 import MyDepositHistory from './components/my-deposit-history/my-deposit-history'
 import TicketCreate from './components/tickets/ticket-create.vue'
-import TicketOpen from './components/tickets/clients/tickets-open.vue'
 
 import {
     breadcrumbDash,
@@ -56,16 +55,6 @@ export default [
                     label : 'Create ticket',
                     route : routes.ticketCreate,
                 }
-            ]
-        }
-    },
-    {
-        ...routes.ticketsOpen,
-        component: TicketOpen,
-        meta : {
-            breadcrumbs : [
-                breadcrumbDash,
-                breadcrumbTicketOpen
             ]
         }
     },

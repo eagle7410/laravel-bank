@@ -17,8 +17,8 @@
 </template>
 
 <script>
-    import Box from '../../common/box.vue'
-    import TicketsList from '../tikets-list.vue'
+    import Box from '../common/box.vue'
+    import TicketsList from './tikets-list.vue'
 
     let that;
 

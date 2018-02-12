@@ -8,7 +8,7 @@
                 <div class="col-lg-7">
                     <div class="box-body">
                         <div class="direct-chat-messages">
-                            <ticket-message v-for="(message, inx) in ticket.dialog" :message="message" :key="`mess-${inx}`"></ticket-message>
+                            <ticket-message v-for="message in ticket.dialog" :message="message" :key="`mess-${message.id}`"></ticket-message>
                         </div>
                     </div>
                 </div>
