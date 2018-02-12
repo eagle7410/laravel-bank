@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-lg-4">
-            <box title="9 ticket need close or ask new question" v-model="isQuestionClose">
+            <box :title="titleQuestionTicket" v-model="isQuestionClose">
                 <tickets-list :tickets="ticketQuestion"></tickets-list>
             </box>
         </div>
@@ -29,6 +29,9 @@
         },
 
         computed : {
+            titleQuestionTicket : () => that.$root.isClient
+                ? 'This is ticket need close or ask new question'
+                : 'This is ticket wait new question or close',
             _storeTickets   : () => that.$store.state.tickets,
             isQuestionClose : {
                 get () {
