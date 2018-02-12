@@ -17,18 +17,20 @@
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
-            <left_menu></left_menu>
+            <left-menu></left-menu>
         </section>
         <!-- /.sidebar -->
     </aside>
 </template>
 <script>
     import Gravatar from 'vue-gravatar';
+    import LeftMenu from './menu.vue';
     let that;
 
     export default {
         components : {
-            Gravatar
+            Gravatar,
+            LeftMenu
         },
 
         computed : {

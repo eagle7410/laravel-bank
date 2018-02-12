@@ -35,6 +35,7 @@ export default {
         const that = this;
         const profile = {};
         const appInfo = {};
+
         // Properties get from root elements and set to app props.
         initHtmlProps.map(prop => {
             let val =  '';

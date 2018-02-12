@@ -10,6 +10,7 @@ import users from './modules/users'
 import actions from './modules/actions'
 import statuses from './modules/statuses'
 import notices from './modules/notices'
+import tickets from './modules/tickets'
 
 Vue.use(Vuex);
 
@@ -23,7 +24,8 @@ const store = new Vuex.Store({
         users,
         actions,
         statuses,
-        notices
+        notices,
+        tickets
     }
 });
 

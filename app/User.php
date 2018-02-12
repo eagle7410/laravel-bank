@@ -14,6 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    const TABLE_NAME = 'users';
     const ROLE_EMPLOYEE = 'employee';
     const ROLE_CLIENT   = 'client';
     const ROLE_SYSTEM   = 'system';

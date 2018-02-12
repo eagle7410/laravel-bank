@@ -31,5 +31,29 @@ export default [
                 route : routes.notifyRead,
             },
         ]
+    },
+    {
+        label : 'Tickets',
+        labels : [
+            {
+                text  : 0,
+                class : 'pull-right bg-red'
+            }
+        ],
+        iconClass : iconClasses.flag,
+        subs : [
+            {
+                label : 'Create',
+                route : routes.ticketCreate,
+            },
+            {
+                label : 'Open',
+                route : routes.ticketsOpen,
+            },
+            {
+                label : 'Close',
+                route : routes.ticketsClose,
+            },
+        ]
     }
 ];

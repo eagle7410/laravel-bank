@@ -25,10 +25,17 @@ const breadcrumbDepositActions = {
     route : routes.depActions,
 };
 
+const breadcrumbTicketOpen = {
+    label : 'Tickets open',
+    route : routes.ticketsOpen,
+    iconClass : iconClasses.flag
+};
+
 export {
     breadcrumbDash,
     breadcrumbDeposits,
     breadcrumbUsers,
     breadcrumbDepositStatuses,
-    breadcrumbDepositActions
+    breadcrumbDepositActions,
+    breadcrumbTicketOpen
 }

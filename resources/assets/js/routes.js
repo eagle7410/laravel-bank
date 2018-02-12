@@ -2,9 +2,12 @@ import {routes, iconClasses} from './const'
 import Share from  './routes/share'
 import MyDeposits from './components/my-deposits/my-deposits.vue'
 import MyDepositHistory from './components/my-deposit-history/my-deposit-history'
+import TicketCreate from './components/tickets/ticket-create.vue'
+import TicketOpen from './components/tickets/clients/tickets-open.vue'
 
 import {
     breadcrumbDash,
+    breadcrumbTicketOpen,
 } from './const/breadcrumbs'
 
 const breadcrumbDeposits = {
@@ -42,4 +45,29 @@ export default [
             ]
         }
     },
+    {
+        ...routes.ticketCreate,
+        component: TicketCreate,
+        meta : {
+            breadcrumbs : [
+                breadcrumbDash,
+                breadcrumbTicketOpen,
+                {
+                    label : 'Create ticket',
+                    route : routes.ticketCreate,
+                }
+            ]
+        }
+    },
+    {
+        ...routes.ticketsOpen,
+        component: TicketOpen,
+        meta : {
+            breadcrumbs : [
+                breadcrumbDash,
+                breadcrumbTicketOpen
+            ]
+        }
+    },
+
 ];

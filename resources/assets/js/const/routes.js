@@ -19,6 +19,17 @@ export default {
     },
     notifyUnread : {
         path : '/notices-unread'
+    },
+    ticketCreate : {
+        path : '/ticket-create'
+    },
+    ticketMess : {
+        path : '/ticket/:id/dialog'
+    },
+    ticketsOpen : {
+        path : '/tickets-open'
+    },
+    ticketsClose : {
+        path : '/tickets-close'
     }
-
 };

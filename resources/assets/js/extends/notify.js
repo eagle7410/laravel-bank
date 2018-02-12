@@ -4,6 +4,8 @@ const buildMessage = (notice) => {
     switch (notice.type) {
         case 'App\\Notifications\\AddIncome':
             return `Dear client to your deposit #${attach.number}, came income ${attach.income} $, by date ${attach.income_at}`;
+        case 'App\\Notifications\\SystemEndAddIncome':
+            return `System adding income at ${attach.date}.`;
 
         default:
             return '';
@@ -14,10 +16,14 @@ const buildTitle = (notice) => {
     let attach = notice.data;
 
     switch (notice.type) {
+        case 'App\\Notifications\\SystemEndAddIncome':
+            return `Income at ${attach.date}.`;
         case 'App\\Notifications\\AddIncome':
             return `Income for deposit #${attach.number}.`;
 
         default:
+            console.warn('Obscure notice', notice);
+
             return 'Obscure notice';
     }
 };
@@ -25,6 +31,8 @@ const buildTitle = (notice) => {
 const getIconClass = (notice) => {
 
     switch (notice.type) {
+        case 'App\\Notifications\\SystemEndAddIncome':
+            return 'fa fa-cog text-green';
         case 'App\\Notifications\\AddIncome':
             return 'fa fa-money text-green';
 

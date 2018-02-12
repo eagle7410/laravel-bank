@@ -11,6 +11,7 @@ import actions from './actions'
 import action from './action'
 import clients from './clients'
 import notify from '../common/notify'
+import ticketsOpen from '../common/ticket-open'
 
 export default {
     depositHistory,
@@ -25,5 +26,6 @@ export default {
     action,
     clients,
     profile,
-    notify
+    notify,
+    ticketsOpen
 }

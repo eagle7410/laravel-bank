@@ -16,25 +16,9 @@
         <li class="treeview"
             v-for="item in items"
         >
-            <router-link :to="getMainRoute(item)" exact>
-                <i v-if="item.iconClass" :class="item.iconClass"></i>
-                <span>{{item.label}}</span>
-                <span
-                    v-if="item.labels || item.subs"
-                    class="pull-right-container"
-                >
-                        <i v-if="item.subs && item.subs.length"
-                           class="fa fa-angle-left pull-right"></i>
+            <link-with-subs v-if="item.subs && item.subs.length" :item="item"></link-with-subs>
+            <link-without-subs v-else :item="item"></link-without-subs>
 
-                        <small
-                                v-for="label in item.labels"
-                                v-if="item.labels && item.labels.length && label.text"
-                               :class="`label ${label.class}`"
-                        >
-                            {{label.text}}
-                        </small>
-                </span>
-            </router-link>
             <ul class="treeview-menu"
                 v-if="item.subs && item.subs.length"
             >
@@ -45,17 +29,29 @@
                     </router-link>
                 </li>
             </ul>
+
         </li>
     </ul>
 </template>
 
 <script>
     import {routes} from '../../const';
+    import LinkWithSubs from './menu-link-with-subs.vue'
+    import LinkWithoutSubs from './menu-link-without-subs.vue'
+
     let that;
 
     export default {
+        components : {
+            LinkWithSubs,
+            LinkWithoutSubs
+        },
+
         computed : {
             _storeNotify : function() { return this.$store.state.notices },
+            _storeTickets : function() { return this.$store.state.tickets },
+            _storeTicketsAnswer : function() { return this._storeTickets.wait_answer },
+            _storeTicketsQuestion : function() { return this._storeTickets.wait_question },
         },
 
         data : function() {
@@ -64,17 +60,14 @@
             }
         },
 
-        methods : {
-            getMainRoute : item => item.subs && item.subs.length ? {} : item.route,
-        },
-
         watch : {
             '_storeNotify.unread.length' : {
                 handler : (after) => {
                     let notice = that.items.find(item => item.label === 'Notices');
                     notice.labels[0].text = after;
                 }
-            }
+            },
+
         },
 
         created : function () {
@@ -98,7 +91,21 @@
 
                 return item;
             });
+
+            that.$store.watch(state => {
+                return state.tickets[that.$root.isClient ?  'wait_question' : 'wait_answer'].length;
+            }, after => {
+                let notice = that.items.find(item => item.label === 'Tickets');
+                notice.labels[0].text = after;
+            });
+
         }
     }
 
 </script>
+<style scoped>
+    a.exact {
+        background: #3097D1 !important;
+    }
+
+</style>

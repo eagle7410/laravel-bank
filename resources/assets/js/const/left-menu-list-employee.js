@@ -33,6 +33,26 @@ export default [
         ]
     },
     {
+        label : 'Tickets',
+        labels : [
+            {
+                text  : 0,
+                class : 'pull-right bg-red'
+            }
+        ],
+        iconClass : iconClasses.flag,
+        subs : [
+            {
+                label : 'Open',
+                route : routes.notifyUnread,
+            },
+            {
+                label : 'Close',
+                route : routes.notifyRead,
+            },
+        ]
+    },
+    {
         label : 'Deposits',
         iconClass : iconClasses.credit,
         subs : [

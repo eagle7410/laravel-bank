@@ -43,3 +43,9 @@ Route::get('/deposits-stats', 'DepositsStatsController@index')->name('deposit-st
 Route::put('/profile' , 'ProfileController@index')->name('profile-update');
 
 Route::patch('/notify' , 'NotifyController@isRead')->name('notify-is-read');
+
+Route::post('/ticket' , 'TicketsController@create')->name('ticket-create');
+
+Route::get('/tickets-open' , 'TicketsController@opened')->name('ticket-opened');
+
+Route::get('/ticket-dialog' , 'TicketsController@dialog')->name('ticket-opened');

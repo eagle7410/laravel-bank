@@ -3,9 +3,11 @@ import DashBoard from '../components/dashboard/dashBoard.vue'
 import Profile from '../components/profile/profile.vue'
 import NotifyRead from '../components/notify/notify-reads.vue'
 import NotifyUnread from '../components/notify/notify-unreads.vue'
-
+import TicketsClose from '../components/tickets/tickets-close.vue'
+import TicketDialog from '../components/tickets/ticket-dialog.vue'
 import {
     breadcrumbDash,
+    breadcrumbTicketOpen
 } from '../const/breadcrumbs'
 
 export default [
@@ -64,6 +66,34 @@ export default [
                     label : 'Notices unread',
                     route : routes.notifyUnread,
                     iconClass : iconClasses.bell
+                }
+            ]
+        }
+    },
+    {
+        ...routes.ticketsClose,
+        component: TicketsClose,
+        meta : {
+            breadcrumbs : [
+                breadcrumbDash,
+                {
+                    label : 'Tickets closed',
+                    route : routes.ticketsClose,
+                    iconClass : iconClasses.flag
+                }
+            ]
+        }
+    },
+    {
+        ...routes.ticketMess,
+        component: TicketDialog,
+        meta : {
+            breadcrumbs : [
+                breadcrumbDash,
+                breadcrumbTicketOpen,
+                {
+                    label : 'Ticket dialog',
+                    route : routes.ticketMess,
                 }
             ]
         }

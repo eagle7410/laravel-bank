@@ -11,6 +11,7 @@ namespace App\Services;
 use App\Events\UserAddDepositIncomeEvent;
 use App\Helpers\DateHelper;
 use App\Models\Deposits\Deposits;
+use App\Notifications\SystemEndAddIncome;
 use App\User;
 use DateTime;
 
@@ -85,6 +86,19 @@ class IncomeService
             $user = User::find($userId);
 
             $user->sendNotifyIncome($data);
+        }
+
+        $employees = User::role(User::ROLE_EMPLOYEE)->get();
+
+        foreach ($employees as $employee)
+        {
+            $notify = new SystemEndAddIncome([
+                'date' => $this->date->format(DateHelper::DATE_FORMAT_SHOW)
+            ]);
+
+            $employee->notify($notify);
+
+            event(new UserAddDepositIncomeEvent($employee, $employee->lastNotify()));
         }
 
         return $this;

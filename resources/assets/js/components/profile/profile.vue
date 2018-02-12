@@ -8,7 +8,7 @@
             <div class="col-md-5">
                 <gravatar :email="email" alt="User Image" class="image"></gravatar>
                 <div class="avatar-desc">
-                    For change avatar use service <a href="https://ru.gravatar.com/">Gravatar</a>
+                    For change avatar use service <a href="https://en.gravatar.com/">Gravatar</a>
                 </div>
             </div>
         </div>

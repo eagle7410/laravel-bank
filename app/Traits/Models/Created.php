@@ -2,15 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: igor
- * Date: 18.01.18
- * Time: 13:05
+ * Date: 11.02.18
+ * Time: 16:48
  */
 
 namespace App\Traits\Models;
 
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\DateHelper;
 
-trait CreatedBy
+trait Created
 {
     protected static function boot()
     {
@@ -20,6 +21,7 @@ trait CreatedBy
 
             $userId = Auth::user()->id;
 
+            $model->created_at = DateHelper::nowForDb();
             $model->created_by = $userId;
 
             if (isset($model->updated_by)) {
