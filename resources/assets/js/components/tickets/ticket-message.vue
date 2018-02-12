@@ -10,18 +10,17 @@
                 </span>
             </div>
             <img class="direct-chat-img" :src="message.avatar" alt="User Image">
-            <div class="direct-chat-text" v-html="message.text"></div>
+            <div class="direct-chat-text" v-html="message.text.replace(/\n/g, '<br/>')"></div>
         </div>
     </div>
 </template>
 <script>
-export default {
-    props : {
-        message : {
-            type : Object,
-            required : true
+    export default {
+        props : {
+            message : {
+                type : Object,
+                required : true
+            }
         }
     }
-}
-
 </script>

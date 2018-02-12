@@ -3,8 +3,9 @@ import depositHistory from '../common/deposit-history'
 import dash from '../common/dash'
 import profile from '../common/profile'
 import notify from '../common/notify'
-import ticketsOpen from '../common/ticket-open'
+import tickets from '../common/tickets'
 import ticket from './ticket'
+import ticketDialog from '../common/ticket-dialog'
 
 export default {
     depositHistory,
@@ -13,5 +14,6 @@ export default {
     profile,
     notify,
     ticket,
-    ticketsOpen
+    tickets,
+    ticketDialog
 }

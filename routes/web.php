@@ -45,7 +45,9 @@ Route::put('/profile' , 'ProfileController@index')->name('profile-update');
 Route::patch('/notify' , 'NotifyController@isRead')->name('notify-is-read');
 
 Route::post('/ticket' , 'TicketsController@create')->name('ticket-create');
+Route::patch('/ticket' , 'TicketsController@send')->name('ticket-send');
+Route::put('/ticket' , 'TicketsController@close')->name('ticket-close');
 
-Route::get('/tickets-open' , 'TicketsController@opened')->name('ticket-opened');
+Route::get('/tickets' , 'TicketsController@all')->name('tickets');
 
 Route::get('/ticket-dialog' , 'TicketsController@dialog')->name('ticket-opened');

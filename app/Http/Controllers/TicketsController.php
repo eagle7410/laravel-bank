@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DateHelper;
 use App\Models\Tickets\Tickets;
 use App\User;
 use Illuminate\Http\Request;
@@ -16,21 +17,20 @@ class TicketsController extends AuthBaseController
 
         $data = $request->validate([
             'title' => 'required|string|min:1',
-            'text'  => 'required|string|min:1',
+            'text' => 'required|string|min:1',
         ]);
 
         $data['user_id'] = $this->user->id;
 
-
         return Tickets::createWithFistMessage($data);
     }
 
-    public function opened()
+    public function all()
     {
         if ($this->user->hasRole(User::ROLE_EMPLOYEE)) {
-            return Tickets::opened();
+            return Tickets::get();
         } elseif ($this->user->hasRole(User::ROLE_CLIENT)) {
-            return Tickets::openedUser($this->user->id);
+            return Tickets::where('user_id', $this->user->id)->get();
         } else {
             return abort(403);
         }
@@ -42,23 +42,45 @@ class TicketsController extends AuthBaseController
             'id' => 'required|exists:tickets',
         ]);
 
-        if (
-            $this->user->hasRole(User::ROLE_EMPLOYEE) ||
-            $this->user->hasRole(User::ROLE_CLIENT)
-        ) {
-            /** @var Tickets $ticket */
-            $ticket = Tickets::find($data['id']);
-
-            if (
-                $this->user->hasRole(User::ROLE_CLIENT) &&
-                $this->user->id !== $ticket->user_id
-            ) {
-                return abort(403);
-            }
-
-            return $ticket->dialogWithUsers();
-        } {
+        /** @var Tickets $ticket */
+        if (null === $ticket = Tickets::checkAccessAndGet($data['id'], $this->user)) {
             return abort(403);
         }
+
+        return $ticket->dialogWithUsers();
+    }
+
+    public function send(Request $request)
+    {
+        $data = $request->validate([
+            'id' => 'required|exists:tickets',
+            'text' => 'required|min:1'
+        ]);
+
+        /** @var Tickets $ticket */
+        if (null === $ticket = Tickets::checkAccessAndGet($data['id'], $this->user)) {
+            return abort(403);
+        }
+
+        return $ticket->newSend($this->user, $data);
+    }
+
+    public function close(Request $request)
+    {
+        $data = $request->validate(['id' => 'required|exists:tickets']);
+
+        /** @var Tickets $ticket */
+        if (
+            null === $ticket = Tickets::checkAccessAndGet($data['id'], $this->user)
+        ) {
+            return abort(403);
+        }
+
+        if (!$ticket->closed_at) {
+            $ticket->closed_at = DateHelper::nowForDb();
+            $ticket->save();
+        }
+
+        return $ticket;
     }
 }

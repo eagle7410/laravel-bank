@@ -39,7 +39,7 @@
     export default {
         computed : {
             isShow         : () => !that.isLoad && !that.isEmpty,
-            apiTicketsOpen : () => window.apis.ticketsOpen,
+            apiTickets     : () => window.apis.tickets,
             _storeTickets  : () => that.$store.state.tickets,
             isClient       : () => that.$root.isClient,
             ticketsAll     : () => that._storeTickets[that.isClient  ? 'wait_question' : 'wait_answer' ],
@@ -57,10 +57,10 @@
         created : function () {
             that = this;
 
-            that.apiTicketsOpen.getAll()
+            that.apiTickets.getAll()
                 .then(tickets => {
                     that.isLoad = false;
-                    that.$store.dispatch('setTicketsOpened' ,tickets);
+                    that.$store.dispatch('setTickets' ,tickets);
                 })
                 .catch(err => {
                     that.isLoad = false;

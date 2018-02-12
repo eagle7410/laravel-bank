@@ -1,5 +1,5 @@
 <template>
-    <div class="box box-toggle" >
+    <div class="box box-toggle">
         <div class="box-header ui-sortable-handle" style="cursor: move;">
             <!-- tools box -->
             <div class="pull-right box-tools">

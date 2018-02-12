@@ -1,7 +1,7 @@
 <template>
     <div class="box">
 
-        <ticket-btn-close :ticket="ticket"></ticket-btn-close>
+        <ticket-btn-close :ticket="ticket" :is-closed="Boolean(ticket.closed_at)"></ticket-btn-close>
 
         <div class="box box-warning direct-chat direct-chat-warning ">
             <div class="row">
@@ -36,9 +36,10 @@
         },
 
         computed : {
-            apiTicketsOpen : () => window.apis.ticketsOpen,
-            _storeTickets : () => that.$store.state.tickets,
-            ticket        : () => {
+            apiTickets     : () => window.apis.tickets,
+            _storeTickets  : () => that.$store.state.tickets,
+            store          : () => that._storeTickets.dialogStore,
+            ticket         : () => {
                 let searchIn = store => {
                     return that._storeTickets[store].find(ticket => ticket.id == that.$route.params.id)
                 };
@@ -51,7 +52,7 @@
                     let ticket = searchIn(store);
 
                     if (ticket) {
-                        that.store = store;
+                        that.$store.commit('setDialogStore', {store});
                         return ticket;
                     }
                 }
@@ -59,30 +60,22 @@
                 return {};
             }
         },
-        
-        data : function () {
-            return {
-                store : '',
-            };
-        },
 
         created: function () {
             that = this;
             that.$root.title = 'Ticket dialog';
 
-            if (!that.ticket.isInit) {
+            that.$store.commit('clearDialogStore');
+
+            if (!that.ticket.isInit ) {
 
                 let ticketId = that.$route.params.id;
 
-                that.apiTicketsOpen.getById(ticketId)
+                that.apiTickets.getById(ticketId)
                     .then(dialogWithUsers => {
                         that.$store.dispatch(
                             'setAndBuildDialog',
-                            {
-                                dialogWithUsers,
-                                ticketId,
-                                store : that.store,
-                            }
+                            {dialogWithUsers, ticketId}
                         );
                     })
                     .catch(err => console.error('Error get dialog ', err));

@@ -2,14 +2,40 @@ export default {
     state: {
         wait_answer   : [],
         wait_question : [],
-        closed        : []
+        closed        : [],
+        dialogStore   : '',
+        isInitClosed  : false,
     },
     mutations: {
+        clearDialogStore : (state) => {
+            state.dialogStore = '';
+        },
+        setDialogStore : (state, data) => {
+            state.dialogStore = data.store;
+        },
         setTickets : (state, data) => {
             state[data.type] = data.tickets;
         },
+        closeTicket : (state, data) => {
+            let store  = state[state.dialogStore];
+
+            for (let inx in store) {
+                let ticket = store[inx];
+
+                if (ticket.id == data.id) {
+                    state.closed.push({
+                        ...ticket,
+                        closed_at : data.closed_at
+                    });
+                    state.dialogStore = 'closed';
+                    store.splice(inx, 1);
+
+                    return false;
+                }
+            }
+        },
         setDialog : (state, data) => {
-            let store = state[data.store];
+            let store = state[state.dialogStore];
             let ticket = store.find(ticket => ticket.id == data.ticketId);
 
             ticket.dialog = data.dialog;
@@ -18,6 +44,7 @@ export default {
     },
     actions: {
         setAndBuildDialog ({commit}, data) {
+
             let users = {};
 
             data.dialogWithUsers.users.map(user => {
@@ -48,23 +75,29 @@ export default {
 
             commit('setDialog', {
                 dialog,
-                store    : data.store,
                 ticketId : data.ticketId,
             });
         },
-        setTicketsOpened ({commit}, tickets) {
+        setTickets ({commit}, tickets) {
             let wait_question = [];
-            let wait_answer = [];
+            let wait_answer   = [];
+            let closed        = [];
 
             tickets.map(ticket => {
                 ticket.isInit = false;
                 ticket.dialog = [];
 
+                if (ticket.closed_at) {
+                    closed.push(ticket);
+                    return false;
+                }
+
                 (ticket.is_read_support ? wait_question : wait_answer ).push(ticket)
             });
 
-            commit('setTickets', {tickets :wait_answer,   type : 'wait_answer'});
-            commit('setTickets', {tickets :wait_question, type : 'wait_question'});
+            commit('setTickets', {tickets : closed,        type : 'closed'});
+            commit('setTickets', {tickets : wait_answer,   type : 'wait_answer'});
+            commit('setTickets', {tickets : wait_question, type : 'wait_question'});
         }
     }
 }

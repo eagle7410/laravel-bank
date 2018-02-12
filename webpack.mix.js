@@ -10,6 +10,9 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+if (!mix.inProduction()) {
+    mix.webpackConfig({devtool: 'inline-source-map'})
+}
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .js('resources/assets/js/app_employee.js', 'public/js')

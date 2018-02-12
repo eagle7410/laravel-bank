@@ -2,27 +2,40 @@
     <div class="box-header with-border"
     >
         <h3 class="box-title">
-            <button :class="'btn '+ (isClose ? '': 'btn-success' )" :disabled="isClose"
-                    v-if="isClient || isClose"
+            <button :class="'btn '+ ( isClosed ? '': 'btn-success' )" :disabled="isClosed"
+                    v-if="isClient || isClosed"
+                    @click="clickClose"
             >
                 <i class="fa fa-lock"></i>
-                {{ isClose ? 'Close at ' +  ticket.closed_at  : 'Close' }}
+                {{ isClosed  ? 'Close at ' +  ticket.closed_at.toDateFormat('d-m-y h:i')  : 'Close' }}
             </button>
             {{ ticket.title }}
         </h3>
     </div>
 </template>
 <script>
+    import {routes} from '../../const';
+
     export default {
-        props : ['ticket'],
+        props : ['ticket', 'isClosed'],
         computed : {
-            isClient : function () { return this.$root.isClient; }
+            isClient : function () { return this.$root.isClient; },
+            api      : function () { return window.apis.ticket}
         },
 
-        data : function () {
-            return {
-                isClose : Boolean(this.ticket.closed_at)
+        methods : {
+            clickClose : function () {
+                let id = this.$route.params.id;
+
+                this.api.close(id)
+                    .then(res => {
+                        this.$store.commit('closeTicket', {id, closed_at : res.closed_at})
+                        this.$router.push(routes.ticketsClose)
+                    })
+
+                    .catch(err => console.error('ERR: ', err))
+
             }
-        },
+        }
     }
 </script>

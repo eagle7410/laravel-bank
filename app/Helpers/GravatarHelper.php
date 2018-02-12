@@ -15,7 +15,7 @@ class GravatarHelper
     public static function getUrl(
         string $email,
         int    $s = 80,
-        string $d = 'mm',
+        string $d = 'retro',
         string $r = 'g'
     ): string {
         return self::BASE_URL . md5(strtolower(trim($email))) . "?s=$s&d=$d&r=$r";

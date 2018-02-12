@@ -31,7 +31,7 @@ class Tickets extends TicketsBase
 
         return $ticket;
     }
-
+    
     public static function openedUser(int $userId)
     {
         return self::where('user_id', $userId)
@@ -45,6 +45,17 @@ class Tickets extends TicketsBase
         return self::whereNull('closed_at')
             ->orderBy('id', 'desc')
             ->get();
+    }
+
+    public static function checkAccessAndGet(int $id, User $user)
+    {
+        if ($user->hasRole(User::ROLE_EMPLOYEE)) {
+            return self::find($id);
+        }
+
+        $ticket = self::find($id);
+
+        return $ticket->user_id == $user->id ? $ticket : null;
     }
 
     public function dialogWithUsers()
@@ -79,6 +90,23 @@ class Tickets extends TicketsBase
             'users'  => $users,
             'dialog' => $dialog,
         ];
+    }
+
+    public function newSend(User $user, array $data)
+    {
+        $isClient = $user->hasRole(User::ROLE_CLIENT);
+
+        $this->is_read_support = !$isClient;
+
+        $dialogSend = new TicketDialogBase;
+        $data['is_support'] = $this->is_read_support;
+        $dialogSend->fill($data);
+
+        $this->save();
+        $this->dialog()->save($dialogSend);
+
+        return $dialogSend;
+
     }
     
 }
