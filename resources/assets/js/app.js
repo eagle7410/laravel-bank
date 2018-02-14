@@ -29,3 +29,6 @@ const app = new Vue({
     router,
     store
 });
+
+// tickets listeners
+window.listenTickets = [];

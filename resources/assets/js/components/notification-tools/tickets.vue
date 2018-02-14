@@ -60,11 +60,12 @@
             that.apiTickets.getAll()
                 .then(tickets => {
                     that.isLoad = false;
-                    that.$store.dispatch('setTickets' ,tickets);
+                    that.$store.dispatch('setTickets', tickets);
+                    window.Echo.addHandles('tickets', window.listenTickets);
                 })
                 .catch(err => {
                     that.isLoad = false;
-                    console.error('Error get open tickets', e);
+                    console.error('Error get open tickets', err);
                 })
         }
     }

@@ -9,6 +9,12 @@ export default {
         isInitClosed        : false,
     },
     mutations: {
+        setNewTicket       : (state, ticket) => {
+            ticket.isInit = false;
+            ticket.dialog = [];
+
+            state.wait_answer.push(ticket);
+        },
         setIsQuestionClose : (state, value) => {
             state.isWaitQuestionClose = value;
         },

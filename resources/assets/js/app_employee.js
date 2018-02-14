@@ -18,6 +18,7 @@ const router = new VueRouter({
     routes, // short for `routes: routes`
 });
 
+
 // Init App
 const app = new Vue({
     mixins : [AppCommon],
@@ -28,3 +29,12 @@ const app = new Vue({
     router,
     store
 });
+
+// tickets listeners
+window.listenTickets = [
+    {
+        chanel : 'employee.tickets',
+        event  : 'TicketCreateEvent',
+        handle : res => app.$store.commit('setNewTicket', res.data)
+    },
+];

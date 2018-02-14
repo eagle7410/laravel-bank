@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TicketCreateEvent;
 use App\Helpers\DateHelper;
 use App\Models\Tickets\Tickets;
 use App\User;
@@ -21,8 +22,11 @@ class TicketsController extends AuthBaseController
         ]);
 
         $data['user_id'] = $this->user->id;
+        $ticket = Tickets::createWithFistMessage($data);
 
-        return Tickets::createWithFistMessage($data);
+        event(new TicketCreateEvent($this->user, $ticket));
+
+        return $ticket;
     }
 
     public function all()

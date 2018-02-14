@@ -27,7 +27,7 @@
 <script>
     import FormArea from '../common/form-area.vue';
     import apis from '../../apis/client';
-    import routes from '../../routes';
+    import {routes} from '../../const';
     import {breadcrumbTicketOpen} from '../../const/breadcrumbs';
 
     let that;
@@ -79,8 +79,8 @@
 
                 that.api.save(that.result())
                     .then((tiket) => {
-                        // TODO: IGOR clear
-                        console.log('tiket', tiket);
+                        that.$store.commit('setNewTicket', tiket);
+                        that.$router.push(routes.ticketsOpen);
                     })
                     .catch(that._handelError);
             }
@@ -122,7 +122,6 @@
             that = this;
 
             that.$root.title = 'Create ticket';
-
         }
     }
 </script>
