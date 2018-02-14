@@ -18,6 +18,8 @@ const router = new VueRouter({
     routes, // short for `routes: routes`
 });
 
+// tickets listeners
+window.listenTickets = [];
 
 // Init App
 const app = new Vue({
@@ -30,5 +32,14 @@ const app = new Vue({
     store
 });
 
+let userId = $('#app').attr('user-id');
+let ticketChanel = `user.${userId}.tickets`;
+
 // tickets listeners
-window.listenTickets = [];
+window.listenTickets = [
+    {
+        chanel : ticketChanel,
+        event  : 'UserTicketNewSendEvent',
+        handle : res => app.$store.commit('newSend', res.data)
+    }
+];

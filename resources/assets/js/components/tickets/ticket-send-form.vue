@@ -61,8 +61,9 @@
 
                 that.api.send({id, text : that.text })
                     .then(res => {
-                        // TODO: IGOR Back
-                        console.log('Response ', res);
+                        that.text = '';
+//                        // TODO: IGOR Back
+//                        console.log('Response ', res);
                     })
                     .catch(that._handelError);
             }

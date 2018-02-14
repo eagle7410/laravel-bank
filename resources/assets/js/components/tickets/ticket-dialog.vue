@@ -7,8 +7,8 @@
             <div class="row">
                 <div class="col-lg-7">
                     <div class="box-body">
-                        <div class="direct-chat-messages">
-                            <ticket-message v-for="message in ticket.dialog" :message="message" :key="`mess-${message.id}`"></ticket-message>
+                        <div class="direct-chat-messages" :id="`tick-${ticket.id}-${dialog.length}`">
+                            <ticket-message v-for="message in dialog" :message="message" :key="`mess-${ticket.id}-${message.id}`"></ticket-message>
                         </div>
                     </div>
                 </div>
@@ -38,27 +38,19 @@
         computed : {
             apiTickets     : () => window.apis.tickets,
             _storeTickets  : () => that.$store.state.tickets,
-            store          : () => that._storeTickets.dialogStore,
             ticket         : () => {
-                let searchIn = store => {
-                    return that._storeTickets[store].find(ticket => ticket.id == that.$route.params.id)
-                };
-
-                if (that.store) {
-                    return searchIn(that.store);
-                }
-
                 for(let store of ['wait_question', 'wait_answer', 'closed']) {
-                    let ticket = searchIn(store);
+                    let ticket = that._storeTickets[store].find(ticket => ticket.id == that.$route.params.id);
 
-                    if (ticket) {
+                    if (ticket && that) {
                         that.$store.commit('setDialogStore', {store});
                         return ticket;
                     }
                 }
 
                 return {};
-            }
+            },
+            dialog         : () => that.ticket && that.ticket.isInit ? that.ticket.dialog: [],
         },
 
         created: function () {

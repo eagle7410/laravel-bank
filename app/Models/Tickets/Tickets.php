@@ -8,6 +8,9 @@
 
 namespace App\Models\Tickets;
 
+use App\Events\TicketNewSendEvent;
+use App\Events\UserTicketNewSendEvent;
+use App\Helpers\DateHelper;
 use App\Helpers\GravatarHelper;
 use App\Models\Profiles\ProfileBase;
 use App\User;
@@ -102,8 +105,12 @@ class Tickets extends TicketsBase
         $data['is_support'] = $this->is_read_support;
         $dialogSend->fill($data);
 
+        $this->updated_at = DateHelper::nowForDb();
         $this->save();
         $this->dialog()->save($dialogSend);
+
+        event(new UserTicketNewSendEvent($this, $dialogSend));
+        event(new TicketNewSendEvent($this, $dialogSend));
 
         return $dialogSend;
 

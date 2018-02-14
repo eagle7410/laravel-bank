@@ -37,4 +37,9 @@ window.listenTickets = [
         event  : 'TicketCreateEvent',
         handle : res => app.$store.commit('setNewTicket', res.data)
     },
+    {
+        chanel : 'employee.tickets',
+        event  : 'TicketNewSendEvent',
+        handle : res => app.$store.commit('newSend', res.data)
+    },
 ];

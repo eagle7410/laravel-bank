@@ -82,6 +82,5 @@ export default {
     },
     created : function () {
         let that = this;
-
     }
 }

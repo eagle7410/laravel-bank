@@ -54,9 +54,64 @@ export default {
 
             ticket.dialog = data.dialog;
             ticket.isInit = true;
-        }
+        },
+        newSend : (state, data)  => {
+            let store = '';
+            let storeTicket;
+            let index;
+
+            for (let currStore of ['wait_question', 'wait_answer', 'closed']) {
+                storeTicket = state[currStore].find((ticket, inx) => {
+                    index  = inx;
+                    return data.ticket.id == ticket.id
+                });
+
+                if (storeTicket) {
+
+                    if (storeTicket.closed_at) {
+                        return false;
+                    }
+
+                    store = currStore;
+                    storeTicket = {...storeTicket, ...data.ticket };
+                    break;
+                }
+            }
+
+            let name;
+            let user = data.author;
+
+            if (!user.name_first && !user.name_last) {
+                name = data.send.is_support ? 'Best Support' : 'Dear Client';
+            } else {
+                name = `${user.name_first} ${user.name_last}`;
+            }
+
+            storeTicket = {
+                ...storeTicket,
+                dialog : [{
+                    id         : data.send.id,
+                    created_at : data.send.created_at,
+                    text       : data.send.text,
+                    avatar     : data.author.avatar,
+                    is_support : data.send.is_support,
+                    name
+                }].concat(storeTicket.dialog)
+            };
+
+            let setTo = data.send.is_support ? 'wait_question' : 'wait_answer';
+
+            if (store !== setTo) {
+                state[setTo] = [storeTicket].concat(state[setTo]);
+                state[store] = [].concat();
+            } else {
+                state[store][index] = storeTicket;
+                state[store] = [].concat(state[store]);
+            }
+        },
     },
     actions: {
+
         setAndBuildDialog ({commit}, data) {
 
             let users = {};
