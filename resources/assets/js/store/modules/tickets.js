@@ -81,7 +81,7 @@ export default {
             let name;
             let user = data.author;
 
-            if (!user.name_first && !user.name_last) {
+            if (user.name_last === 'Dear') {
                 name = data.send.is_support ? 'Best Support' : 'Dear Client';
             } else {
                 name = `${user.name_first} ${user.name_last}`;
