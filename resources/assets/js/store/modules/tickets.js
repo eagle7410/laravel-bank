@@ -48,6 +48,27 @@ export default {
                 }
             }
         },
+        closedTicket : (state, data) => {
+            for (let currStore of ['wait_question', 'wait_answer', 'closed']) {
+                let store  = state[currStore];
+
+                for (let inx in store) {
+                    let ticket = store[inx];
+
+                    if (ticket.id == data.id) {
+                        state.closed.push({
+                            ...ticket,
+                            closed_at : data.closed_at
+                        });
+                        state.dialogStore = 'closed';
+                        store.splice(inx, 1);
+
+                        return false;
+                    }
+                }
+            }
+
+        },
         setDialog : (state, data) => {
             let store = state[state.dialogStore];
             let ticket = store.find(ticket => ticket.id == data.ticketId);
@@ -73,7 +94,6 @@ export default {
                     }
 
                     store = currStore;
-                    storeTicket = {...storeTicket, ...data.ticket };
                     break;
                 }
             }
@@ -89,6 +109,7 @@ export default {
 
             storeTicket = {
                 ...storeTicket,
+                ...data.ticket,
                 dialog : [{
                     id         : data.send.id,
                     created_at : data.send.created_at,

@@ -32,7 +32,6 @@
                         this.$store.commit('closeTicket', {id, closed_at : res.closed_at});
                         this.$router.push(routes.ticketsClose)
                     })
-
                     .catch(err => console.error('ERR: ', err))
 
             }

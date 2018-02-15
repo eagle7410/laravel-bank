@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TicketCloseEvent;
 use App\Events\TicketCreateEvent;
 use App\Helpers\DateHelper;
 use App\Models\Tickets\Tickets;
@@ -18,7 +19,7 @@ class TicketsController extends AuthBaseController
 
         $data = $request->validate([
             'title' => 'required|string|min:1',
-            'text' => 'required|string|min:1',
+            'text'  => 'required|string|min:1',
         ]);
 
         $data['user_id'] = $this->user->id;
@@ -57,7 +58,7 @@ class TicketsController extends AuthBaseController
     public function send(Request $request)
     {
         $data = $request->validate([
-            'id' => 'required|exists:tickets',
+            'id'   => 'required|exists:tickets',
             'text' => 'required|min:1'
         ]);
 
@@ -75,6 +76,7 @@ class TicketsController extends AuthBaseController
 
         /** @var Tickets $ticket */
         if (
+            $this->user->hasRole(User::ROLE_CLIENT) &&
             null === $ticket = Tickets::checkAccessAndGet($data['id'], $this->user)
         ) {
             return abort(403);
@@ -83,6 +85,8 @@ class TicketsController extends AuthBaseController
         if (!$ticket->closed_at) {
             $ticket->closed_at = DateHelper::nowForDb();
             $ticket->save();
+
+            broadcast(new TicketCloseEvent($ticket));
         }
 
         return $ticket;

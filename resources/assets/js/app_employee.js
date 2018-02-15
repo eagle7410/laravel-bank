@@ -42,4 +42,11 @@ window.listenTickets = [
         event  : 'TicketNewSendEvent',
         handle : res => app.$store.commit('newSend', res.data)
     },
+    {
+        chanel : 'employee.tickets',
+        event  : 'TicketCloseEvent',
+        handle : res => {
+            app.$store.commit('closedTicket', res.data)
+        }
+    },
 ];
